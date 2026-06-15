@@ -266,6 +266,10 @@ body.dark .drhead{color:#b8a5e0}
 .drmode{font-size:12px;font-weight:700;text-decoration:none;color:var(--azulejo);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
 .drmode.on{background:#5b3ea8;color:#fff;border-color:#5b3ea8}
 .drmode:active{transform:scale(.97)}
+.drlegs{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px}
+.drleg{display:flex;gap:8px;font-size:12px;padding:3px 0;color:var(--ink);line-height:1.5}
+.drleg .dlm{flex:none;width:20px;text-align:center}
+.drlegnote{font-size:11px;color:var(--muted);margin-top:7px}
 /* 예약 진행률 + 체크 */
 .prog{margin:2px 0 12px}
 .prog .bar{height:9px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -619,12 +623,28 @@ const STAYS=[
 function mdnum(s){const p=(s||"").split("/");return (+p[0])*100+(+p[1]||0);}
 function stayFor(date){const x=mdnum(date);return STAYS.find(s=>mdnum(s.from)<=x&&x<=mdnum(s.to))||null;}
 function routeUrl(origin,places,mode){const e=encodeURIComponent;const wp=places.slice(0,9);const dest=wp[wp.length-1];const mids=wp.slice(0,-1);let u="https://www.google.com/maps/dir/?api=1&origin="+e(origin)+"&destination="+e(dest);if(mids.length)u+="&waypoints="+mids.map(e).join("%7C");return u+"&travelmode="+(mode||"transit");}
+// 구간별 추천 이동수단 + 대략 소요시간
+const LEGS={
+"7/2":[{m:"🚊",t:"더7호텔 → 벨렝 · 트램15E/택시 약 25분"},{m:"🚶",t:"벨렝 명소(타르트·수도원·탑) · 도보 5~10분"},{m:"🚊",t:"벨렝 → 바이샤·코메르시우 · 트램 약 20분"},{m:"🚶",t:"바이샤(가라페이라·카르무) · 도보 8분"},{m:"🚋",t:"→ 알파마 전망대 · 28번 트램 약 15분"},{m:"🚕",t:"알파마 → 라미로·파두 · 택시 약 10~15분"}],
+"7/3":[{m:"🚆",t:"호텔 → 로시우역 → 신트라 · 기차 약 40분"},{m:"🚌",t:"신트라역 → 페나성 · 434버스 약 20~30분(성수기 대기)"},{m:"🚶",t:"페나성 → 헤갈레이라·구시가 · 도보 10~15분"},{m:"🚗",t:"신트라 → 카보 다 로카 · 렌터카/투어 약 25분(대중교통 불편)"},{m:"🚗",t:"카보 다 로카 → 리스본 · 약 40분"}],
+"7/4":[{m:"🚇",t:"호텔 → 리스본 공항 · 메트로/택시 약 20분"},{m:"✈️",t:"리스본 → 푼샬 · 비행 1시간 50분"},{m:"🚗",t:"푼샬 공항 → 숙소 · 렌터카 약 20~25분"},{m:"🚶",t:"숙소 → 구시가·와인샵 · 도보"}],
+"7/5":[{m:"🚗",t:"푼샬 → 카보 지라오 · 약 20분"},{m:"🚗",t:"카보 지라오 → 카마라 드 로부스 · 약 10분"},{m:"🚗",t:"카마라 → 포르투 모니즈 · 약 50분~1시간"},{m:"🚗",t:"포르투 모니즈 → 세이샬·상비센트 · 약 20분"},{m:"🚗",t:"세이샬 → 푼샬 · 약 45분"}],
+"7/6":[{m:"🚗",t:"푼샬 → 피쿠 두 아리에이루(일출) · 약 35~40분"},{m:"🚗",t:"아리에이루 → 몬테 · 약 30분"},{m:"🚠",t:"몬테 → 푼샬 · 케이블카 또는 토보간 썰매"},{m:"🚗",t:"→ 바르베이토(카마라) 시음 · 약 15분"}],
+"7/7":[{m:"🚗",t:"푼샬 → 상 로렌수 곶 · 약 35분"},{m:"🚗",t:"상 로렌수 → 산타나 · 약 40분"},{m:"🚗",t:"산타나 → 25폰테스(라바칼) · 약 1시간 15분(섬 횡단·길 김)"},{m:"🚗",t:"라바칼 → 푼샬 · 약 50분"}],
+"7/8":[{m:"🚗",t:"숙소 → 푼샬 공항(렌터카 반납) · 약 30분"},{m:"✈️",t:"푼샬 → 포르투 · 비행 2시간"},{m:"🚇",t:"포르투 공항 → 숙소 · 메트로 E선 약 30분"},{m:"🚶",t:"히베이라 → 가이아 셀러 · 다리 건너 도보 10분"}],
+"7/9":[{m:"🚶",t:"포르투 구시가는 대부분 도보권(언덕 많음)"},{m:"🚶",t:"렐루 → 클레리구스 → 상벤투 · 각 도보 5분"},{m:"🚶",t:"상벤투 → 볼량 시장 → 대성당 · 도보 10분 내외"}],
+"7/10":[{m:"🚐",t:"포르투 → 도루(레구아·핀얀) · 투어/기사 약 1시간 30분(기차 2시간)"},{m:"🚗",t:"퀸타·크루즈·전망대 이동 · 각 15~30분"},{m:"🚐",t:"도루 → 포르투 복귀 · 약 1시간 30분"}],
+"7/11":[{m:"🚆",t:"포르투 → 아베이루 · 기차 약 1시간"},{m:"🚗",t:"아베이루 → 코스타노바 · 약 15분"},{m:"🚗",t:"코스타노바 → 코임브라 · 약 1시간"},{m:"🚶",t:"코임브라 대학·구시가 · 도보(언덕)"}],
+"7/12":[{m:"🚗",t:"코임브라 → 오비두스 · 약 1시간 30분"},{m:"🚗",t:"오비두스 → 리스본(타임아웃) · 약 1시간"},{m:"🚇",t:"타임아웃 → 리스본 공항 · 메트로/택시 약 20분"}]
+};
 function routeBtn(d){
  const ps=d.items.filter(it=>it.m).map(it=>it.m),stay=stayFor(d.date);
  if(!ps.length||!stay)return "";
  const modes=[["walking","🚶 도보"],["transit","🚌 대중교통"],["driving","🚗 자동차"]];
  const chips=modes.map(m=>`<a class="drmode${m[0]===stay.mode?" on":""}" target="_blank" rel="noopener" href="${routeUrl(stay.mapq,ps,m[0])}">${m[1]}</a>`).join("");
- return `<div class="dayroute"><div class="drhead">🗺 하루 동선 · <b>${esc(stay.label)}</b>에서 출발 · ${ps.length}곳</div><div class="drmodes">${chips}</div></div>`;
+ const legs=LEGS[d.date];
+ const legsHtml=legs?`<div class="drlegs">${legs.map(l=>`<div class="drleg"><span class="dlm">${l.m}</span><span>${esc(l.t)}</span></div>`).join("")}<div class="drlegnote">⏱ 소요시간은 대략치예요 · 정확한 건 위 이동수단 버튼(지도)에서 확인</div></div>`:"";
+ return `<div class="dayroute"><div class="drhead">🗺 하루 동선 · <b>${esc(stay.label)}</b>에서 출발 · ${ps.length}곳</div><div class="drmodes">${chips}</div>${legsHtml}</div>`;
 }
 function foodBlock(date){const fs=FOODS[date];if(!fs||!fs.length)return "";return `<div class="foodwrap"><div class="foodhead">🍴 이 근처 먹거리 <b>${fs.length}</b></div>${fs.map(f=>`<a class="foodcard" href="#p/${slug(f.m)}"><span class="fcn">${esc(f.name)}</span><span class="fcd">${esc(f.desc)}</span></a>`).join("")}</div>`;}
 function tourBlock(date){const ts=TOURS[date];if(!ts||!ts.length)return "";return `<div class="tourwrap"><div class="tourhead">🎫 추천 1일 투어·패키지 <b>${ts.length}</b></div>${ts.map(t=>`<div class="tourcard"><div class="tctop"><span class="tcn">${esc(t.name)}</span><span class="tcp">${esc(t.price)}</span></div>${t.rec?`<div class="tcrec ${t.rec.c}"><b>${esc(t.rec.t)}</b>${esc(t.rec.why)}</div>`:""}<div class="tcd">${esc(t.desc)}</div><div class="tchips">${TOURP.map(pf=>`<a class="tchip" target="_blank" rel="noopener" href="${pf.u(t.q,t.kq)}">${pf.n} ↗</a>`).join("")}</div></div>`).join("")}<div class="tournote">🔴강력추천 = 투어가 확실히 나음 · 🔵개인추천 = 직접(렌터카·도보)이 나음 · ⚪선택 = 취향 · 같은 투어도 플랫폼마다 가격이 달라요</div></div>`;}
