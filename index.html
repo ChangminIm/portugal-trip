@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>포르투갈 13일 · 7.1–7.13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d2630;--muted:#6b7682;--paper:#FBFAF7;--azulejo:#16467F;--azulejo-2:#1E5DA8;
+--tint:#E9F0FA;--terra:#C8532B;--port:#8A2433;--gold:#B07A1E;--line:#E6E1D6;--star:#E0A92E}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Inter,system-ui,'Apple SD Gothic Neo',sans-serif;color:var(--ink);background:var(--paper);line-height:1.5;padding-bottom:60px}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
+.hero{background:var(--azulejo);color:#fff;padding:26px 0 22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;opacity:.10;background-image:radial-gradient(circle at 12px 12px,#fff 2px,transparent 2.5px),radial-gradient(circle at 0 0,transparent 11px,#fff 11px,#fff 12px,transparent 12px);background-size:24px 24px}
+.hero .wrap{position:relative}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#bcd4f0;font-weight:600}
+.hero h1{font-family:Fraunces,serif;font-weight:600;font-size:34px;line-height:1.05;margin:6px 0 10px}
+.hero .meta{font-size:13.5px;color:#dce8f7;display:flex;flex-wrap:wrap;gap:6px 14px}
+.hero .meta b{color:#fff;font-weight:600}
+section{margin-top:22px}
+.h-label{font-family:Fraunces,serif;font-size:19px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.h-label .tick{width:18px;height:3px;background:var(--terra);border-radius:2px;display:inline-block}
+.grid{display:grid;gap:8px}
+.info{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px}
+.info .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.info .route{font-weight:600}.info .when{color:var(--muted);font-size:12px;white-space:nowrap}
+.info .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.pill.ok{background:#E7F2EA;color:#2C7A45}.pill.todo{background:#FBE9E7;color:#B5402C}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:4px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+.day{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+.day-head{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;width:100%;text-align:left;background:none;border:0;font:inherit;color:inherit}
+.date-badge{flex:none;width:52px;text-align:center}
+.date-badge .d{font-family:Fraunces,serif;font-size:21px;font-weight:600;line-height:1;color:var(--azulejo)}
+.date-badge .w{font-size:11px;color:var(--muted);margin-top:3px}
+.day-head .title{flex:1;min-width:0}
+.day-head .title .t{font-weight:600;font-size:15px}
+.day-head .title .wake{font-size:12px;color:var(--terra);font-weight:600;margin-top:2px}
+.chev{flex:none;color:var(--muted);transition:transform .25s;font-size:13px}
+.day.open .chev{transform:rotate(90deg)}
+.day-body{display:none;border-top:1px solid var(--line);padding:6px 16px 14px}
+.day.open .day-body{display:block}
+.it{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
+.it:last-child{border-bottom:0}
+.it .time{flex:none;width:54px;font-size:12px;font-weight:600;color:var(--azulejo-2);padding-top:1px;font-variant-numeric:tabular-nums}
+.it .body{flex:1;min-width:0}
+.it .name{font-weight:600;font-size:14.5px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.it.res .name{color:var(--port)}
+.stars{font-size:12px;letter-spacing:1px;color:var(--star);margin-top:2px}
+.stars .se{color:#dcd6c8}
+.tag{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px;line-height:1.6}
+.tag.res{background:#F6E4E6;color:var(--port)}.tag.liq{background:#F6EED7;color:var(--gold)}
+.tag.must{background:#FBEFD8;color:#9a6a12}
+.it .desc{font-size:13px;color:#384450;margin-top:3px}
+.it .tip{font-size:12px;color:var(--muted);margin-top:3px}.it .tip.warn{color:#B5402C}
+.acts{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;align-items:center}
+.btn{font-size:12px;font-weight:600;text-decoration:none;padding:5px 11px;border-radius:9px;border:1px solid var(--line);color:var(--azulejo);background:#fff;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.btn.map{border-color:#cfe0f3;background:#F2F7FD}
+.btn.rev{border-color:#e3d9c4;background:#FBF7EE;color:var(--gold)}
+.btn.book{border-color:#e7c7cb;background:#FBEEF0;color:var(--port)}
+.btn:active{transform:scale(.97)}
+.rm{display:none;margin-left:auto;border:0;background:none;color:#c0392b;font-size:13px;cursor:pointer;padding:4px 8px;font-weight:700}
+body.edit .rm{display:inline-flex}
+.add-row{display:none;margin-top:10px}
+body.edit .add-row{display:block}
+.add-btn{width:100%;border:1px dashed #b9c6d6;background:#F4F8FD;color:var(--azulejo-2);border-radius:10px;padding:9px;font-weight:600;font-size:13px;cursor:pointer}
+.fcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.fcard .fn{font-weight:600;font-size:14px}.fcard .fm{font-size:12.5px;color:var(--muted);margin:3px 0 8px}
+.sec-toggle{width:100%;background:none;border:0;cursor:pointer;font:inherit;color:inherit;display:flex;align-items:center;gap:8px;font-family:Fraunces,serif;font-size:19px;font-weight:600;margin-bottom:0}
+.sec-toggle .tick{width:18px;height:3px;background:var(--terra);border-radius:2px;display:inline-block}
+.sec .sechev{margin-left:auto;color:var(--muted);font-size:13px;transition:transform .25s}
+.sec.open .sechev{transform:rotate(90deg)}
+.sec-body{display:none;margin-top:10px}
+.sec.open .sec-body{display:block}
+.rdate{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--azulejo);border-radius:6px;padding:1px 7px;margin-right:6px;font-variant-numeric:tabular-nums}
+.tools{display:flex;justify-content:flex-end;gap:8px;align-items:center;margin:2px 0 12px;flex-wrap:wrap}
+.tools .lbl{margin-right:auto;font-size:12px;color:var(--muted)}
+.tbtn{font-size:12.5px;font-weight:600;color:var(--azulejo);background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 12px;cursor:pointer}
+.tbtn.on{background:var(--azulejo);color:#fff;border-color:var(--azulejo)}
+.reset{display:none;color:#c0392b;border-color:#e6c4c0}
+body.edit .reset{display:inline-block}
+footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7}
+@media(max-width:380px){.hero h1{font-size:29px}.it .time{width:46px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="eyebrow">Portugal · 13 Days</div>
+<h1>리스본 · 마데이라 · 포르투</h1>
+<div class="meta"><span><b>2026.7.1(수) → 7.13(월)</b></span><span>리스본 in/out</span><span>2인</span></div>
+</div></header>
+<div class="wrap">
+<section class="sec open"><button class="sec-toggle"><span class="tick"></span>항공권<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="flights"></div></div></section>
+<section class="sec open"><button class="sec-toggle"><span class="tick"></span>숙소<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="hotels"></div></div></section>
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>🎟 예약 체크리스트<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>예약이 필요한 곳 모음 · 🎟 버튼으로 예약처로 이동</span></div><div class="grid" id="resv" style="margin-top:8px"></div></div></section>
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>파두 공연장 (Fado) · 7/2 밤<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>Ramiro 저녁 후 추천 · 정통 디너쇼는 예약 필수, 파두 바디우(타스카)는 예약 없이</span></div>
+<div class="grid" id="fado" style="margin-top:8px"></div></div></section>
+<section class="sec open"><button class="sec-toggle"><span class="tick"></span>일정<span class="sechev">▶</span></button><div class="sec-body">
+<div class="legend">
+<span class="stars">★</span>추천도(필수=★5)
+<span><i class="dot" style="background:var(--port)"></i>예약</span>
+<span>🍷 리쿼샵/와이너리</span>
+<span><i class="dot" style="background:var(--terra)"></i>☀ 기상</span>
+<span>📍지도 · 📝네이버후기 · 🎟예약</span>
+</div>
+<div class="tools">
+<span class="lbl">날짜 탭하면 펼쳐져요</span>
+<button class="tbtn reset" id="resetBtn">초기화</button>
+<button class="tbtn" id="editBtn">✏️ 편집</button>
+<button class="tbtn" id="toggleAll">모두 펼치기</button>
+</div>
+<div id="days"></div></div></section>
+<footer>포르투갈 여행 일정 · 모바일 보기용<br>편집 내용은 이 기기 브라우저에 저장돼요(지원 시)</footer>
+</div>
+<script>
+const flights=[
+ {route:"인천 → 리스본 (ICN→LIS)",when:"7/1",sub:"KE921 · 12:45 → 20:15 (15h30m) · B787-9"},
+ {route:"리스본 → 푼샬 (LIS→FNC)",when:"7/4",sub:"easyJet EJU7625 · 13:20 → 15:10 · 수하물마감 12:20"},
+ {route:"푼샬 → 포르투 (FNC→OPO)",when:"7/8",sub:"easyJet EJU6832 · 08:35 → 10:35 · ⚠수하물마감 07:55"},
+ {route:"리스본 → 인천 (LIS→ICN)",when:"7/12",sub:"KE · 22:30 → 익일 19:25 (+1일)"}];
+const hotels=[
+ {city:"리스본",nights:"7/1–7/3 · 3박",name:"더7호텔 (The 7 Hotel)",status:"ok"},
+ {city:"푼샬(마데이라)",nights:"7/4–7/7 · 4박",name:"Three House / Castanheiro / Quinta Jardins do Lago",status:"todo"},
+ {city:"포르투",nights:"7/8–7/10 · 3박",name:"Mercure Aliados / Ribeira Douro",status:"todo"},
+ {city:"코임브라",nights:"7/11 · 1박",name:"Hotel Oslo Coimbra",status:"todo"}];
+const fado=[
+ {name:"클루브 드 파두 (Clube de Fado)",meta:"알파마 · 정통 디너+공연 · ★4.4 · ~€70+ · 예약 필수",m:"Clube de Fado Lisbon",b:"Clube de Fado Lisboa 예약"},
+ {name:"오 코히두 (O Corrido)",meta:"알파마 · 주인이 파디스타, 친밀 · ★4.9 · 예약 권장",m:"O Corrido Casa de Fado Lisbon",b:"O Corrido Casa de Fado 예약"},
+ {name:"오 파이아 (O Faia)",meta:"바이루 알투 · 정통 디너쇼 · ★4.7 · ~€80 · 일 휴무",m:"O Faia Casa de Fado Lisbon",b:"O Faia Casa de Fado 예약"},
+ {name:"시르 파두 (Sr. Fado)",meta:"알파마 · 아담·세트메뉴 ~€60 · ★4.6",m:"Sr. Fado Lisbon",b:"Sr Fado Alfama 예약"},
+ {name:"아 타스카 두 시쿠 (A Tasca do Chico)",meta:"바이루 알투 · 파두 바디우(캐주얼) · 예약X·현금 · Ramiro 후 추천",m:"A Tasca do Chico Bairro Alto Lisbon",b:null},
+ {name:"타스카 드 노티시아스 (Tasca de Notícias)",meta:"바이루 알투 · 파두 바디우 · 커버 없음 · ★4.5",m:"Tasca de Noticias Lisbon",b:null}];
+const DAYS=[
+ {date:"7/1",dow:"수",title:"리스본 도착",wake:"—",items:[
+  {t:"20:15",name:"리스본 공항 도착 (Lisbon Airport)",desc:"KE921 도착 → 입국·수하물 → 호텔(약 21:30)",tip:"공항~시내 택시 15~25분"},
+  {t:"저녁",name:"호텔 근처 타스카 (Tasca)",s:3,desc:"비행 직후 가볍게. 주방 22:30~23시",tip:"첫날 무리 X",n:"리스본 타스카 맛집"}]},
+ {date:"7/2",dow:"목",title:"리스본 시내 (벨렝·알파마·Ramiro·파두)",wake:"07:00",items:[
+  {t:"08:30",name:"파스테이스 드 벨렝 (Pastéis de Belém)",s:5,desc:"원조 에그타르트. 일찍 가면 줄 짧음",tip:"08:00 오픈",m:"Pastéis de Belém Lisbon",n:"리스본 파스테이스 드 벨렘"},
+  {t:"09:30",name:"제로니무스 수도원 (Mosteiro dos Jerónimos)",s:5,res:1,desc:"마누엘 양식 대수도원",tip:"시간지정·온라인 예매 · 월 휴무",m:"Jerónimos Monastery Lisbon",n:"리스본 제로니무스 수도원",b:"https://bilheteira.museusemonumentos.pt"},
+  {t:"11:00",name:"발견기념비·벨렝탑 (Padrão dos Descobrimentos · Torre de Belém)",s:4,res:1,desc:"강변 모뉴멘트",tip:"벨렝탑 티켓 · 월 휴무",m:"Belém Tower Lisbon",n:"리스본 벨렘탑",b:"https://bilheteira.museusemonumentos.pt"},
+  {t:"오후",name:"코메르시우 광장 (Praça do Comércio)",s:4,desc:"대표 광장 → 바이샤 거리",m:"Praça do Comércio Lisbon",n:"리스본 코메르시우 광장"},
+  {t:"오후",name:"가라페이라 나시오날 (Garrafeira Nacional)",s:3,liq:1,desc:"포트·마데이라·진자 술 명점(바이샤)",tip:"매일 영업 · 인근 마누엘 타바레스도 추천",m:"Garrafeira Nacional Rua Santa Justa Lisbon",n:"리스본 가라페이라 나시오날"},
+  {t:"오후",name:"카르무 수도원 (Convento do Carmo)",s:3,desc:"전망 + 고딕 유적(산타 주스타)",m:"Carmo Convent Lisbon",n:"리스본 카르무 수도원"},
+  {t:"일몰",name:"포르타스 두 솔 전망대 (Miradouro das Portas do Sol)",s:4,desc:"알파마 골목 산책 + 일몰",m:"Miradouro das Portas do Sol Lisbon",n:"리스본 포르타스두솔 전망대"},
+  {t:"저녁",name:"세르베자리아 라미로 (Cervejaria Ramiro) 🦐",s:5,res:1,desc:"리스본 대표 해산물(가르릭 새우·거북손·타이거새우 → 프레구)",tip:"⭐꼭 방문 · 웨이팅 많음→예약 권장 · 월 휴무(목 OK)",m:"Cervejaria Ramiro Lisbon",n:"리스본 세르베자리아 라미로",b:"Cervejaria Ramiro reservation"},
+  {t:"밤",name:"파두 공연 (Fado)",s:5,res:1,desc:"Ramiro 저녁 후, 위 '파두 공연장' 추천 참고",tip:"정통 디너쇼는 예약 필수 · 캐주얼 타스카는 예약 없이"}]},
+ {date:"7/3",dow:"금",title:"신트라 + 카보 다 로카",wake:"06:30",items:[
+  {t:"07:30",name:"호텔 → 로시우역 → 신트라",desc:"신트라행 기차 약 40분",tip:"이른 출발로 정체 회피"},
+  {t:"오전",name:"페나 궁전 (Palácio da Pena)",s:5,res:1,desc:"낭만주의 컬러 궁전 + 공원",tip:"30분 시간지정 예매 필수·€20·화 휴무·434버스 30분+",m:"Pena Palace Sintra",n:"신트라 페나성",b:"https://www.parquesdesintra.pt"},
+  {t:"점심",name:"피리키타 (Piriquita)",s:3,desc:"트라베세이루 페이스트리(신트라 구시가)",m:"Piriquita Sintra",n:"신트라 피리키타"},
+  {t:"오후",name:"헤갈레이라 별장 (Quinta da Regaleira)",s:5,res:1,desc:"이니시에이션 우물·터널·정원",tip:"사전 예매 권장",m:"Quinta da Regaleira Sintra",n:"신트라 헤갈레이라",b:"https://www.regaleira.pt"},
+  {t:"늦오후",name:"카보 다 로카 (Cabo da Roca)",s:4,desc:"유럽 대륙 최서단 절벽",tip:"대중교통 불편 → 투어/렌터카 권장",m:"Cabo da Roca",n:"카보 다 로카"},
+  {t:"저녁",name:"리스본 복귀",desc:"—"}]},
+ {date:"7/4",dow:"토",title:"리스본 → 푼샬 (마데이라)",wake:"08:00",items:[
+  {t:"오전",name:"호텔 → 리스본 공항",desc:"수하물 마감 12:20 → 공항 11:30",tip:"easyJet EJU7625"},
+  {t:"13:20",name:"✈ 리스본 → 푼샬 (LIS→FNC)",desc:"EJU7625 · 13:20 → 15:10"},
+  {t:"15:10",name:"푼샬 도착 → 렌터카 → 숙소",desc:"마데이라는 렌터카 권장",tip:"공항~푼샬 20~25분"},
+  {t:"오후",name:"푼샬 구시가 (Funchal Old Town)",s:4,desc:"거리 아트·올드타운(산타마리아 거리)",m:"Rua de Santa Maria Funchal",n:"마데이라 푼샬 구시가"},
+  {t:"저녁",name:"페롤라 두스 비뉴스 (Pérola dos Vinhos)",s:3,liq:1,desc:"마데이라 와인 전문, 무료 시음(구시가)",tip:"월~토 · 옵션 로자 두스 비뉴스",m:"Pérola dos Vinhos Funchal",n:"마데이라 푼샬 와인샵"},
+  {t:"저녁",name:"블랜디스 와인 로지 (Blandy's Wine Lodge)",s:4,res:1,desc:"마데이라 와인 시음+박물관(역사적 로지)",tip:"투어 €18~20 · 예약 권장",m:"Blandy's Wine Lodge Funchal",n:"마데이라 블랜디스 와인",b:"https://blandyswinelodge.com"}]},
+ {date:"7/5",dow:"일",title:"마데이라 서부",wake:"07:30",items:[
+  {t:"오전",name:"카보 지라오 스카이워크 (Cabo Girão Skywalk)",s:5,desc:"해발 580m 유리 전망대",m:"Cabo Girão Skywalk Madeira",n:"마데이라 카보 지라오 스카이워크"},
+  {t:"오전",name:"카마라 드 로부스 (Câmara de Lobos)",s:3,desc:"예쁜 어촌(폰차 한 잔)",m:"Câmara de Lobos Madeira",n:"마데이라 카마라 드 로부스"},
+  {t:"낮",name:"포르투 모니즈 천연 수영장 (Porto Moniz)",s:4,desc:"용암 자연 풀 수영",tip:"수영복·아쿠아슈즈",m:"Porto Moniz natural pools",n:"마데이라 포르투 모니즈"},
+  {t:"오후",name:"킨타 두 바르부사노 (Quinta do Barbusano)",s:3,res:1,liq:1,desc:"북부 절벽 포도밭, 전망 좋은 시음(€20~)",tip:"⚠ 일·월 휴무 → 7/7로 옮기거나 가이드투어",m:"Quinta do Barbusano São Vicente",n:"마데이라 바르부사노 와이너리",b:"Quinta do Barbusano Madeira tasting"},
+  {t:"오후",name:"상 비센트·세이샬 (São Vicente · Seixal)",s:4,desc:"검은 모래 해변·해안 절경",m:"Seixal beach Madeira",n:"마데이라 세이샬 해변"},
+  {t:"저녁",name:"푼샬 복귀",desc:"—"}]},
+ {date:"7/6",dow:"월",title:"마데이라 중부 · 몬테 · 와인",wake:"04:30(일출)/07:00",items:[
+  {t:"새벽",name:"피쿠 두 아리에이루 (Pico do Arieiro)",s:5,desc:"해발 1,818m 일출·운해",tip:"일출 시 새벽 출발·방한",m:"Pico do Arieiro",n:"마데이라 피쿠 두 아리에이루 일출"},
+  {t:"오전",name:"(옵션) 피쿠 루이부 트레킹 (Pico Ruivo PR1)",s:4,desc:"능선 트레킹(상급)",tip:"체력·날씨 확인",m:"Pico Ruivo trail Madeira",n:"마데이라 피쿠 루이부 트레킹"},
+  {t:"낮",name:"몬테 팰리스 열대정원 (Monte Palace)",s:4,desc:"이국적 정원·아줄레주",m:"Monte Palace Tropical Garden Funchal",n:"마데이라 몬테 팰리스 정원"},
+  {t:"오후",name:"몬테 토보간 썰매 (Monte Toboggan)",s:4,desc:"고리버들 전통 썰매 다운힐",m:"Monte Toboggan Run Funchal",n:"마데이라 몬테 토보간 썰매"},
+  {t:"오후",name:"비뉴스 바르베이토 (Vinhos Barbeito)",s:3,res:1,liq:1,desc:"마데이라 와인 하우스 투어+시음(가성비·전망)",tip:"월~금 · 예약 권장 · 카마라 드 로부스",m:"Vinhos Barbeito Câmara de Lobos",n:"마데이라 바르베이토 와인",b:"Vinhos Barbeito tasting reservation"},
+  {t:"저녁",name:"푼샬",desc:"—"}]},
+ {date:"7/7",dow:"화",title:"마데이라 동부 · 레바다",wake:"07:00",items:[
+  {t:"오전",name:"상 로렌수 곶 (Ponta de São Lourenço) PR8",s:5,desc:"화산 반도 트레킹(왕복 ~8km)",tip:"그늘 없음·물·모자",m:"Ponta de São Lourenço Madeira",n:"마데이라 상 로렌수 곶 하이킹"},
+  {t:"낮",name:"산타나 전통가옥 (Santana)",s:3,desc:"삼각 초가집 마을",m:"Santana houses Madeira",n:"마데이라 산타나 전통가옥"},
+  {t:"오후",name:"25 폰테스 레바다 (Levada das 25 Fontes)",s:5,desc:"수로 따라 걷는 시그니처 트레킹",tip:"투어/택시 연계 편함",m:"25 Fontes Madeira",n:"마데이라 레바다 25 폰테스"},
+  {t:"오후",name:"(옵션) 블랜디스 빈야드 투어 (Blandy's Vineyards)",s:3,res:1,liq:1,desc:"푼샬 도심 포도밭, 프리미엄 가이드 시음",tip:"예약제(필수) · 시간 유연",m:"Blandy's Vineyards Funchal",n:"마데이라 블랜디스 빈야드",b:"https://blandyswinelodge.com"},
+  {t:"저녁",name:"푼샬 (마지막 밤 정리)",desc:"다음날 새벽 출발 대비 일찍"}]},
+ {date:"7/8",dow:"수",title:"푼샬 → 포르투",wake:"05:00(새벽 비행)",items:[
+  {t:"06:00",name:"숙소 → 푼샬 공항",desc:"⚠ 수하물 마감 07:55 → 공항 06:30",tip:"전날 짐 미리 · 렌터카 반납"},
+  {t:"08:35",name:"✈ 푼샬 → 포르투 (FNC→OPO)",desc:"EJU6832 · 08:35 → 10:35"},
+  {t:"10:35",name:"포르투 도착 → 숙소",desc:"공항 메트로 E선",tip:"얼리체크인/짐보관 확인"},
+  {t:"오후",name:"히베이라·동 루이스 1세 다리 (Ribeira · Ponte Dom Luís I)",s:5,desc:"강변 구시가 + 다리 전망",m:"Dom Luís I Bridge Porto",n:"포르투 히베이라 동루이스 다리"},
+  {t:"늦오후",name:"가이아 포트와인 셀러 (Vila Nova de Gaia)",s:5,res:1,desc:"콕번스/테일러스 투어+시음",tip:"예약 권장",m:"Port wine cellars Vila Nova de Gaia",n:"포르투 가이아 포트와인 셀러 투어",b:"Vila Nova de Gaia port cellar tour booking"},
+  {t:"일몰",name:"동 루이스 다리·가이아 전망",desc:"—"}]},
+ {date:"7/9",dow:"목",title:"포르투 시내",wake:"07:30",items:[
+  {t:"오전",name:"렐루 서점 (Livraria Lello)",s:5,res:1,desc:"세계에서 가장 아름다운 서점 중 하나",tip:"입장권 예약 권장",m:"Livraria Lello Porto",n:"포르투 렐루 서점",b:"https://www.livrarialello.pt"},
+  {t:"오전",name:"클레리구스 탑 (Torre dos Clérigos)",s:4,desc:"탑 전망 + 카르무 교회 아줄레주",m:"Clérigos Tower Porto",n:"포르투 클레리구스 탑"},
+  {t:"낮",name:"상 벤투 역 (Estação de São Bento)",s:4,desc:"아줄레주 벽화 기차역",m:"São Bento Station Porto",n:"포르투 상벤투역 아줄레주"},
+  {t:"점심",name:"볼량 시장 (Mercado do Bolhão)",s:4,desc:"전통시장·먹거리",m:"Mercado do Bolhão Porto",n:"포르투 볼량 시장"},
+  {t:"오후",name:"가라페이라 두 카르무 (Garrafeira do Carmo)",s:3,liq:1,desc:"포트와인 명점(오너 조지), 비행 대비 포장",tip:"일 휴무(목 OK) · ⚠ 와인은 위탁수하물",m:"Garrafeira do Carmo Porto",n:"포르투 가라페이라 두 카르무"},
+  {t:"오후",name:"포르투 대성당 (Sé do Porto)",s:3,desc:"전망 좋은 로마네스크 성당",m:"Porto Cathedral Sé",n:"포르투 대성당 세"},
+  {t:"간식",name:"프란세지냐 (Francesinha)",s:4,desc:"포르투 명물 샌드위치",m:"Francesinha Porto",n:"포르투 프란세지냐 맛집"}]},
+ {date:"7/10",dow:"금",title:"도루 밸리 (Douro Valley)",wake:"07:00",items:[
+  {t:"오전",name:"포르투 → 도루 밸리 (레구아·핀얀)",desc:"자차/투어/기차",tip:"시음 후 운전 X → 기사·투어 추천"},
+  {t:"낮",name:"퀸타 투어+시음 (Quinta do Bomfim/Foz)",s:5,res:1,desc:"계단식 포도밭 본고장",tip:"예약 필수",m:"Quinta do Bomfim Pinhão",n:"도루밸리 퀸타 와이너리 투어",b:"Quinta do Bomfim Douro visit booking"},
+  {t:"오후",name:"도루 강 크루즈 (Pinhão river cruise)",s:4,desc:"레구아↔핀얀 1~2시간",m:"Pinhão Douro river cruise",n:"도루밸리 강 크루즈"},
+  {t:"오후",name:"카잘 드 로이보스 전망대 (Miradouro Casal de Loivos)",s:5,desc:"포도밭 계곡 파노라마",m:"Miradouro Casal de Loivos",n:"도루밸리 전망대"},
+  {t:"저녁",name:"포르투 복귀",desc:"—"}]},
+ {date:"7/11",dow:"토",title:"포르투 → 코임브라 (아베이루·바이라다)",wake:"07:30",items:[
+  {t:"오전",name:"아베이루 (Aveiro)",s:4,desc:"운하·몰리세이루 보트",m:"Aveiro canals Portugal",n:"아베이루 운하 몰리세이루"},
+  {t:"낮",name:"코스타 노바 (Costa Nova)",s:4,desc:"줄무늬 어부 집",m:"Costa Nova striped houses",n:"코스타 노바 줄무늬집"},
+  {t:"오후",name:"알리안사 언더그라운드 뮤지엄 (Aliança Underground Museum)",s:3,res:1,liq:1,desc:"바이라다 스파클링 시음·구매(A1 길목, 상갈류스)",tip:"예약 권장 · 바게이라스는 일 휴무(토 OK)",m:"Aliança Underground Museum Sangalhos",n:"바이라다 알리안사 와인",b:"Aliança Underground Museum tickets"},
+  {t:"늦오후",name:"조아니나 도서관 (Biblioteca Joanina) · 코임브라 대학",s:5,res:1,desc:"유네스코 대학 + 바로크 도서관",tip:"도서관 시간지정 입장(예약)",m:"Joanina Library Coimbra",n:"코임브라 조아니나 도서관",b:"https://visit.uc.pt"},
+  {t:"저녁",name:"코임브라 파두 (Fado de Coimbra)",s:3,desc:"남성 파두 전통(파두 아우 센트루 등)",m:"Fado ao Centro Coimbra",n:"코임브라 파두"}]},
+ {date:"7/12",dow:"일",title:"코임브라 → 리스본 → 출국",wake:"08:00",items:[
+  {t:"오전",name:"오비두스 (Óbidos)",s:4,desc:"성벽 마을·진자(체리주)",m:"Óbidos Portugal",n:"오비두스 성벽 마을 진자"},
+  {t:"낮",name:"오비두스 → 리스본 (약 1시간)",desc:"렌터카면 공항 반납 동선"},
+  {t:"오후",name:"타임아웃 마켓 (Time Out Market)",s:4,desc:"출국 전 푸드홀·기념품",m:"Time Out Market Lisbon",n:"리스본 타임아웃 마켓"},
+  {t:"19:30",name:"리스본 공항 도착",desc:"국제선 3시간 전",tip:"렌터카 반납"},
+  {t:"22:30",name:"✈ 리스본 → 인천 (LIS→ICN)",desc:"22:30 출발 (+1일)"}]},
+ {date:"7/13",dow:"월",title:"인천 도착",wake:"기내",items:[
+  {t:"19:25",name:"인천 공항 도착",desc:"7/12 출발편 도착(+1일)"}]}
+];
+const KEY="pt_itin_v1";
+function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DAYS));}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+let state=load();
+const open=new Set([0]);
+const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
+const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
+const starHtml=s=>s?`<div class="stars">${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span></div>`:"";
+document.getElementById("flights").innerHTML=flights.map(f=>`<div class="info"><div class="top"><span class="route">${f.route}</span><span class="when">${f.when}</span></div><div class="sub">${f.sub}</div></div>`).join("");
+document.getElementById("hotels").innerHTML=hotels.map(h=>`<div class="info"><div class="top"><span class="route">${h.city} <span class="pill ${h.status}">${h.status==="ok"?"예약완료":"미예약"}</span></span><span class="when">${h.nights}</span></div><div class="sub">${h.name}</div></div>`).join("");
+document.getElementById("fado").innerHTML=fado.map(f=>`<div class="fcard"><div class="fn">${f.name}</div><div class="fm">${f.meta}</div><div class="acts"><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(f.m)}">📍 지도</a>${f.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(f.b)}">🎟 예약</a>`:""}</div></div>`).join("");
+function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function render(){
+ document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}">
+ <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
+ <div class="day-body">${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}
+ <div class="add-row"><button class="add-btn" onclick="add(${i})">+ 일정 추가</button></div></div></div>`).join("");
+}
+function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
+function rm(i,j){state[i].items.splice(j,1);save();render();}
+function add(i){const t=prompt("시간 (예: 오후, 14:00)","오후");if(t===null)return;const name=prompt("장소/내용을 입력하세요");if(!name)return;const star=parseInt(prompt("추천도 별점 0~5 (선택)","0"),10)||0;state[i].items.push({t:t||"",name:name,s:Math.max(0,Math.min(5,star)),desc:""});open.add(i);save();render();}
+const reservations=[
+ {when:"7/2",name:"제로니무스 수도원 (Mosteiro dos Jerónimos)",note:"시간지정·온라인 예매 · 월 휴무",m:"Jerónimos Monastery Lisbon",b:"https://bilheteira.museusemonumentos.pt"},
+ {when:"7/2",name:"벨렝탑 (Torre de Belém)",note:"티켓 · 월 휴무",m:"Belém Tower Lisbon",b:"https://bilheteira.museusemonumentos.pt"},
+ {when:"7/2",name:"세르베자리아 라미로 (Cervejaria Ramiro)",note:"⭐웨이팅 많음 → 예약 권장 · 월 휴무",m:"Cervejaria Ramiro Lisbon",b:"Cervejaria Ramiro reservation"},
+ {when:"7/2",name:"파두 공연 (Fado)",note:"정통 디너쇼 예약 필수 (위 파두 섹션 참고)",m:"Fado Alfama Lisbon",b:"Clube de Fado Lisboa 예약"},
+ {when:"7/3",name:"페나 궁전 (Palácio da Pena)",note:"30분 시간지정 예매 필수 · 화 휴무",m:"Pena Palace Sintra",b:"https://www.parquesdesintra.pt"},
+ {when:"7/3",name:"헤갈레이라 별장 (Quinta da Regaleira)",note:"사전 예매 권장",m:"Quinta da Regaleira Sintra",b:"https://www.regaleira.pt"},
+ {when:"7/4",name:"블랜디스 와인 로지 (Blandy's Wine Lodge)",note:"투어 예약 권장",m:"Blandy's Wine Lodge Funchal",b:"https://blandyswinelodge.com"},
+ {when:"7/5",name:"킨타 두 바르부사노 (Quinta do Barbusano)",note:"일·월 휴무 · 시음 예약",m:"Quinta do Barbusano São Vicente",b:"Quinta do Barbusano Madeira tasting"},
+ {when:"7/6",name:"비뉴스 바르베이토 (Vinhos Barbeito)",note:"월~금 · 투어 예약 권장",m:"Vinhos Barbeito Câmara de Lobos",b:"Vinhos Barbeito tasting reservation"},
+ {when:"7/7",name:"블랜디스 빈야드 투어 (Blandy's Vineyards)",note:"예약제(필수)",m:"Blandy's Vineyards Funchal",b:"https://blandyswinelodge.com"},
+ {when:"7/8",name:"가이아 포트와인 셀러 (Vila Nova de Gaia)",note:"콕번스/테일러스 투어 예약 권장",m:"Port wine cellars Vila Nova de Gaia",b:"Vila Nova de Gaia port cellar tour booking"},
+ {when:"7/9",name:"렐루 서점 (Livraria Lello)",note:"입장권 예약 권장",m:"Livraria Lello Porto",b:"https://www.livrarialello.pt"},
+ {when:"7/10",name:"도루 퀸타 (Quinta do Bomfim/Foz)",note:"투어+시음 예약 필수",m:"Quinta do Bomfim Pinhão",b:"Quinta do Bomfim Douro visit booking"},
+ {when:"7/11",name:"알리안사 언더그라운드 뮤지엄 (Aliança)",note:"바이라다 시음 예약 권장",m:"Aliança Underground Museum Sangalhos",b:"Aliança Underground Museum tickets"},
+ {when:"7/11",name:"조아니나 도서관 (Biblioteca Joanina)",note:"시간지정 입장 예약",m:"Joanina Library Coimbra",b:"https://visit.uc.pt"}];
+document.getElementById("resv").innerHTML=reservations.map(r=>`<div class="fcard"><div class="fn"><span class="rdate">${r.when}</span>${r.name}</div><div class="fm">${r.note}</div><div class="acts"><a class="btn book" target="_blank" rel="noopener" href="${bookUrl(r.b)}">🎟 예약</a><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(r.m)}">📍 지도</a></div></div>`).join("");
+document.querySelectorAll(".sec-toggle").forEach(b=>b.onclick=()=>b.parentElement.classList.toggle("open"));
+render();
+const editBtn=document.getElementById("editBtn");
+editBtn.onclick=()=>{document.body.classList.toggle("edit");editBtn.classList.toggle("on");editBtn.textContent=document.body.classList.contains("edit")?"✏️ 편집 끝":"✏️ 편집";};
+document.getElementById("resetBtn").onclick=()=>{if(confirm("편집한 내용을 모두 초기화할까요?")){try{localStorage.removeItem(KEY);}catch(e){}state=JSON.parse(JSON.stringify(DAYS));render();}};
+const tg=document.getElementById("toggleAll");
+tg.onclick=()=>{const allOpen=open.size>=state.length;state.forEach((_,i)=>allOpen?open.delete(i):open.add(i));render();tg.textContent=allOpen?"모두 펼치기":"모두 접기";};
+</script>
+</body>
+</html>
