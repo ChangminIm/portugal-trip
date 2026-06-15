@@ -137,6 +137,23 @@ body.dark .foodwrap{background:#221b13;border-color:#3a2f22}
 .foodcard .fcn{font-weight:800;font-size:13px}
 .foodcard .fcn::after{content:" ›";opacity:.45}
 .foodcard .fcd{display:block;font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.45}
+/* 구글후기 버튼 */
+.btn.grev{border-color:#cfe0f3;background:#F2F7FD;color:#1a73e8}
+body.dark .btn.grev{background:#13202e;border-color:#284057;color:#8ab4f8}
+/* 추천 1일 투어 */
+.tourwrap{margin-top:10px;background:#F1F6FC;border:1px solid var(--line);border-radius:12px;padding:10px 13px}
+body.dark .tourwrap{background:#141d28;border-color:#28384c}
+.tourhead{font-weight:800;font-size:12.5px;color:var(--azulejo-2);margin-bottom:6px}
+.tourhead b{background:var(--azulejo-2);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;margin-left:3px}
+.tourcard{padding:9px 0;border-bottom:1px dashed var(--line)}
+.tourcard:last-of-type{border-bottom:0}
+.tcn{font-weight:800;font-size:13px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.tcp{flex:none;font-size:11.5px;font-weight:800;color:var(--terra);white-space:nowrap}
+.tcd{font-size:11.5px;color:var(--muted);margin:3px 0 7px;line-height:1.45}
+.tchips{display:flex;flex-wrap:wrap;gap:6px}
+.tchip{font-size:11px;font-weight:700;text-decoration:none;color:var(--azulejo);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:4px 8px}
+.tchip:active{transform:scale(.97)}
+.tournote{font-size:11px;color:var(--muted);margin-top:9px;line-height:1.5}
 /* 장소 상세 페이지 */
 .detail{position:fixed;inset:0;z-index:50;background:var(--paper);overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .26s ease;visibility:hidden;-webkit-overflow-scrolling:touch}
 .detail.open{transform:none;visibility:visible}
@@ -490,6 +507,37 @@ const FOODS={
  {name:"카피냐 드 오비두스",desc:"오비두스의 빵·페이스트리 가게. 간단한 요기.",m:"Óbidos bakery pastry",n:"오비두스 빵집"},
  {name:"아 세비체리아 (A Cevicheria·Lisbon)",desc:"문어가 매달린 인테리어로 유명한 리스본 세비체 맛집(출국 전).",m:"A Cevicheria Lisbon",n:"리스본 세비체리아"}]
 };
+// 날짜별 추천 1일 투어/패키지 — q:영문검색(GYG/Viator/Klook), kq:한국어(마이리얼트립)
+const TOURS={
+"7/2":[
+ {name:"리스본 시티 하이라이트 + 파두 디너쇼",desc:"벨렝·알파마 관광 + 정통 파두 공연·저녁식사",price:"€45~80",q:"Lisbon city tour with Fado dinner show",kq:"리스본 파두 디너 투어"},
+ {name:"투크투크 알파마·구시가 투어",desc:"좁은 골목·전망대를 투크투크로 2~3시간",price:"€25~45",q:"Lisbon tuk tuk Alfama old town tour",kq:"리스본 투크투크 투어"}],
+"7/3":[
+ {name:"신트라+카보 다 로카+카스카이스 1일투어",desc:"리스본 출발 · 페나성·헤갈레이라·대륙 최서단(입장료 별도)",price:"€60~95",q:"Sintra Cabo da Roca Cascais full day tour from Lisbon",kq:"신트라 카보다로카 카스카이스 투어"},
+ {name:"신트라 페나성 우선입장 + 가이드",desc:"줄 안 서는 스킵더라인 입장 + 해설",price:"€40~70",q:"Sintra Pena Palace skip the line guided tour",kq:"신트라 페나성 가이드 투어"}],
+"7/4":[
+ {name:"푼샬 시티 + 마데이라 와인 시음",desc:"구시가·몬테 + 와인 로지 시음",price:"€30~60",q:"Funchal city tour Madeira wine tasting",kq:"푼샬 시티 투어"}],
+"7/5":[
+ {name:"마데이라 서부 1일 투어 (4x4)",desc:"카보 지라오·포르투 모니즈·상 비센트 절경",price:"€45~75",q:"Madeira west full day tour Cabo Girão Porto Moniz",kq:"마데이라 서부 일일투어"}],
+"7/6":[
+ {name:"피쿠 두 아리에이루 일출 지프 투어",desc:"새벽 픽업 · 구름 위 일출(방한 필수)",price:"€45~70",q:"Madeira Pico do Arieiro sunrise jeep tour",kq:"마데이라 피쿠 아리에이루 일출 투어"},
+ {name:"몬테 정원 + 토보간 + 와인 투어",desc:"열대정원·전통 썰매·와인 시음 묶음",price:"€40~65",q:"Madeira Monte garden toboggan wine tour",kq:"마데이라 몬테 투어"}],
+"7/7":[
+ {name:"레바다 25 폰테스 가이드 워킹투어",desc:"수로길 트레킹 · 픽업·가이드 동행",price:"€35~55",q:"Madeira Levada 25 Fontes guided walk tour",kq:"마데이라 레바다 25폰테스 트레킹"},
+ {name:"마데이라 동부 + 상 로렌수 투어",desc:"산타나 전통가옥·화산 반도 트레킹",price:"€45~70",q:"Madeira east Santana Ponta de São Lourenço tour",kq:"마데이라 동부 투어"}],
+"7/8":[
+ {name:"도루강 6다리 크루즈",desc:"포르투·가이아 6개 다리 50분~1시간 보트",price:"€15~25",q:"Porto six bridges Douro river cruise",kq:"포르투 6다리 크루즈"},
+ {name:"가이아 포트와인 셀러 투어 + 시음",desc:"콕번스/테일러스 등 셀러 투어·시음",price:"€20~45",q:"Vila Nova de Gaia port wine cellar tour tasting",kq:"가이아 포트와인 셀러 투어"}],
+"7/9":[
+ {name:"포르투 워킹투어 + 렐루 서점",desc:"구시가 도보 해설 + 렐루 서점 입장",price:"€20~40",q:"Porto walking tour with Livraria Lello",kq:"포르투 워킹투어 렐루서점"}],
+"7/10":[
+ {name:"도루 밸리 와이너리 2곳 + 점심 + 크루즈",desc:"포르투 출발 1일투어 · 시음·강 크루즈 포함(가장 인기)",price:"€90~135",q:"Douro Valley tour two wineries lunch boat cruise from Porto",kq:"도루밸리 와이너리 일일투어 포르투"}],
+"7/11":[
+ {name:"아베이루 + 코스타노바 (포르투 출발)",desc:"운하 몰리세이루·줄무늬집 반나절~1일",price:"€40~70",q:"Aveiro Costa Nova tour from Porto",kq:"아베이루 코스타노바 투어"},
+ {name:"코임브라 대학·조아니나 도서관 가이드",desc:"유네스코 대학·바로크 도서관 해설",price:"€15~35",q:"Coimbra University Joanina Library guided tour",kq:"코임브라 대학 투어"}],
+"7/12":[
+ {name:"오비두스+나자레+파티마 1일투어",desc:"리스본 출발 · 성벽마을·대서양 파도·성지",price:"€55~85",q:"Óbidos Nazaré Fátima day tour from Lisbon",kq:"오비두스 나자레 파티마 투어"}]
+};
 const KEY="pt_itin_v1";
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DAYS));}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
@@ -502,9 +550,17 @@ const open=new Set([TODAY>=0?TODAY:0]);
 const routeUrl=places=>"https://www.google.com/maps/dir/"+places.map(p=>encodeURIComponent(p)).join("/");
 function routeBtn(d){const ps=d.items.filter(it=>it.m).map(it=>it.m);if(ps.length<2)return "";return `<div class="dayroute"><a class="btn route" target="_blank" rel="noopener" href="${routeUrl(ps)}">🗺 하루 동선 한눈에 (${ps.length}곳)</a></div>`;}
 function foodBlock(date){const fs=FOODS[date];if(!fs||!fs.length)return "";return `<div class="foodwrap"><div class="foodhead">🍴 이 근처 먹거리 <b>${fs.length}</b></div>${fs.map(f=>`<a class="foodcard" href="#p/${slug(f.m)}"><span class="fcn">${esc(f.name)}</span><span class="fcd">${esc(f.desc)}</span></a>`).join("")}</div>`;}
+function tourBlock(date){const ts=TOURS[date];if(!ts||!ts.length)return "";return `<div class="tourwrap"><div class="tourhead">🎫 추천 1일 투어·패키지 <b>${ts.length}</b></div>${ts.map(t=>`<div class="tourcard"><div class="tcn">${esc(t.name)}<span class="tcp">${esc(t.price)}</span></div><div class="tcd">${esc(t.desc)}</div><div class="tchips">${TOURP.map(pf=>`<a class="tchip" target="_blank" rel="noopener" href="${pf.u(t.q,t.kq)}">${pf.n} ↗</a>`).join("")}</div></div>`).join("")}<div class="tournote">※ 같은 투어도 플랫폼마다 가격이 달라요 — 눌러서 비교하세요</div></div>`;}
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
+const grevUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
+// 1일 투어 예약 플랫폼 검색(가격 비교)
+const TOURP=[
+ {n:"GetYourGuide",u:q=>"https://www.getyourguide.com/s/?q="+encodeURIComponent(q)},
+ {n:"Viator",u:q=>"https://www.viator.com/search/"+encodeURIComponent(q)},
+ {n:"Klook",u:q=>"https://www.klook.com/en-US/search/?query="+encodeURIComponent(q)},
+ {n:"마이리얼트립",u:(q,kq)=>"https://www.myrealtrip.com/search?q="+encodeURIComponent(kq||q)}];
 const gimgUrl=q=>"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
 const slug=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
 // 장소 설명: m(지도검색어) 그대로 key. ko=한국어 설명, wk=위키백과 영문 제목(사진·추가설명)
@@ -610,7 +666,7 @@ function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace
 function render(){
  document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}${i===TODAY?" today":""}">
  <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}${i===TODAY?'<span class="todaytag">오늘</span>':''}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
- <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}${foodBlock(d.date)}
+ <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.m?`<a class="btn grev" target="_blank" rel="noopener" href="${grevUrl(it.m)}">⭐ 구글</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}${foodBlock(d.date)}${tourBlock(d.date)}
  <div class="add-row"><button class="add-btn" onclick="add(${i})">+ 일정 추가</button></div></div></div>`).join("");
 }
 function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
@@ -784,6 +840,7 @@ function buildDetail(it,info,sl){
  if(it.tip){tipEl.style.display="";tipEl.className="dtip"+(/⚠|필수|휴무/.test(it.tip)?" warn":"");tipEl.innerHTML="<b>💡 팁</b> "+esc(it.tip);}else tipEl.style.display="none";
  const acts=[];
  if(it.m)acts.push(`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`);
+ if(it.m)acts.push(`<a class="btn grev" target="_blank" rel="noopener" href="${grevUrl(it.m)}">⭐ 구글후기</a>`);
  if(it.n)acts.push(`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 네이버후기</a>`);
  if(it.b)acts.push(`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`);
  document.getElementById("dacts").innerHTML=acts.join("");
