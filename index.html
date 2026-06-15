@@ -124,6 +124,16 @@ footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center;line-
 /* 장소명 탭 힌트 */
 .pname{color:inherit;text-decoration:none;border-bottom:1.5px dotted currentColor;cursor:pointer}
 .pname::after{content:" ›";opacity:.5;font-weight:800}
+/* 근처 먹거리 */
+.foodwrap{margin-top:12px;background:#FFF8F0;border:1px solid var(--line);border-radius:12px;padding:9px 13px}
+body.dark .foodwrap{background:#221b13;border-color:#3a2f22}
+.foodhead{font-weight:800;font-size:12.5px;color:var(--terra);margin-bottom:3px}
+.foodhead b{background:var(--terra);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;margin-left:3px}
+.foodcard{display:block;text-decoration:none;color:inherit;padding:7px 0;border-bottom:1px dashed var(--line)}
+.foodcard:last-child{border-bottom:0}
+.foodcard .fcn{font-weight:800;font-size:13px}
+.foodcard .fcn::after{content:" ›";opacity:.45}
+.foodcard .fcd{display:block;font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.45}
 /* 장소 상세 페이지 */
 .detail{position:fixed;inset:0;z-index:50;background:var(--paper);overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .26s ease;visibility:hidden;-webkit-overflow-scrolling:touch}
 .detail.open{transform:none;visibility:visible}
@@ -212,7 +222,7 @@ body.dark .btn.route{background:#1f1b2b}
 <div class="topbar"><button class="iconbtn" id="darkBtn" title="다크모드" aria-label="다크모드">🌙</button><button class="iconbtn" id="printBtn" title="인쇄/PDF 저장" aria-label="인쇄">🖨</button></div>
 <div class="eyebrow">Portugal · 13 Days <span class="dday" id="dday"></span></div>
 <h1>2026년 포르투갈 여행</h1>
-<div class="meta"><span><b>2026.7.1(수) → 7.13(월)</b></span><span>리스본 · 마데이라 · 포르투</span><span>리스본 in/out · 2인</span></div>
+<div class="meta"><span><b>2026.7.1(수) → 7.13(월)</b></span><span>리스본 · 마데이라 · 포르투</span><span>리스본 in/out · 은혜 ♥ 창민</span></div>
 <div class="clocks" id="clocks"></div>
 </div></header>
 <div class="wrap">
@@ -223,10 +233,10 @@ body.dark .btn.route{background:#1f1b2b}
 <div class="cv-row"><input id="eur" type="number" inputmode="decimal" value="10" min="0" aria-label="유로"> <span class="eq">€  →</span> <span class="won" id="won"></span></div>
 <div class="rate">환율 1€ = <input id="rate" type="number" inputmode="numeric" min="0"> 원 <span>· 출발 전 현재 환율로 수정하세요</span></div>
 </div></div></section>
-<section class="sec"><button class="sec-toggle"><span class="tick"></span>예상 비용 (2인 기준)<span class="sechev">▶</span></button><div class="sec-body">
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>예상 비용 (은혜·창민)<span class="sechev">▶</span></button><div class="sec-body">
 <div class="cost" id="costList"></div>
 <div class="cost-sum" id="costSum"></div>
-<div class="cost-note">※ 7월 성수기 <b>2인 합계 대략 추정치</b>예요. 특히 항공·숙소는 예약 시점에 따라 차이가 큽니다. 위 '날씨·환율'에서 환율을 바꾸면 원화 금액이 여기에도 함께 반영돼요.</div>
+<div class="cost-note">※ 7월 성수기 <b>은혜·창민 둘이 합계 대략 추정치</b>예요. 특히 항공·숙소는 예약 시점에 따라 차이가 큽니다. 위 '날씨·환율'에서 환율을 바꾸면 원화 금액이 여기에도 함께 반영돼요.</div>
 </div></section>
 <section class="sec"><button class="sec-toggle"><span class="tick"></span>🧳 준비물 체크리스트<span class="sechev">▶</span></button><div class="sec-body">
 <div class="prog" id="packProg"></div>
@@ -367,6 +377,51 @@ const DAYS=[
  {date:"7/13",dow:"월",title:"인천 도착",wake:"기내",items:[
   {t:"19:25",name:"인천 공항 도착",desc:"7/12 출발편 도착(+1일)"}]}
 ];
+// 날짜별 근처 먹거리 POI (도보권·식도락) — w:위키 음식 영문명(사진), n:네이버검색
+const FOODS={
+"7/1":[
+ {name:"봉자르딤 (Bom Jardim·Rei dos Frangos)",desc:"숯불 피리피리 통닭으로 유명한 리스본 노포. 바삭한 껍질에 매콤 소스가 일품.",m:"Bonjardim Rei dos Frangos Lisbon",w:"Piri piri",n:"리스본 봉자르딤"},
+ {name:"세르베자리아 트린다드 (Cervejaria Trindade)",desc:"옛 수도원 건물의 아줄레주 맥줏집. 해산물·스테이크와 생맥주.",m:"Cervejaria Trindade Lisbon",n:"리스본 트린다드"},
+ {name:"만테이가리아 (Manteigaria·시아두)",desc:"갓 구운 따끈한 에그타르트 맛집. 종 울리면 새로 나와요.",m:"Manteigaria Chiado Lisbon",w:"Pastel de nata",n:"리스본 만테이가리아"}],
+"7/2":[
+ {name:"콘페이타리아 나시오날 (Confeitaria Nacional)",desc:"1829년 문 연 역사적 제과점. 전통 과자·에그타르트.",m:"Confeitaria Nacional Lisbon",w:"Pastel de nata",n:"리스본 콘페이타리아 나시오날"},
+ {name:"아 진지냐 (A Ginjinha Espinheira)",desc:"1840년부터 체리주(진자) 한 잔 따라주는 작은 노포 바.",m:"A Ginjinha Espinheira Lisbon",w:"Ginjinha",n:"리스본 진지냐"},
+ {name:"타베르나 다 후아 다스 플로레스",desc:"줄 서는 인기 페티스코(포르투갈식 타파스) 식당.",m:"Taberna da Rua das Flores Lisbon",n:"리스본 후아 다스 플로레스"}],
+"7/3":[
+ {name:"카페 사우다드 (Café Saudade)",desc:"신트라역 근처 옛 빵집을 개조한 카페. 페이스트리·브런치.",m:"Café Saudade Sintra",n:"신트라 카페 사우다드"},
+ {name:"타스칸티가 (Tascantiga)",desc:"신트라 구시가 인기 페티스코집. 전망 테라스.",m:"Tascantiga Sintra",n:"신트라 타스칸티가"},
+ {name:"인콤움 (Incomum by Luís Santos)",desc:"가성비 좋은 신트라 인기 비스트로(점심 추천).",m:"Incomum Sintra",n:"신트라 인콤움"}],
+"7/4":[
+ {name:"메르카두 두스 라브라도레스",desc:"푼샬 농수산 시장. 열대과일 시식·생선·꽃이 가득.",m:"Mercado dos Lavradores Funchal",n:"마데이라 라브라도레스 시장"},
+ {name:"파이스카 (Faísca)",desc:"마데이라 명물 볼루 두 카쿠(마늘버터빵) 전문.",m:"Faísca Funchal",w:"Bolo do caco",n:"마데이라 볼루 두 카쿠"},
+ {name:"오 타파솔 (O Tapassol)",desc:"산타 마리아 거리의 해산물·마데이라 가정식.",m:"O Tapassol Funchal",n:"푼샬 산타마리아 맛집"}],
+"7/5":[
+ {name:"타베르나 다 포냐 (Taberna da Poncha)",desc:"카마라 드 로부스의 폰차(사탕수수 칵테일) 명소.",m:"Taberna da Poncha Câmara de Lobos",w:"Poncha",n:"마데이라 폰차"},
+ {name:"오르카 (Restaurante Orca)",desc:"포르투 모니즈 천연풀 바로 옆 해산물 레스토랑.",m:"Restaurante Orca Porto Moniz",n:"포르투 모니즈 맛집"}],
+"7/6":[
+ {name:"오 라가르 (Restaurante O Lagar)",desc:"마데이라 에스페타다(쇠고기 꼬치)·뷔페식 전통식당.",m:"Restaurante O Lagar Câmara de Lobos",w:"Espetada",n:"마데이라 에스페타다"},
+ {name:"카페 두 파르크 (Café do Parque·몬테)",desc:"몬테 광장의 카페. 토보간 전 쉬어가기 좋아요.",m:"Café do Parque Monte Funchal",n:"마데이라 몬테 카페"}],
+"7/7":[
+ {name:"킨타 두 푸랑 (Quinta do Furão)",desc:"산타나 절벽 위 전망 레스토랑. 마데이라 향토요리.",m:"Quinta do Furão Restaurant Santana",n:"산타나 킨타 두 푸랑"},
+ {name:"칸티뉴 다 세하 (Cantinho da Serra)",desc:"산타나의 아늑한 산장식 전통 가정식.",m:"Cantinho da Serra Santana Madeira",n:"산타나 맛집"}],
+"7/8":[
+ {name:"타베르나 두스 메르카도레스",desc:"히베이라 골목의 인기 식당(작아서 예약 권장).",m:"Taberna dos Mercadores Porto",n:"포르투 히베이라 맛집"},
+ {name:"카사 게데스 (Casa Guedes)",desc:"포르투 명물 페르닐(돼지고기) 샌드위치.",m:"Casa Guedes Porto",n:"포르투 카사 게데스"},
+ {name:"메르카두 베이라-리우 (가이아)",desc:"가이아 강변 푸드홀. 포트와인 셀러 투어 후 한 끼.",m:"Mercado Beira-Rio Vila Nova de Gaia",n:"가이아 베이라리우 마켓"}],
+"7/9":[
+ {name:"카페 산티아구 (Café Santiago)",desc:"포르투 프란세지냐 1·2위로 꼽히는 명가.",m:"Café Santiago Porto",w:"Francesinha",n:"포르투 카페 산티아고"},
+ {name:"콘가 (Conga·Casa das Bifanas)",desc:"포르투식 비파나(돼지고기) 샌드 노포.",m:"Conga Casa das Bifanas Porto",w:"Bifana",n:"포르투 콘가 비파나"},
+ {name:"만테이가리아 (Manteigaria·포르투)",desc:"갓 구운 에그타르트. 클레리구스 근처.",m:"Manteigaria Porto",w:"Pastel de nata",n:"포르투 만테이가리아"}],
+"7/10":[
+ {name:"DOC by Rui Paula",desc:"도루 강변 모던 포르투갈 파인다이닝(전망·예약).",m:"DOC Restaurant Folgosa Douro",n:"도루밸리 DOC 레스토랑"},
+ {name:"베라도우루 (Veladouro)",desc:"핀얀의 소박한 지역 식당. 도루 와인과 함께.",m:"Veladouro Pinhão",n:"핀얀 맛집"}],
+"7/11":[
+ {name:"콘페이타리아 페이시뉴 (Aveiro)",desc:"아베이루 명물 오부스 몰레스(달걀노른자 단과자) 원조.",m:"Confeitaria Peixinho Aveiro",w:"Ovos moles",n:"아베이루 오부스 몰레스"},
+ {name:"솔라르 두 바칼라우 (Coimbra)",desc:"코임브라의 대구(바칼라우) 요리 전문 식당.",m:"Solar do Bacalhau Coimbra",w:"Bacalhau",n:"코임브라 솔라르 두 바칼라우"},
+ {name:"카페 산타 크루즈 (Coimbra)",desc:"옛 예배당을 개조한 코임브라의 명물 카페.",m:"Café Santa Cruz Coimbra",n:"코임브라 산타크루즈 카페"}],
+"7/12":[
+ {name:"진지냐 드 오비두스",desc:"오비두스 성안 거리의 체리주를 초콜릿 잔에 담아 한 잔.",m:"Ginjinha Óbidos",w:"Ginjinha",n:"오비두스 진자"}]
+};
 const KEY="pt_itin_v1";
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DAYS));}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
@@ -378,6 +433,7 @@ const TODAY=computeToday();
 const open=new Set([TODAY>=0?TODAY:0]);
 const routeUrl=places=>"https://www.google.com/maps/dir/"+places.map(p=>encodeURIComponent(p)).join("/");
 function routeBtn(d){const ps=d.items.filter(it=>it.m).map(it=>it.m);if(ps.length<2)return "";return `<div class="dayroute"><a class="btn route" target="_blank" rel="noopener" href="${routeUrl(ps)}">🗺 하루 동선 한눈에 (${ps.length}곳)</a></div>`;}
+function foodBlock(date){const fs=FOODS[date];if(!fs||!fs.length)return "";return `<div class="foodwrap"><div class="foodhead">🍴 이 근처 먹거리 <b>${fs.length}</b></div>${fs.map(f=>`<a class="foodcard" href="#p/${slug(f.m)}"><span class="fcn">${esc(f.name)}</span><span class="fcd">${esc(f.desc)}</span></a>`).join("")}</div>`;}
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
 const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
@@ -386,9 +442,9 @@ const slug=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[
 // 장소 설명: m(지도검색어) 그대로 key. ko=한국어 설명, wk=위키백과 영문 제목(사진·추가설명)
 const PLACE_INFO={
 "Pastéis de Belém Lisbon":{wk:"Pastéis de Belém",ko:"1837년 문을 연 에그타르트(파스텔 드 나타)의 원조집. 수도원 비법으로 구운 따끈한 타르트에 시나몬·슈거를 뿌려 먹어요."},
-"Jerónimos Monastery Lisbon":{wk:"Jerónimos Monastery",ko:"대항해시대의 부를 쏟아부은 마누엘 양식의 대수도원(유네스코). 바스쿠 다 가마의 무덤과 화려한 회랑이 하이라이트."},
-"Belém Tower Lisbon":{wk:"Belém Tower",ko:"테주강 어귀를 지키던 16세기 요새이자 대항해의 출발점(유네스코). 리스본을 상징하는 석조 탑이에요."},
-"Praça do Comércio Lisbon":{wk:"Praça do Comércio",ko:"강과 맞닿은 리스본 최대 광장. 노란 개선문과 동상이 있고 바이샤 보행거리로 이어져요."},
+"Jerónimos Monastery Lisbon":{wk:"Jerónimos Monastery",kw:"제로니무스 수도원",ko:"대항해시대의 부를 쏟아부은 마누엘 양식의 대수도원(유네스코). 바스쿠 다 가마의 무덤과 화려한 회랑이 하이라이트."},
+"Belém Tower Lisbon":{wk:"Belém Tower",kw:"벨렝탑",ko:"테주강 어귀를 지키던 16세기 요새이자 대항해의 출발점(유네스코). 리스본을 상징하는 석조 탑이에요."},
+"Praça do Comércio Lisbon":{wk:"Praça do Comércio",kw:"코메르시우 광장",ko:"강과 맞닿은 리스본 최대 광장. 노란 개선문과 동상이 있고 바이샤 보행거리로 이어져요."},
 "Garrafeira Nacional Rua Santa Justa Lisbon":{ko:"1927년부터 이어온 리스본 대표 주류 명점. 포트·마데이라·진자 등 포르투갈 술을 폭넓게 갖춰 선물 사기 좋아요."},
 "Carmo Convent Lisbon":{wk:"Carmo Convent",ko:"1755년 대지진에 지붕이 무너진 채 남은 고딕 수도원. 하늘이 뚫린 폐허 예배당이 독특하고 옆 산타 주스타 엘리베이터 전망이 좋아요."},
 "Miradouro das Portas do Sol Lisbon":{ko:"알파마의 붉은 지붕과 테주강이 한눈에 보이는 대표 전망대. 해질녘이 특히 예뻐요."},
@@ -396,12 +452,12 @@ const PLACE_INFO={
 "Pena Palace Sintra":{wk:"Pena Palace",ko:"노랑·빨강 원색의 동화 같은 낭만주의 궁전(유네스코). 산 위 안개와 어우러진 풍경이 환상적이에요."},
 "Piriquita Sintra":{ko:"신트라 구시가의 1862년 전통 베이커리. 명물 트라베세이루(긴 베개빵)와 케이자다가 유명해요."},
 "Quinta da Regaleira Sintra":{wk:"Quinta da Regaleira",ko:"신비주의로 가득한 별장·정원(유네스코). 나선형 '입문의 우물'과 비밀 터널이 인생샷 명소."},
-"Cabo da Roca":{wk:"Cabo da Roca",ko:"유라시아 대륙 최서단 절벽. '땅이 끝나고 바다가 시작되는 곳'이라는 비문이 있어요."},
-"Rua de Santa Maria Funchal":{wk:"Funchal",ko:"푼샬 구시가의 좁은 골목. 문짝마다 그림을 그린 '열린 문 아트' 거리로 유명해요."},
+"Cabo da Roca":{wk:"Cabo da Roca",kw:"호카곶",ko:"유라시아 대륙 최서단 절벽. '땅이 끝나고 바다가 시작되는 곳'이라는 비문이 있어요."},
+"Rua de Santa Maria Funchal":{wk:"Funchal",kw:"푼샬",ko:"푼샬 구시가의 좁은 골목. 문짝마다 그림을 그린 '열린 문 아트' 거리로 유명해요."},
 "Pérola dos Vinhos Funchal":{ko:"푼샬 구시가의 마데이라 와인 전문점. 무료 시음으로 단맛부터 드라이까지 비교해보기 좋아요."},
 "Blandy's Wine Lodge Funchal":{wk:"Madeira wine",ko:"1811년부터 이어온 마데이라 와인 명가의 시음·박물관. 오래된 오크통이 가득한 역사적 로지에서 투어해요."},
 "Cabo Girão Skywalk Madeira":{wk:"Cabo Girão",ko:"해발 580m, 유럽에서 가장 높은 해안 절벽 위 유리 스카이워크. 발밑이 다 보여요."},
-"Câmara de Lobos Madeira":{wk:"Câmara de Lobos",ko:"처칠이 그림을 그린 알록달록한 어촌. 사탕수수 증류주 '폰차' 한 잔 하기 좋아요."},
+"Câmara de Lobos Madeira":{wk:"Câmara de Lobos",kw:"카마라 드 로부스",ko:"처칠이 그림을 그린 알록달록한 어촌. 사탕수수 증류주 '폰차' 한 잔 하기 좋아요."},
 "Porto Moniz natural pools":{wk:"Porto Moniz",ko:"용암이 굳어 만들어진 천연 바닷물 수영장. 파도와 분리된 풀에서 안전하게 물놀이해요."},
 "Quinta do Barbusano São Vicente":{ko:"마데이라 북부 절벽 포도밭의 와이너리. 바다 전망을 보며 마데이라 와인을 시음해요."},
 "Seixal beach Madeira":{wk:"Seixal, Madeira",ko:"검은 화산 모래 해변과 폭포가 어우러진 마데이라 북부의 절경 마을."},
@@ -422,16 +478,16 @@ const PLACE_INFO={
 "Mercado do Bolhão Porto":{wk:"Bolhão Market",ko:"100년 넘은 포르투 전통시장. 청과·생선·치즈·먹거리가 가득한 2층 철골 시장."},
 "Garrafeira do Carmo Porto":{ko:"오너가 직접 추천해주는 포르투의 포트와인 명점. 비행 전 와인 포장 구매에 좋아요(위탁수하물)."},
 "Porto Cathedral Sé":{wk:"Porto Cathedral",ko:"언덕 위 로마네스크 대성당. 앞 광장에서 포르투 구시가와 강이 내려다보여요."},
-"Francesinha Porto":{wk:"Francesinha",ko:"포르투 명물 샌드위치. 여러 고기를 빵 사이에 넣고 치즈를 덮은 뒤 매콤한 맥주·토마토 소스를 부어 먹어요."},
+"Francesinha Porto":{wk:"Francesinha",kw:"프란세지냐",ko:"포르투 명물 샌드위치. 여러 고기를 빵 사이에 넣고 치즈를 덮은 뒤 매콤한 맥주·토마토 소스를 부어 먹어요."},
 "Quinta do Bomfim Pinhão":{wk:"Pinhão, Portugal",ko:"도루 밸리 핀얀의 명가 와이너리(시밍턴). 계단식 포도밭 전망과 함께 포트와인 투어·시음."},
 "Pinhão Douro river cruise":{wk:"Pinhão",ko:"도루강을 따라 계단식 포도밭을 감상하는 보트 투어. 전통 배 '하벨루'를 본떴어요."},
 "Miradouro Casal de Loivos":{ko:"도루 밸리에서 손꼽히는 전망대. 강이 휘감는 계단식 포도밭 파노라마가 압권이에요."},
-"Aveiro canals Portugal":{wk:"Aveiro, Portugal",ko:"운하와 색색의 곤돌라 배(몰리세이루)로 '포르투갈의 베네치아'라 불려요. 단과자 오부스 몰레스도 유명."},
+"Aveiro canals Portugal":{wk:"Aveiro, Portugal",kw:"아베이루",ko:"운하와 색색의 곤돌라 배(몰리세이루)로 '포르투갈의 베네치아'라 불려요. 단과자 오부스 몰레스도 유명."},
 "Costa Nova striped houses":{wk:"Costa Nova do Prado",ko:"빨강·파랑 줄무늬 어부 집이 줄지어 선 해변 마을. 사진 명소예요."},
 "Aliança Underground Museum Sangalhos":{ko:"바이라다의 와인 양조장 지하를 박물관처럼 꾸민 곳. 스파클링(에스푸만트) 시음·구매."},
 "Joanina Library Coimbra":{wk:"Joanina Library",ko:"코임브라 대학(유네스코)의 18세기 바로크 도서관. 금빛 서가와 책을 지키는 박쥐로 유명해요."},
 "Fado ao Centro Coimbra":{wk:"Fado",ko:"검은 망토를 두른 학생들이 부르는 코임브라식 파두 공연을 매일 감상할 수 있는 문화공간."},
-"Óbidos Portugal":{wk:"Óbidos, Portugal",ko:"성벽으로 둘러싸인 하얀 중세 마을. 체리주 진자를 초콜릿 잔에 담아 파는 게 명물이에요."},
+"Óbidos Portugal":{wk:"Óbidos, Portugal",kw:"오비두스",ko:"성벽으로 둘러싸인 하얀 중세 마을. 체리주 진자를 초콜릿 잔에 담아 파는 게 명물이에요."},
 "Time Out Market Lisbon":{wk:"Time Out Market",ko:"리스본 유명 셰프·맛집을 한곳에 모은 푸드홀. 출국 전 다양하게 맛보기 좋아요."},
 "Clube de Fado Lisbon":{ko:"알파마의 정통 파두 디너쇼 명소. 격식 있는 공연으로 예약 필수예요."},
 "O Corrido Casa de Fado Lisbon":{ko:"주인이 직접 노래하는 친밀한 분위기의 파두 하우스."},
@@ -448,7 +504,7 @@ function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace
 function render(){
  document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}${i===TODAY?" today":""}">
  <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}${i===TODAY?'<span class="todaytag">오늘</span>':''}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
- <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}
+ <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}${foodBlock(d.date)}
  <div class="add-row"><button class="add-btn" onclick="add(${i})">+ 일정 추가</button></div></div></div>`).join("");
 }
 function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
@@ -509,12 +565,12 @@ calcWon();
 
 /* ===== 예상 비용 (2인 기준·대략치) ===== */
 const costs=[
- {l:"✈ 국제선 (인천↔리스본·KE)",e:2600,s:"2인 왕복 · 7월 성수기 기준"},
+ {l:"✈ 국제선 (인천↔리스본·KE)",e:2600,s:"은혜·창민 왕복 · 7월 성수기 기준"},
  {l:"✈ 유럽 내 항공 (easyJet 2구간)",e:400,s:"리스본→푼샬, 푼샬→포르투 · 수하물 포함"},
- {l:"🏨 숙소 11박 (2인 1실)",e:1430,s:"평균 €130/박 · 도시별 편차"},
+ {l:"🏨 숙소 11박 (둘이 1실)",e:1430,s:"평균 €130/박 · 도시별 편차"},
  {l:"🚗 마데이라 렌터카 + 주유",e:300,s:"4~5일 대여"},
  {l:"🚆 기차·메트로·택시",e:250,s:"신트라·아베이루·도루·공항 이동 등"},
- {l:"🍽 식비",e:1170,s:"2인 1일 약 €90 × 13일"},
+ {l:"🍽 식비",e:1170,s:"둘이 1일 약 €90 × 13일"},
  {l:"🍷 투어·시음·입장료",e:600,s:"파두·궁전·렐루·포트와인·도루 등"},
  {l:"🛍 기타·기념품·예비비",e:350,s:""}
 ];
@@ -522,7 +578,7 @@ function wonOf(e){return "₩"+Math.round(e*(+rateEl.value||0)).toLocaleString("
 function renderCost(){
  document.getElementById("costList").innerHTML=costs.map(c=>`<div class="crow"><div class="cl">${c.l}${c.s?`<small>${c.s}</small>`:""}</div><div class="cv"><div class="e">€${c.e.toLocaleString()}</div><div class="w">${wonOf(c.e)}</div></div></div>`).join("");
  const tot=costs.reduce((a,c)=>a+c.e,0),perDay=Math.round(tot/13),perPer=Math.round(tot/2);
- document.getElementById("costSum").innerHTML=`<div><div class="st">총 합계 · 2인</div><div class="sv">€${tot.toLocaleString()} <small>${wonOf(tot)}</small></div></div><div style="text-align:right"><div class="st">하루 €${perDay.toLocaleString()} · 1인 €${perPer.toLocaleString()}</div><div class="st">${wonOf(perDay)}/일 · ${wonOf(perPer)}/인</div></div>`;
+ document.getElementById("costSum").innerHTML=`<div><div class="st">총 합계 · 은혜·창민</div><div class="sv">€${tot.toLocaleString()} <small>${wonOf(tot)}</small></div></div><div style="text-align:right"><div class="st">하루 €${perDay.toLocaleString()} · 1인 €${perPer.toLocaleString()}</div><div class="st">${wonOf(perDay)}/일 · ${wonOf(perPer)}/인</div></div>`;
 }
 renderCost();
 
@@ -574,29 +630,44 @@ if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.ser
 const PLACEIDX={};
 state.forEach(d=>d.items.forEach(it=>{if(it.m)PLACEIDX[slug(it.m)]=it;}));
 fado.forEach(f=>{if(f.m)PLACEIDX[slug(f.m)]=f;});
+Object.values(FOODS).forEach(arr=>arr.forEach(f=>{f.food=1;PLACEIDX[slug(f.m)]=f;}));
 const WKEY="pt_wiki_v1";
 function wikiCache(){try{return JSON.parse(localStorage.getItem(WKEY))||{};}catch(e){return{};}}
 function saveWiki(c){try{localStorage.setItem(WKEY,JSON.stringify(c));}catch(e){}}
-async function getWiki(key,title){
+async function getWiki(key,enTitle,koTitle){
  const c=wikiCache();
  if(key in c)return c[key];
  try{
-  const sum=t=>"https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(t.replace(/ /g,"_"));
-  let r=await fetch(sum(title));
-  if(!r.ok){
-   const s=await fetch("https://en.wikipedia.org/w/rest.php/v1/search/title?q="+encodeURIComponent(title)+"&limit=1");
-   if(s.ok){const sj=await s.json();if(sj.pages&&sj.pages[0])r=await fetch(sum(sj.pages[0].key));}
+  let thumb=null,extract=null,url=null;
+  // 1) 영문 위키: 한국어 문서 링크 + 썸네일
+  if(enTitle){
+   const u="https://en.wikipedia.org/w/api.php?action=query&redirects=1&titles="+encodeURIComponent(enTitle.replace(/ /g,"_"))+"&prop=langlinks|pageimages&lllang=ko&lllimit=1&piprop=thumbnail&pithumbsize=720&format=json&formatversion=2&origin=*";
+   const j=await(await fetch(u)).json();
+   const pg=j&&j.query&&j.query.pages&&j.query.pages[0];
+   if(pg){if(pg.thumbnail&&pg.thumbnail.source)thumb=pg.thumbnail.source;if(!koTitle&&pg.langlinks&&pg.langlinks[0])koTitle=pg.langlinks[0].title;}
   }
-  let data=null;
-  if(r&&r.ok){const j=await r.json();if(j.type!=="disambiguation")data={thumb:(j.thumbnail||{}).source||null,extract:j.extract||"",url:((j.content_urls||{}).desktop||{}).page||null};}
+  // 2) 한국어 위키 요약: 한국어 설명(+더 나은 사진)
+  if(koTitle){
+   const r=await fetch("https://ko.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(koTitle.replace(/ /g,"_")));
+   if(r.ok){const k=await r.json();if(k.type==="standard"){if(k.extract)extract=k.extract;url=((k.content_urls||{}).desktop||{}).page||null;if(k.thumbnail&&k.thumbnail.source)thumb=k.thumbnail.source;}}
+  }
+  // 3) 사진이 없으면 위키미디어 공용 이미지 검색(식당·시장 등도 바로 사진)
+  if(!thumb){
+   const q=enTitle||koTitle||key.replace(/-/g," ");
+   const cu="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(q)+"&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=720&format=json&origin=*";
+   const cj=await(await fetch(cu)).json();
+   const cp=cj&&cj.query&&cj.query.pages?Object.values(cj.query.pages):[];
+   if(cp[0]&&cp[0].imageinfo&&cp[0].imageinfo[0])thumb=cp[0].imageinfo[0].thumburl;
+  }
+  const data=(thumb||extract)?{thumb,extract,url}:null;
   c[key]=data;saveWiki(c);
   return data;
  }catch(e){return null;}
 }
-function photoPlaceholder(photo,name){photo.innerHTML=`<div class="phpat"></div><div class="ph">📷</div><a class="gimg" target="_blank" rel="noopener" href="${gimgUrl(name)}">구글 이미지 보기 ›</a>`;}
+function photoPlaceholder(photo){photo.innerHTML=`<div class="phpat"></div><div class="ph">📷</div>`;}
 function buildDetail(it,info,sl){
  const name=it.name,desc=info.ko||it.desc||it.meta||"",s=it.s||0;
- const cat=it.liq?"🍷 와인·리쿼":(it.res?"🎟 예약 명소":(/공항|복귀|호텔 →|→ 리스본|→ 포르투/.test(name)?"📍 이동":"📍 가볼 곳"));
+ const cat=it.food?"🍴 먹거리":(it.liq?"🍷 와인·리쿼":(it.res?"🎟 예약 명소":(/공항|복귀|호텔 →|→ 리스본|→ 포르투/.test(name)?"📍 이동":"📍 가볼 곳")));
  document.getElementById("dcat").textContent=cat;
  document.getElementById("dtitle").textContent=name;
  document.getElementById("dstars").innerHTML=s?`${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span> <span style="font-size:12px;color:var(--muted);font-weight:400">추천도 ${s}/5</span>`:"";
@@ -611,13 +682,12 @@ function buildDetail(it,info,sl){
  const photo=document.getElementById("dphoto"),wiki=document.getElementById("dwiki");
  wiki.style.display="none";wiki.innerHTML="";
  photo.innerHTML=`<div class="phpat"></div><div class="dspin"></div>`;
- getWiki(sl,info.wk||it.m||name).then(w=>{
+ getWiki(sl,info.wk||it.w,info.kw).then(w=>{
   if(location.hash!=="#p/"+sl)return;
-  if(w&&w.thumb){
-   photo.innerHTML=`<img src="${w.thumb}" alt="${esc(name)}"><a class="credit" target="_blank" rel="noopener" href="${w.url||gimgUrl(name)}">© 위키백과</a>`;
-   if(w.extract){wiki.style.display="";wiki.innerHTML=esc(w.extract)+(w.url?`<a class="src" target="_blank" rel="noopener" href="${w.url}">위키백과(영문) 더 보기 ›</a>`:"");}
-  }else photoPlaceholder(photo,name);
- }).catch(()=>{if(location.hash==="#p/"+sl)photoPlaceholder(photo,name);});
+  if(w&&w.thumb)photo.innerHTML=`<img src="${w.thumb}" alt="${esc(name)}">`+(w.url?`<a class="credit" target="_blank" rel="noopener" href="${w.url}">© 위키백과</a>`:"");
+  else photoPlaceholder(photo);
+  if(w&&w.extract){wiki.style.display="";wiki.innerHTML=esc(w.extract)+(w.url?`<a class="src" target="_blank" rel="noopener" href="${w.url}">위키백과에서 더 보기 ›</a>`:"");}
+ }).catch(()=>{if(location.hash==="#p/"+sl)photoPlaceholder(photo);});
 }
 function openDetail(sl){
  const it=PLACEIDX[sl],d=document.getElementById("detail");
