@@ -137,9 +137,6 @@ body.dark .foodwrap{background:#221b13;border-color:#3a2f22}
 .foodcard .fcn{font-weight:800;font-size:13px}
 .foodcard .fcn::after{content:" ›";opacity:.45}
 .foodcard .fcd{display:block;font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.45}
-/* 구글후기 버튼 */
-.btn.grev{border-color:#cfe0f3;background:#F2F7FD;color:#1a73e8}
-body.dark .btn.grev{background:#13202e;border-color:#284057;color:#8ab4f8}
 /* 추천 1일 투어 */
 .tourwrap{margin-top:10px;background:#F1F6FC;border:1px solid var(--line);border-radius:12px;padding:10px 13px}
 body.dark .tourwrap{background:#141d28;border-color:#28384c}
@@ -560,7 +557,6 @@ function foodBlock(date){const fs=FOODS[date];if(!fs||!fs.length)return "";retur
 function tourBlock(date){const ts=TOURS[date];if(!ts||!ts.length)return "";return `<div class="tourwrap"><div class="tourhead">🎫 추천 1일 투어·패키지 <b>${ts.length}</b></div>${ts.map(t=>`<div class="tourcard"><div class="tctop"><span class="tcn">${esc(t.name)}</span><span class="tcp">${esc(t.price)}</span></div>${t.rec?`<div class="tcrec ${t.rec.c}"><b>${esc(t.rec.t)}</b>${esc(t.rec.why)}</div>`:""}<div class="tcd">${esc(t.desc)}</div><div class="tchips">${TOURP.map(pf=>`<a class="tchip" target="_blank" rel="noopener" href="${pf.u(t.q,t.kq)}">${pf.n} ↗</a>`).join("")}</div></div>`).join("")}<div class="tournote">🔴강력추천 = 투어가 확실히 나음 · 🔵개인추천 = 직접(렌터카·도보)이 나음 · ⚪선택 = 취향 · 같은 투어도 플랫폼마다 가격이 달라요</div></div>`;}
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
-const grevUrl=q=>"https://www.google.com/search?q="+encodeURIComponent(q+" 리뷰 평점");
 const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
 // 1일 투어 예약 플랫폼 검색(가격 비교)
 const TOURP=[
@@ -629,41 +625,41 @@ const PLACE_INFO={
 };
 // 지역별 재미있는 이야기·지리 이야기 (상세 페이지 표시) — key는 m
 const STORY={
-"Pastéis de Belém Lisbon":"제로니무스 수도원의 수녀·수도사들이 수도복을 빳빳하게 풀 먹이고 남은 달걀노른자로 타르트를 구운 게 시작이래요. 1837년부터 이어진 비법 레시피는 단 몇 명만 안다고 합니다.",
-"Jerónimos Monastery Lisbon":"건축비를 인도 항로 향신료 무역에서 거둔 '후추세'로 충당했어요. 바스쿠 다 가마가 인도로 떠나기 전 이 자리 예배당에서 밤새 기도했고, 지금은 그의 석관이 입구를 지킵니다.",
-"Belém Tower Lisbon":"원래는 테주강 한가운데 떠 있었지만 1755년 대지진 이후 강줄기가 바뀌며 지금은 강가에 붙었어요. 탑 한쪽엔 1515년 리스본에 들어온 인도 코뿔소를 새긴 유럽 최초의 코뿔소 석상이 숨어 있습니다.",
-"Praça do Comércio Lisbon":"1755년 대지진·쓰나미 전엔 이곳에 왕궁이 있었어요. 폐허가 된 도시를 폼발 후작이 격자형으로 재건하며 유럽 최초의 내진 설계 '폼발린' 건물이 들어섰습니다.",
-"Carmo Convent Lisbon":"1755년 만성절 미사 도중 대지진으로 지붕이 무너졌고, 그 모습을 일부러 복원하지 않고 그대로 두었어요. 하늘이 뻥 뚫린 폐허가 지진의 기억을 증언합니다.",
-"Cervejaria Ramiro Lisbon":"셰프 앤서니 부르댕이 방송에서 극찬한 뒤 세계적 성지가 됐어요. 새우를 손으로 까먹고 마지막엔 스테이크 샌드(프레구)로 마무리하는 게 '국룰'입니다.",
-"Miradouro das Portas do Sol Lisbon":"'태양의 문'이라는 이름처럼 동쪽 알파마 너머로 해가 떠요. 발밑의 알파마는 대지진에도 살아남은, 리스본에서 가장 오래된 무어인 골목 동네입니다.",
-"Pena Palace Sintra":"'미친 왕'으로 불린 페르난두 2세가 폐허 수도원 위에 동화 같은 궁을 올렸어요. 노랑·빨강·보라가 뒤섞인 이 성은 독일 노이슈반슈타인에도 영감을 줬다고 하죠. 바이런은 신트라를 '찬란한 에덴'이라 불렀습니다.",
-"Quinta da Regaleira Sintra":"프리메이슨·연금술·기사단 상징으로 가득한 정원이에요. 27m 깊이의 '입문의 우물'은 지하로 나선을 그리며 내려가는데, 탄생과 재생을 상징하는 입회 의식 장소였다고 전해집니다.",
-"Cabo da Roca":"시인 카몽이스가 '여기, 땅이 끝나고 바다가 시작된다'고 노래한 유라시아 대륙 최서단이에요. 위도·경도를 새긴 표지석과 등대가 절벽 끝에 서 있습니다.",
-"Rua de Santa Maria Funchal":"푼샬이라는 이름은 이 일대에 무성했던 회향(funcho)에서 왔어요. 마데이라는 통째로 화산섬이라 평지가 거의 없고, 콜럼버스도 한때 이 섬에 살며 설탕 무역을 했답니다.",
-"Cabo Girão Skywalk Madeira":"해발 580m로 유럽에서 가장 높은 해안 절벽 중 하나예요. 절벽 아래 바다와 맞닿은 작은 농경지 '파장(fajã)'은 길이 없어 예전엔 배로만 드나들었습니다.",
-"Câmara de Lobos Madeira":"처칠이 이젤을 펴고 그림을 그린 어촌이에요. 마을 이름의 '로부스(lobos)'는 바다표범을 뜻하는데, 발견 당시 이곳에 바다표범이 살았기 때문이라고 합니다.",
-"Porto Moniz natural pools":"용암이 바다에서 굳으며 만들어진 천연 수영장이에요. 파도는 막아주고 바닷물만 채워져, 자연이 만든 무료 인피니티 풀인 셈입니다.",
-"Pico do Arieiro":"마데이라에서 세 번째로 높은 봉우리(1,818m). 새벽엔 구름이 발아래 바다처럼 깔린 '운해' 위로 해가 떠올라, 비행기 없이 구름 위에 서는 기분을 줍니다.",
-"Monte Toboggan Run Funchal":"1850년대엔 몬테에서 푼샬까지 빠르게 내려가던 진짜 '교통수단'이었어요. 헤밍웨이가 인생에서 가장 짜릿한 경험 중 하나로 꼽았다는 일화가 전해집니다.",
-"Ponta de São Lourenço Madeira":"초록 가득한 마데이라에서 유일하게 나무 없이 붉고 황량한 화산 반도예요. 섬에서 가장 건조하고 바람이 센 동쪽 끝이라 풍경이 완전히 달라집니다.",
-"Blandy's Wine Lodge Funchal":"마데이라 와인은 18세기에 배로 적도를 건너다 더위에 '익으며' 오히려 맛이 깊어진다는 걸 발견했어요. 그래서 일부러 데워 숙성(estufagem)하죠. 미국 독립선언 축배도 마데이라로 들었답니다.",
-"Dom Luís I Bridge Porto":"에펠탑의 에펠이 아니라 그의 제자 테오필 세이리그가 설계했어요(에펠은 바로 옆 마리아 피아 철교 담당). 완공 당시 세계에서 가장 긴 철제 아치교였습니다.",
-"Port wine cellars Vila Nova de Gaia":"포트와인은 도루 계곡에서 빚지만 숙성·보관은 강 건너 시원한 가이아에서 해요. 영국 상인들이 무역을 주도해 콕번스·테일러스 같은 영국식 이름이 많습니다.",
-"Livraria Lello Porto":"J.K.롤링이 포르투에서 영어교사로 지내던 시절 자주 들렀다고 알려져 '해리포터 영감설'로 유명해졌어요(작가 본인은 부인). 붉은 곡선 계단이 마법학교 분위기를 냅니다.",
-"São Bento Station Porto":"2만 장이 넘는 아줄레주 타일로 포르투갈의 역사와 전투 장면을 벽에 그린 기차역이에요. 원래 이 자리엔 베네딕트회 수도원이 있었습니다.",
-"Porto Cathedral Sé":"도시 이름 '포르투(Portus Cale)'가 나라 이름 '포르투갈'의 어원이 됐어요. 언덕 위 대성당은 전쟁에 대비해 요새처럼 단단하게 지어졌습니다.",
-"Francesinha Porto":"1950년대 프랑스에서 돌아온 포르투 사람이 크로크무슈를 포르투식으로 변형해 만들었어요. 이름은 '작은 프랑스 소녀'라는 뜻입니다.",
-"Quinta do Bomfim Pinhão":"도루는 1756년 세계 최초로 경계가 지정된 와인 산지예요. 가파른 계단식 포도밭은 사람 손으로 일군 풍경이라 통째로 유네스코 세계유산입니다.",
-"Pinhão Douro river cruise":"핀얀역은 아줄레주로 포도 수확 장면을 그린 것으로 유명해요. 옛날엔 이 강에서 전통 배 '하벨루'로 포트와인 통을 포르투까지 실어 날랐습니다.",
-"Joanina Library Coimbra":"18세기 바로크 도서관인데, 책을 좀먹는 벌레를 잡으려 밤마다 박쥐를 풀어놓아요. 그래서 밤엔 책상에 가죽을 덮습니다. 코임브라 대학은 유럽에서 가장 오래된 대학 중 하나예요.",
-"Aveiro canals Portugal":"운하와 소금밭으로 '포르투갈의 베네치아'라 불려요. 알록달록한 배 '몰리세이루'는 원래 바다 해초를 건지던 작업선이었습니다.",
-"Costa Nova striped houses":"어부들이 안개 속에서도 자기 집을 찾으려고 벽을 빨강·파랑 줄무늬로 칠한 데서 시작됐다고 해요.",
-"Óbidos Portugal":"1282년 데니스 왕이 왕비 이자벨에게 결혼 선물로 통째로 준 마을이에요. 이후 600여 년간 포르투갈 왕비들의 '도시'로 이어졌고, 지금은 체리주 진자를 초콜릿 잔에 담아 마시는 곳으로 유명합니다.",
-"Time Out Market Lisbon":"130년 된 히베이라 시장 절반을, 잡지 '타임아웃'이 직접 고른 맛집들로 채운 곳이에요. '에디터가 추천한 것만 모은 시장'이라는 컨셉입니다.",
-"Fado ao Centro Coimbra":"리스본 파두가 여성·서민의 노래라면, 코임브라 파두는 검은 망토를 두른 남자 대학생들이 부르는 세레나데예요. 멋진 무대엔 박수 대신 헛기침으로 화답합니다.",
-"Clube de Fado Lisbon":"파두는 바다로 떠난 이를 향한 그리움 '사우다드'를 노래해요. 유네스코 무형문화유산이며, 12현 포르투갈 기타의 떨리는 소리가 특징입니다.",
-"Pico Ruivo trail Madeira":"마데이라 최고봉(1,862m). 아리에이루에서 이어지는 능선길은 좁은 바위 터널과 계단을 지나, 섬의 등뼈를 따라 걷는 듯한 코스예요.",
-"Seixal beach Madeira":"검은 화산 모래와 절벽에서 떨어지는 폭포가 어우러진 마데이라 북부의 숨은 해변이에요. 화산섬의 검은 모래가 인상적입니다."
+"Pastéis de Belém Lisbon":"제로니무스 수도원의 수도사·수녀들은 수도복과 식탁보를 빳빳하게 만들려고 달걀 흰자를 엄청 썼는데, 남아도는 노른자를 처리하려고 달콤한 커스터드 타르트를 굽기 시작했대요. 1834년 수도원이 문을 닫자 옆 사탕수수 정제소가 그 비법을 사들여 1837년부터 팔기 시작했죠. 지금도 원조 레시피는 '오피시나'라 불리는 비밀 주방에서 단 몇 명만 알고 만들고, 매일 2만 개 넘게 구워냅니다. 그래서 리스본 곳곳의 '파스텔 드 나타'와 달리 이 집만 '파스텔 드 벨렝'이라는 이름을 쓸 수 있어요.",
+"Jerónimos Monastery Lisbon":"대항해시대 향신료 무역으로 번 막대한 부를 쏟아부어 1501년부터 약 100년에 걸쳐 지은 마누엘 양식의 걸작이에요(유네스코). 테주강 어귀의 이 자리엔 원래 뱃사람들이 항해 안전을 빌던 작은 예배당이 있었고, 바스쿠 다 가마도 인도로 떠나기 전 이곳에서 밤을 보냈죠. 그래서 지금 그의 석관과 시인 카몽이스의 석관이 입구를 지킵니다. 건축비 상당 부분을 아프리카·인도 무역에 매긴 '후추세(5%)'로 충당했고, 돌기둥마다 밧줄·산호·닻 같은 바다 모티프를 새긴 게 특징이에요.",
+"Belém Tower Lisbon":"1515~1520년 테주강 어귀를 지키려 세운 요새이자, 인도·브라질로 떠나는 배들의 마지막 출항점이었어요. 원래는 강 가운데 모래톱 위에 서 있었지만 1755년 대지진과 오랜 세월 강줄기가 옮겨가며 지금은 강가에 붙어버렸죠. 탑 북서쪽 모서리엔 1515년 인도에서 보내온 코뿔소를 본떠 새긴 석상이 있는데, 유럽 미술 최초의 코뿔소 조각으로 꼽혀요(정작 그 코뿔소는 교황에게 선물로 가던 배가 난파해 죽었답니다). 무어풍 발코니와 십자가 방패 장식이 어우러진 마누엘 양식의 보석입니다.",
+"Praça do Comércio Lisbon":"테주강과 맞닿은 이 광장엔 약 200년간 왕이 살던 '히베이라 궁전'이 있었어요. 그런데 1755년 만성절 아침, 규모 8.5~9로 추정되는 대지진과 뒤이은 쓰나미·화재가 도시의 85%를 파괴하며 궁전도 사라졌죠. 계몽 정치가 폼발 후작은 폐허를 격자형 도로와 내진 목조 골조('가이올라') 건물로 재건했는데, 이게 유럽 최초의 근대 도시계획으로 꼽힙니다. 광장 한복판 주제 1세 기마상과 강으로 열린 노란 개선문이 그 부활을 상징해요.",
+"Carmo Convent Lisbon":"1389년 세운 고딕 수도원인데, 1755년 대지진 때 미사를 드리던 신자들 위로 지붕이 무너지며 비극의 현장이 됐어요. 사람들은 이를 재건하지 않고 뼈대만 남긴 채 보존해, 지금도 하늘이 그대로 보이는 '지붕 없는 성당'으로 그 재앙을 증언합니다. 바로 옆 산타 주스타 엘리베이터(에펠의 제자가 만든 1902년 철제 승강기)를 타면 이 폐허와 리스본 시내가 한눈에 들어와요.",
+"Cervejaria Ramiro Lisbon":"1956년 문을 연 리스본 대표 해산물집으로, 셰프 앤서니 부르댕이 방송에서 극찬한 뒤 전 세계 미식가의 성지가 됐어요. 마늘버터 새우, 거북손(페르세베스), 타이거새우, 게를 손으로 까먹다가 마지막엔 남은 버터에 스테이크 샌드 '프레구'로 마무리하는 게 이 집의 정석입니다. 웨이팅은 길어도 회전이 빨라요.",
+"Miradouro das Portas do Sol Lisbon":"'태양의 문'이라는 이름처럼 동향이라 아침 해가 알파마 지붕 위로 떠오르는 전망대예요. 발아래 알파마는 8세기 무어인 지배 시절의 미로 같은 골목이 거의 그대로 남은 리스본에서 가장 오래된 동네인데, 단단한 암반 위에 있어 1755년 대지진에도 무너지지 않았기 때문이죠. 노란 28번 트램이 이 가파른 언덕을 덜컹덜컹 오릅니다.",
+"Pena Palace Sintra":"독일 출신 '예술가 왕' 페르난두 2세가 1840년대에 폐허가 된 수도원 위로, 노랑·빨강·보라와 무어·고딕·마누엘 양식을 뒤섞은 낭만주의 궁전을 올렸어요. 신트라 산맥(약 500m)은 대서양의 습기가 부딪혀 자주 안개에 잠기는데, 그 안개 속에서 원색 궁전이 떠오르는 모습이 환상적이라 독일 노이슈반슈타인 성에도 영감을 줬다고 하죠. 시인 바이런은 이 일대를 '찬란한 에덴'이라 불렀고, 미세기후 덕에 정원엔 세계 각지의 이국적 식물이 자랍니다.",
+"Quinta da Regaleira Sintra":"20세기 초 백만장자 몬테이루가 신화·연금술·프리메이슨·기사단 상징으로 가득 채운 별장이에요. 핵심은 땅속으로 27m 나선을 그리며 내려가는 '입문의 우물'인데, 9층 계단은 단테 신곡의 지옥 9환을 본떴고 맨 아래엔 템플기사단 십자가가 새겨져 입회 의식 장소로 쓰였다고 전해집니다. 우물 바닥은 비밀 동굴·터널로 정원 곳곳과 은밀히 이어져요.",
+"Cabo da Roca":"유라시아 대륙의 가장 서쪽 끝(서경 9°30′)으로, 깎아지른 약 140m 절벽 아래로 대서양이 펼쳐집니다. 16세기 시인 카몽이스가 '여기, 땅이 끝나고 바다가 시작되는 곳'이라 노래했고, 그 문구를 새긴 십자가 표지석이 서 있어요. 대항해시대 이전 유럽인에겐 이곳이 말 그대로 '세상의 끝'이었습니다. 바람이 거세니 모자·겉옷을 꼭 챙기세요.",
+"Rua de Santa Maria Funchal":"마데이라는 약 500만 년 전 화산활동으로 솟은 대서양의 화산섬이라 평지가 거의 없고 산이 곧장 바다로 떨어져요. 섬 이름 'Madeira'는 포르투갈어로 '나무(숲)', 푼샬은 발견 당시 무성했던 회향(funcho)에서 따왔습니다. 콜럼버스도 젊은 시절 이 섬에서 설탕 무역을 하며 한때 살았죠. 구시가 산타 마리아 거리는 낡은 문짝마다 화가들이 그림을 그린 '열린 문 아트' 프로젝트로 유명해요.",
+"Cabo Girão Skywalk Madeira":"해발 580m로 유럽에서 가장 높은 해안 절벽 중 하나이고, 바닥이 유리로 된 스카이워크에 서면 발아래 바다가 그대로 보여요. 절벽 아래 바다와 맞닿은 좁은 농경지 '파장(fajã)'은 산사태로 흘러내린 흙이 쌓여 생긴 땅인데, 길이 없어 예전엔 배로만 드나들며 포도와 채소를 길렀습니다. 지금은 케이블카로 그 농지까지 내려갈 수 있어요.",
+"Câmara de Lobos Madeira":"마데이라에서 가장 먼저 사람이 정착한 알록달록한 어촌으로, 윈스턴 처칠이 1950년 이젤을 펴고 그림을 그린 곳으로 유명해요(그 자리에 기념 명판이 있습니다). 마을 이름 '로부스(lobos)'는 '바다표범'이라는 뜻인데, 발견 당시 항구에 몽크물범이 살았기 때문이죠. 사탕수수 증류주에 꿀·레몬을 섞은 마데이라 전통주 '폰차'를 한잔하기 딱 좋은 동네입니다.",
+"Porto Moniz natural pools":"마데이라 북서쪽 끝, 화산 용암이 바다로 흘러들며 굳어 만들어진 천연 수영장이에요. 검은 현무암이 거센 대서양 파도는 막아주고 맑은 바닷물만 채워줘서, 자연이 만든 무료 인피니티 풀에서 안전하게 수영할 수 있죠. 바위가 미끄러우니 아쿠아슈즈가 있으면 좋아요.",
+"Pico do Arieiro":"해발 1,818m로 마데이라에서 세 번째로 높은 봉우리이고, 차로 정상 근처까지 오를 수 있어요. 새벽엔 구름이 발아래 골짜기를 바다처럼 메우는 '운해' 위로 해가 떠올라, 비행기 없이 구름 위에 서는 듯한 풍경을 줍니다. 고지대라 여름에도 새벽 기온이 5℃ 안팎으로 뚝 떨어지니 방한이 필수예요. 옆 봉우리 피쿠 루이부(1,862m)까지 능선길이 이어집니다.",
+"Monte Toboggan Run Funchal":"고리버들로 엮은 2인용 썰매를 흰옷·밀짚모자 차림의 '카헤이루' 두 명이 밀고 달리며, 몬테에서 푼샬 쪽으로 약 2km 비탈을 미끄러져 내려가는 명물이에요. 1850년대엔 언덕 위 주민들이 시내로 빠르게 내려가던 진짜 교통수단이었고, 작가 어니스트 헤밍웨이가 '인생에서 가장 짜릿한 경험 중 하나'라고 했다는 일화로 유명합니다.",
+"Ponta de São Lourenço Madeira":"초록 월계수림(라우리실바)으로 덮인 마데이라에서 유일하게 나무 한 그루 없이 붉고 황량한 화산 반도예요. 섬에서 가장 동쪽이자 가장 건조하고 바람이 센 곳이라 식생이 완전히 달라, 마치 다른 행성에 온 듯한 풍경을 걷게 됩니다. 양옆으로 바다가 보이는 능선 왕복 약 8km 코스라 그늘이 없으니 물·모자·선크림 필수예요.",
+"Blandy's Wine Lodge Funchal":"마데이라 와인은 18세기에 인도·아메리카로 가는 배의 바닥짐으로 실려 적도의 뜨거운 열대를 두 번 건너는 동안 '익으면서' 오히려 풍미가 깊어진다는 걸 우연히 발견했어요. 그래서 지금도 일부러 와인을 데워 숙성시키는 '에스투파젱' 방식을 쓰고, 한 번 열어도 몇 달씩 안 상하는 게 특징이죠. 1776년 미국 독립선언을 축하하며 건국의 아버지들이 든 축배도 마데이라였습니다. 1811년 창업한 블랜디스는 그 역사를 보여주는 대표 와인 로지예요.",
+"Dom Luís I Bridge Porto":"도루강을 가로지르는 2층 철교로, 흔히 에펠이 지었다고 오해하지만 실제 설계자는 그의 제자 테오필 세이리그예요(에펠은 바로 위쪽 마리아 피아 철교를 지었죠). 1886년 완공 당시 172m로 세계에서 가장 긴 철제 아치교였습니다. 위층은 메트로·보행자, 아래층은 차도로 쓰이는데, 위층에서 보는 히베이라 구시가와 가이아 와인셀러, 강의 노을이 포르투 최고의 전망이에요.",
+"Port wine cellars Vila Nova de Gaia":"포트와인은 도루 계곡의 가파른 포도밭에서 빚지만, 숙성과 보관은 강 건너 빌라 노바 드 가이아의 서늘한 셀러에서 해요. 바다와 가까운 가이아가 내륙보다 시원하고 습해 와인을 천천히 익히기 좋기 때문이죠. 18세기 영국 상인들이 무역을 장악해 콕번스·테일러스·그라함스처럼 영국식 이름이 많고, 예전엔 전통 배 '하벨루'로 강 상류에서 와인 통을 실어 날랐습니다.",
+"Livraria Lello Porto":"1906년 문을 연 네오고딕·아르누보 서점으로, 핏빛 곡선 계단과 천장 스테인드글라스 때문에 '세계에서 가장 아름다운 서점'으로 꼽혀요. J.K.롤링이 포르투에서 영어교사로 일하던 1990년대 초 이 서점을 자주 찾았다고 알려져 해리포터의 마법 분위기에 영감을 줬다는 설이 유명하죠(작가 본인은 부인했어요). 너무 붐벼서 지금은 입장권을 사야 하지만, 책을 사면 그 값을 깎아줍니다.",
+"São Bento Station Porto":"1916년 문을 연 기차역인데, 대합실 벽이 약 2만 장의 파란 아줄레주 타일로 뒤덮여 포르투갈의 역사적 전투와 도루강 포도 수확 풍경을 그린 거대한 벽화 미술관이에요. 원래 이 자리엔 16세기 베네딕트회 수도원이 있어서 역 이름도 '상 벤투(성 베네딕토)'가 됐습니다.",
+"Porto Cathedral Sé":"12세기에 요새처럼 단단하게 지은 로마네스크 대성당으로, 도시가 무어인과 맞서던 시절의 방어 거점이기도 했어요. 도시 이름 '포르투(Portus Cale, 칼레 항구)'가 나라 이름 '포르투갈'의 어원이 됐을 만큼 이 언덕이 도시의 뿌리입니다. 성당 앞 광장에서 주황 지붕의 구시가와 도루강이 한눈에 내려다보여요.",
+"Francesinha Porto":"1950년대 프랑스에서 일하다 돌아온 포르투 사람이 프랑스식 크로크무슈를 포르투 입맛에 맞게 푸짐하게 바꿔 만든 음식이에요. 식빵 사이에 햄·소시지·스테이크를 겹겹이 넣고 치즈로 덮은 뒤, 맥주와 토마토로 끓인 비밀 소스를 듬뿍 부어 칼·포크로 먹죠. 이름은 '작은 프랑스 소녀'라는 뜻으로, '프랑스 것보다 더 화끈하다'는 농담이 담겼습니다.",
+"Quinta do Bomfim Pinhão":"도루 계곡은 1756년 폼발 후작이 세계 최초로 경계를 법으로 정한 와인 산지예요(원산지 통제의 원조). 편암 비탈을 사람 손으로 깎아 만든 수천 개의 계단식 포도밭은 2,000년 넘게 이어진 풍경이라 통째로 유네스코 세계유산이고, 여름엔 40℃까지 오르는 더위 속에서 진한 포트와인 포도가 익습니다. 봄핑은 핀얀 강가의 명가 와이너리예요.",
+"Pinhão Douro river cruise":"핀얀 기차역은 플랫폼 벽을 아줄레주로 장식해 도루의 포도 수확 장면을 그린 것으로 유명해요. 옛날엔 가파른 산길 대신 도루강에 평저선 '하벨루'를 띄워 포트와인 통을 포르투까지 실어 날랐는데, 지금은 그 배를 본떠 만든 유람선으로 계단식 포도밭 협곡을 감상합니다.",
+"Joanina Library Coimbra":"1717~1728년 주앙 5세가 브라질 금광의 부로 지은 코임브라 대학의 바로크 도서관이에요. 금박과 이국적 목재로 화려하게 꾸민 서가엔 18세기 장서 약 6만 권이 있는데, 책을 좀먹는 벌레를 잡으려고 지금도 밤마다 작은 박쥐를 풀어 천적 노릇을 시킵니다. 그래서 매일 밤 책상에 가죽 덮개를 씌워 박쥐 배설물을 막아요. 코임브라 대학은 1290년 설립된 유럽에서 가장 오래된 대학 중 하나입니다.",
+"Aveiro canals Portugal":"석호와 운하가 도시를 가로질러 '포르투갈의 베네치아'라 불리고, 빨강·노랑 줄무늬의 곤돌라 같은 배 '몰리세이루'가 운하를 누벼요. 이 배는 원래 석호 바닥의 해초를 건져 비료로 쓰던 작업선이었습니다. 인근 염전에서 나는 천일염과, 달걀노른자로 만든 조개·생선 모양 단과자 '오부스 몰레스'가 명물이에요.",
+"Costa Nova striped houses":"아베이루 옆 대서양 사구 위에 선 어촌으로, 집집마다 벽을 빨강·파랑·초록 줄무늬(팔례이루)로 칠한 것으로 유명해요. 안개가 잦은 바닷가에서 어부들이 멀리서도 자기 창고와 집을 한눈에 알아보려고 칠하기 시작했다는 이야기가 전해집니다.",
+"Óbidos Portugal":"성벽이 마을 전체를 감싼 중세 도시로, 1282년 데니스 왕이 왕비 이자벨에게 결혼 선물로 통째로 선물한 뒤 1834년까지 약 550년간 포르투갈 왕비들의 사유지였어요. 그래서 '왕비의 마을'로 불립니다. 좁은 골목엔 체리를 담가 만든 술 '진자(ginja)'를 작은 초콜릿 잔에 따라주는 가게가 늘어서 있는데, 마시고 잔까지 먹는 재미가 있어요.",
+"Time Out Market Lisbon":"130년 넘은 히베이라 시장의 절반을, 잡지 '타임아웃'의 에디터들이 직접 맛보고 고른 리스본 인기 셰프·맛집 수십 곳으로 채운 푸드홀이에요. 2014년 문을 연 뒤 세계 곳곳에 같은 컨셉이 퍼진 '큐레이션 푸드코트'의 원조죠. 출국 전 여러 가지를 한자리에서 맛보기 좋습니다.",
+"Fado ao Centro Coimbra":"리스본 파두가 여성과 서민이 부르는 애잔한 노래라면, 코임브라 파두는 검은 망토를 두른 남자 대학생들이 사랑하는 이에게 바치는 세레나데예요. 19세기 대학 문화에서 나왔고, 멋진 연주엔 박수 대신 헛기침('흠흠')으로 화답하는 독특한 예절이 있습니다.",
+"Clube de Fado Lisbon":"파두는 바다로 떠난 이를 향한 그리움과 운명에 대한 체념, 곧 번역하기 힘든 정서 '사우다드'를 노래해요. 19세기 리스본의 항구·뒷골목에서 태어났고, 12현 '포르투갈 기타'의 떨리는 금속성 음색이 특징이며, 2011년 유네스코 인류무형문화유산에 등재됐습니다.",
+"Pico Ruivo trail Madeira":"마데이라 최고봉(1,862m)으로 차로는 닿을 수 없고 오직 걸어서만 오를 수 있어요. 피쿠 두 아리에이루에서 이어지는 능선길(PR1)은 바위를 깎은 계단과 터널을 지나 섬의 등뼈를 따라 걷는 코스로, 운이 좋으면 구름을 뚫고 솟은 봉우리들 사이를 걷게 됩니다.",
+"Seixal beach Madeira":"마데이라 북부의 검은 화산 모래 해변과 초록 절벽, 그 절벽에서 바다로 곧장 떨어지는 폭포가 어우러진 풍경이 인상적인 마을이에요. 화산섬이라 모래가 검고, 근처엔 용암이 만든 천연 수영장도 있습니다."
 };
 const starHtml=s=>s?`<div class="stars">${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span></div>`:"";
 document.getElementById("flights").innerHTML=flights.map(f=>`<div class="info"><div class="top"><span class="route">${f.route}</span><span class="when">${f.when}</span></div><div class="sub">${f.sub}</div></div>`).join("");
@@ -673,7 +669,7 @@ function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace
 function render(){
  document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}${i===TODAY?" today":""}">
  <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}${i===TODAY?'<span class="todaytag">오늘</span>':''}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
- <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.m?`<a class="btn grev" target="_blank" rel="noopener" href="${grevUrl(it.m)}">⭐ 구글</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}${foodBlock(d.date)}${tourBlock(d.date)}
+ <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}${foodBlock(d.date)}${tourBlock(d.date)}
  <div class="add-row"><button class="add-btn" onclick="add(${i})">+ 일정 추가</button></div></div></div>`).join("");
 }
 function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
@@ -847,7 +843,6 @@ function buildDetail(it,info,sl){
  if(it.tip){tipEl.style.display="";tipEl.className="dtip"+(/⚠|필수|휴무/.test(it.tip)?" warn":"");tipEl.innerHTML="<b>💡 팁</b> "+esc(it.tip);}else tipEl.style.display="none";
  const acts=[];
  if(it.m)acts.push(`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`);
- if(it.m)acts.push(`<a class="btn grev" target="_blank" rel="noopener" href="${grevUrl(it.m)}">⭐ 구글후기</a>`);
  if(it.n)acts.push(`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 네이버후기</a>`);
  if(it.b)acts.push(`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`);
  document.getElementById("dacts").innerHTML=acts.join("");

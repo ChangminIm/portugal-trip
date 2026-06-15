@@ -1,5 +1,5 @@
 // 포르투갈 여행 일정 · 오프라인 캐시
-const CACHE = "pt-trip-v7";
+const CACHE = "pt-trip-v8";
 const IMGCACHE = "pt-img-v1";
 const ASSETS = [
   "./",
