@@ -147,8 +147,15 @@ body.dark .tourwrap{background:#141d28;border-color:#28384c}
 .tourhead b{background:var(--azulejo-2);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;margin-left:3px}
 .tourcard{padding:9px 0;border-bottom:1px dashed var(--line)}
 .tourcard:last-of-type{border-bottom:0}
-.tcn{font-weight:800;font-size:13px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.tctop{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.tcn{font-weight:800;font-size:13px;flex:1}
 .tcp{flex:none;font-size:11.5px;font-weight:800;color:var(--terra);white-space:nowrap}
+.tcrec{font-size:11.5px;margin:5px 0 6px;line-height:1.5;color:var(--ink)}
+.tcrec b{display:inline-block;font-weight:800;font-size:10.5px;color:#fff;padding:1px 7px;border-radius:999px;margin-right:6px}
+.tcrec.s b{background:#C8532B}
+.tcrec.g b{background:#2C7A45}
+.tcrec.o b{background:#8a93a0}
+.tcrec.d b{background:#1E5DA8}
 .tcd{font-size:11.5px;color:var(--muted);margin:3px 0 7px;line-height:1.45}
 .tchips{display:flex;flex-wrap:wrap;gap:6px}
 .tchip{font-size:11px;font-weight:700;text-decoration:none;color:var(--azulejo);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:4px 8px}
@@ -510,33 +517,33 @@ const FOODS={
 // 날짜별 추천 1일 투어/패키지 — q:영문검색(GYG/Viator/Klook), kq:한국어(마이리얼트립)
 const TOURS={
 "7/2":[
- {name:"리스본 시티 하이라이트 + 파두 디너쇼",desc:"벨렝·알파마 관광 + 정통 파두 공연·저녁식사",price:"€45~80",q:"Lisbon city tour with Fado dinner show",kq:"리스본 파두 디너 투어"},
- {name:"투크투크 알파마·구시가 투어",desc:"좁은 골목·전망대를 투크투크로 2~3시간",price:"€25~45",q:"Lisbon tuk tuk Alfama old town tour",kq:"리스본 투크투크 투어"}],
+ {name:"리스본 시티 하이라이트 + 파두 디너쇼",desc:"벨렝·알파마 관광 + 정통 파두 공연·저녁식사",price:"€45~80",rec:{t:"선택",c:"o",why:"리스본은 도보·트램으로 개인도 충분 · 파두만 따로 예약해도 OK"},q:"Lisbon city tour with Fado dinner show",kq:"리스본 파두 디너 투어"},
+ {name:"투크투크 알파마·구시가 투어",desc:"좁은 골목·전망대를 투크투크로 2~3시간",price:"€25~45",rec:{t:"선택",c:"o",why:"재미 요소 · 필수는 아니에요"},q:"Lisbon tuk tuk Alfama old town tour",kq:"리스본 투크투크 투어"}],
 "7/3":[
- {name:"신트라+카보 다 로카+카스카이스 1일투어",desc:"리스본 출발 · 페나성·헤갈레이라·대륙 최서단(입장료 별도)",price:"€60~95",q:"Sintra Cabo da Roca Cascais full day tour from Lisbon",kq:"신트라 카보다로카 카스카이스 투어"},
- {name:"신트라 페나성 우선입장 + 가이드",desc:"줄 안 서는 스킵더라인 입장 + 해설",price:"€40~70",q:"Sintra Pena Palace skip the line guided tour",kq:"신트라 페나성 가이드 투어"}],
+ {name:"신트라+카보 다 로카+카스카이스 1일투어",desc:"리스본 출발 · 페나성·헤갈레이라·대륙 최서단(입장료 별도)",price:"€60~95",rec:{t:"추천",c:"g",why:"신트라는 버스 혼잡·동선 복잡 → 투어가 편함 (기차로 개인도 가능)"},q:"Sintra Cabo da Roca Cascais full day tour from Lisbon",kq:"신트라 카보다로카 카스카이스 투어"},
+ {name:"신트라 페나성 우선입장 + 가이드",desc:"줄 안 서는 스킵더라인 입장 + 해설",price:"€40~70",rec:{t:"강력추천",c:"s",why:"7월 성수기엔 매진·줄이 길어 우선입장 가치가 큼"},q:"Sintra Pena Palace skip the line guided tour",kq:"신트라 페나성 가이드 투어"}],
 "7/4":[
- {name:"푼샬 시티 + 마데이라 와인 시음",desc:"구시가·몬테 + 와인 로지 시음",price:"€30~60",q:"Funchal city tour Madeira wine tasting",kq:"푼샬 시티 투어"}],
+ {name:"푼샬 시티 + 마데이라 와인 시음",desc:"구시가·몬테 + 와인 로지 시음",price:"€30~60",rec:{t:"개인추천",c:"d",why:"렌터카가 있으니 직접 도는 게 자유롭고 저렴 (와인 시음만 따로)"},q:"Funchal city tour Madeira wine tasting",kq:"푼샬 시티 투어"}],
 "7/5":[
- {name:"마데이라 서부 1일 투어 (4x4)",desc:"카보 지라오·포르투 모니즈·상 비센트 절경",price:"€45~75",q:"Madeira west full day tour Cabo Girão Porto Moniz",kq:"마데이라 서부 일일투어"}],
+ {name:"마데이라 서부 1일 투어 (4x4)",desc:"카보 지라오·포르투 모니즈·상 비센트 절경",price:"€45~75",rec:{t:"개인추천",c:"d",why:"렌터카로 직접 드라이브가 최고 (절경 해안도로) · 운전 부담 시 투어"},q:"Madeira west full day tour Cabo Girão Porto Moniz",kq:"마데이라 서부 일일투어"}],
 "7/6":[
- {name:"피쿠 두 아리에이루 일출 지프 투어",desc:"새벽 픽업 · 구름 위 일출(방한 필수)",price:"€45~70",q:"Madeira Pico do Arieiro sunrise jeep tour",kq:"마데이라 피쿠 아리에이루 일출 투어"},
- {name:"몬테 정원 + 토보간 + 와인 투어",desc:"열대정원·전통 썰매·와인 시음 묶음",price:"€40~65",q:"Madeira Monte garden toboggan wine tour",kq:"마데이라 몬테 투어"}],
+ {name:"피쿠 두 아리에이루 일출 지프 투어",desc:"새벽 픽업 · 구름 위 일출(방한 필수)",price:"€45~70",rec:{t:"선택",c:"o",why:"렌터카로 직접 가능 · 새벽 운전·주차·졸음 부담되면 투어가 안전"},q:"Madeira Pico do Arieiro sunrise jeep tour",kq:"마데이라 피쿠 아리에이루 일출 투어"},
+ {name:"몬테 정원 + 토보간 + 와인 투어",desc:"열대정원·전통 썰매·와인 시음 묶음",price:"€40~65",rec:{t:"개인추천",c:"d",why:"푼샬 도심 근처라 케이블카+개별로 충분"},q:"Madeira Monte garden toboggan wine tour",kq:"마데이라 몬테 투어"}],
 "7/7":[
- {name:"레바다 25 폰테스 가이드 워킹투어",desc:"수로길 트레킹 · 픽업·가이드 동행",price:"€35~55",q:"Madeira Levada 25 Fontes guided walk tour",kq:"마데이라 레바다 25폰테스 트레킹"},
- {name:"마데이라 동부 + 상 로렌수 투어",desc:"산타나 전통가옥·화산 반도 트레킹",price:"€45~70",q:"Madeira east Santana Ponta de São Lourenço tour",kq:"마데이라 동부 투어"}],
+ {name:"레바다 25 폰테스 가이드 워킹투어",desc:"수로길 트레킹 · 픽업·가이드 동행",price:"€35~55",rec:{t:"강력추천",c:"s",why:"편도 코스·주차/셔틀이 복잡 → 픽업+가이드가 훨씬 편하고 안전"},q:"Madeira Levada 25 Fontes guided walk tour",kq:"마데이라 레바다 25폰테스 트레킹"},
+ {name:"마데이라 동부 + 상 로렌수 투어",desc:"산타나 전통가옥·화산 반도 트레킹",price:"€45~70",rec:{t:"개인추천",c:"d",why:"렌터카로 직접 가능 · 트레킹만 즐기면 됨"},q:"Madeira east Santana Ponta de São Lourenço tour",kq:"마데이라 동부 투어"}],
 "7/8":[
- {name:"도루강 6다리 크루즈",desc:"포르투·가이아 6개 다리 50분~1시간 보트",price:"€15~25",q:"Porto six bridges Douro river cruise",kq:"포르투 6다리 크루즈"},
- {name:"가이아 포트와인 셀러 투어 + 시음",desc:"콕번스/테일러스 등 셀러 투어·시음",price:"€20~45",q:"Vila Nova de Gaia port wine cellar tour tasting",kq:"가이아 포트와인 셀러 투어"}],
+ {name:"도루강 6다리 크루즈",desc:"포르투·가이아 6개 다리 50분~1시간 보트",price:"€15~25",rec:{t:"추천",c:"g",why:"어차피 타볼 활동 · 미리 예약하면 대기 줄여요"},q:"Porto six bridges Douro river cruise",kq:"포르투 6다리 크루즈"},
+ {name:"가이아 포트와인 셀러 투어 + 시음",desc:"콕번스/테일러스 등 셀러 투어·시음",price:"€20~45",rec:{t:"개인추천",c:"d",why:"셀러 공식 홈페이지에서 직접 예약이 더 저렴·자유로움"},q:"Vila Nova de Gaia port wine cellar tour tasting",kq:"가이아 포트와인 셀러 투어"}],
 "7/9":[
- {name:"포르투 워킹투어 + 렐루 서점",desc:"구시가 도보 해설 + 렐루 서점 입장",price:"€20~40",q:"Porto walking tour with Livraria Lello",kq:"포르투 워킹투어 렐루서점"}],
+ {name:"포르투 워킹투어 + 렐루 서점",desc:"구시가 도보 해설 + 렐루 서점 입장",price:"€20~40",rec:{t:"선택",c:"o",why:"렐루는 입장권만 따로 사도 됨 · 해설 원하면 워킹투어"},q:"Porto walking tour with Livraria Lello",kq:"포르투 워킹투어 렐루서점"}],
 "7/10":[
- {name:"도루 밸리 와이너리 2곳 + 점심 + 크루즈",desc:"포르투 출발 1일투어 · 시음·강 크루즈 포함(가장 인기)",price:"€90~135",q:"Douro Valley tour two wineries lunch boat cruise from Porto",kq:"도루밸리 와이너리 일일투어 포르투"}],
+ {name:"도루 밸리 와이너리 2곳 + 점심 + 크루즈",desc:"포르투 출발 1일투어 · 시음·강 크루즈 포함(가장 인기)",price:"€90~135",rec:{t:"강력추천",c:"s",why:"시음하면 운전 불가 + 포르투엔 차가 없어요 → 투어가 사실상 최선 (일정에도 권장)"},q:"Douro Valley tour two wineries lunch boat cruise from Porto",kq:"도루밸리 와이너리 일일투어 포르투"}],
 "7/11":[
- {name:"아베이루 + 코스타노바 (포르투 출발)",desc:"운하 몰리세이루·줄무늬집 반나절~1일",price:"€40~70",q:"Aveiro Costa Nova tour from Porto",kq:"아베이루 코스타노바 투어"},
- {name:"코임브라 대학·조아니나 도서관 가이드",desc:"유네스코 대학·바로크 도서관 해설",price:"€15~35",q:"Coimbra University Joanina Library guided tour",kq:"코임브라 대학 투어"}],
+ {name:"아베이루 + 코스타노바 (포르투 출발)",desc:"운하 몰리세이루·줄무늬집 반나절~1일",price:"€40~70",rec:{t:"추천",c:"g",why:"차가 없으면 투어/기차가 편함 · 렌터카면 개인도 OK"},q:"Aveiro Costa Nova tour from Porto",kq:"아베이루 코스타노바 투어"},
+ {name:"코임브라 대학·조아니나 도서관 가이드",desc:"유네스코 대학·바로크 도서관 해설",price:"€15~35",rec:{t:"선택",c:"o",why:"개별 입장권으로도 충분 · 역사 해설 원하면 가이드"},q:"Coimbra University Joanina Library guided tour",kq:"코임브라 대학 투어"}],
 "7/12":[
- {name:"오비두스+나자레+파티마 1일투어",desc:"리스본 출발 · 성벽마을·대서양 파도·성지",price:"€55~85",q:"Óbidos Nazaré Fátima day tour from Lisbon",kq:"오비두스 나자레 파티마 투어"}]
+ {name:"오비두스+나자레+파티마 1일투어",desc:"리스본 출발 · 성벽마을·대서양 파도·성지",price:"€55~85",rec:{t:"선택",c:"o",why:"렌터카면 오비두스는 개인 동선 · 나자레까지 더 보려면 투어"},q:"Óbidos Nazaré Fátima day tour from Lisbon",kq:"오비두스 나자레 파티마 투어"}]
 };
 const KEY="pt_itin_v1";
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DAYS));}
@@ -550,10 +557,10 @@ const open=new Set([TODAY>=0?TODAY:0]);
 const routeUrl=places=>"https://www.google.com/maps/dir/"+places.map(p=>encodeURIComponent(p)).join("/");
 function routeBtn(d){const ps=d.items.filter(it=>it.m).map(it=>it.m);if(ps.length<2)return "";return `<div class="dayroute"><a class="btn route" target="_blank" rel="noopener" href="${routeUrl(ps)}">🗺 하루 동선 한눈에 (${ps.length}곳)</a></div>`;}
 function foodBlock(date){const fs=FOODS[date];if(!fs||!fs.length)return "";return `<div class="foodwrap"><div class="foodhead">🍴 이 근처 먹거리 <b>${fs.length}</b></div>${fs.map(f=>`<a class="foodcard" href="#p/${slug(f.m)}"><span class="fcn">${esc(f.name)}</span><span class="fcd">${esc(f.desc)}</span></a>`).join("")}</div>`;}
-function tourBlock(date){const ts=TOURS[date];if(!ts||!ts.length)return "";return `<div class="tourwrap"><div class="tourhead">🎫 추천 1일 투어·패키지 <b>${ts.length}</b></div>${ts.map(t=>`<div class="tourcard"><div class="tcn">${esc(t.name)}<span class="tcp">${esc(t.price)}</span></div><div class="tcd">${esc(t.desc)}</div><div class="tchips">${TOURP.map(pf=>`<a class="tchip" target="_blank" rel="noopener" href="${pf.u(t.q,t.kq)}">${pf.n} ↗</a>`).join("")}</div></div>`).join("")}<div class="tournote">※ 같은 투어도 플랫폼마다 가격이 달라요 — 눌러서 비교하세요</div></div>`;}
+function tourBlock(date){const ts=TOURS[date];if(!ts||!ts.length)return "";return `<div class="tourwrap"><div class="tourhead">🎫 추천 1일 투어·패키지 <b>${ts.length}</b></div>${ts.map(t=>`<div class="tourcard"><div class="tctop"><span class="tcn">${esc(t.name)}</span><span class="tcp">${esc(t.price)}</span></div>${t.rec?`<div class="tcrec ${t.rec.c}"><b>${esc(t.rec.t)}</b>${esc(t.rec.why)}</div>`:""}<div class="tcd">${esc(t.desc)}</div><div class="tchips">${TOURP.map(pf=>`<a class="tchip" target="_blank" rel="noopener" href="${pf.u(t.q,t.kq)}">${pf.n} ↗</a>`).join("")}</div></div>`).join("")}<div class="tournote">🔴강력추천 = 투어가 확실히 나음 · 🔵개인추천 = 직접(렌터카·도보)이 나음 · ⚪선택 = 취향 · 같은 투어도 플랫폼마다 가격이 달라요</div></div>`;}
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
-const grevUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+const grevUrl=q=>"https://www.google.com/search?q="+encodeURIComponent(q+" 리뷰 평점");
 const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
 // 1일 투어 예약 플랫폼 검색(가격 비교)
 const TOURP=[
