@@ -4,12 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026년 포르투갈 여행</title>
+<meta name="theme-color" content="#16467F">
+<meta name="description" content="2026.7.1–7.13 포르투갈(리스본·마데이라·포르투) 여행 일정">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="포르투갈 여행">
 <style>
 @font-face{font-family:'NanumSquare';src:url('fonts/NanumSquareR.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'NanumSquare';src:url('fonts/NanumSquareB.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:'NanumSquare';src:url('fonts/NanumSquareEB.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
 :root{--ink:#1d2630;--muted:#6b7682;--paper:#FBFAF7;--azulejo:#16467F;--azulejo-2:#1E5DA8;
---tint:#E9F0FA;--terra:#C8532B;--port:#8A2433;--gold:#B07A1E;--line:#E6E1D6;--star:#E0A92E}
+--tint:#E9F0FA;--terra:#C8532B;--port:#8A2433;--gold:#B07A1E;--line:#E6E1D6;--star:#E0A92E;--card:#fff}
+body.dark{--ink:#e7eaee;--muted:#94a0ab;--paper:#13171c;--card:#1b2026;--tint:#1d2a3a;--line:#2b333d}
+body.dark .btn.map{background:#16202c;border-color:#284057}
+body.dark .btn.rev{background:#241f15}
+body.dark .btn.book{background:#2a1b1f}
+body.dark .conv input{background:#11151a}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'NanumSquare',system-ui,'Apple SD Gothic Neo',sans-serif;color:var(--ink);background:var(--paper);line-height:1.5;padding-bottom:60px}
 .wrap{max-width:680px;margin:0 auto;padding:0 16px}
@@ -24,7 +37,7 @@ section{margin-top:22px}
 .h-label{font-family:'NanumSquare',sans-serif;font-size:19px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .h-label .tick{width:18px;height:3px;background:var(--terra);border-radius:2px;display:inline-block}
 .grid{display:grid;gap:8px}
-.info{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px}
+.info{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px}
 .info .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .info .route{font-weight:600}.info .when{color:var(--muted);font-size:12px;white-space:nowrap}
 .info .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
@@ -33,7 +46,7 @@ section{margin-top:22px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:4px}
 .legend span{display:inline-flex;align-items:center;gap:5px}
 .dot{width:9px;height:9px;border-radius:3px;display:inline-block}
-.day{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+.day{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
 .day-head{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;width:100%;text-align:left;background:none;border:0;font:inherit;color:inherit}
 .date-badge{flex:none;width:52px;text-align:center}
 .date-badge .d{font-family:'NanumSquare',sans-serif;font-size:21px;font-weight:600;line-height:1;color:var(--azulejo)}
@@ -59,7 +72,7 @@ section{margin-top:22px}
 .it .desc{font-size:13px;color:#384450;margin-top:3px}
 .it .tip{font-size:12px;color:var(--muted);margin-top:3px}.it .tip.warn{color:#B5402C}
 .acts{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;align-items:center}
-.btn{font-size:12px;font-weight:600;text-decoration:none;padding:5px 11px;border-radius:9px;border:1px solid var(--line);color:var(--azulejo);background:#fff;display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+.btn{font-size:12px;font-weight:600;text-decoration:none;padding:5px 11px;border-radius:9px;border:1px solid var(--line);color:var(--azulejo);background:var(--card);display:inline-flex;align-items:center;gap:4px;cursor:pointer}
 .btn.map{border-color:#cfe0f3;background:#F2F7FD}
 .btn.rev{border-color:#e3d9c4;background:#FBF7EE;color:var(--gold)}
 .btn.book{border-color:#e7c7cb;background:#FBEEF0;color:var(--port)}
@@ -69,7 +82,7 @@ body.edit .rm{display:inline-flex}
 .add-row{display:none;margin-top:10px}
 body.edit .add-row{display:block}
 .add-btn{width:100%;border:1px dashed #b9c6d6;background:#F4F8FD;color:var(--azulejo-2);border-radius:10px;padding:9px;font-weight:600;font-size:13px;cursor:pointer}
-.fcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .fcard .fn{font-weight:600;font-size:14px}.fcard .fm{font-size:12.5px;color:var(--muted);margin:3px 0 8px}
 .sec-toggle{width:100%;background:none;border:0;cursor:pointer;font:inherit;color:inherit;display:flex;align-items:center;gap:8px;font-family:'NanumSquare',sans-serif;font-size:19px;font-weight:600;margin-bottom:0}
 .sec-toggle .tick{width:18px;height:3px;background:var(--terra);border-radius:2px;display:inline-block}
@@ -80,21 +93,84 @@ body.edit .add-row{display:block}
 .rdate{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--azulejo);border-radius:6px;padding:1px 7px;margin-right:6px;font-variant-numeric:tabular-nums}
 .tools{display:flex;justify-content:flex-end;gap:8px;align-items:center;margin:2px 0 12px;flex-wrap:wrap}
 .tools .lbl{margin-right:auto;font-size:12px;color:var(--muted)}
-.tbtn{font-size:12.5px;font-weight:600;color:var(--azulejo);background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 12px;cursor:pointer}
+.tbtn{font-size:12.5px;font-weight:600;color:var(--azulejo);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:6px 12px;cursor:pointer}
 .tbtn.on{background:var(--azulejo);color:#fff;border-color:var(--azulejo)}
 .reset{display:none;color:#c0392b;border-color:#e6c4c0}
 body.edit .reset{display:inline-block}
 footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center;line-height:1.7}
-@media(max-width:380px){.hero h1{font-size:29px}.it .time{width:46px}}
+/* 상단 컨트롤(다크/인쇄) */
+.topbar{position:absolute;top:12px;right:14px;display:flex;gap:6px;z-index:5}
+.iconbtn{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.14);color:#fff;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.iconbtn:active{transform:scale(.94)}
+/* D-Day 배지 */
+.dday{display:inline-block;margin-left:8px;background:var(--star);color:#3a2a00;font-weight:800;letter-spacing:0;padding:1px 9px;border-radius:999px;text-transform:none;font-size:11.5px;vertical-align:middle}
+/* 시계 */
+.clocks{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}
+.clock{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:11px;padding:7px 12px;font-size:11.5px;color:#cfe0f3;min-width:118px}
+.clock b{display:block;color:#fff;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:1px;letter-spacing:.5px}
+.clock .cd{font-size:11px;color:#bcd4f0}
+/* 날씨·환율 */
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px}
+.wcard .wc{font-weight:700;font-size:13.5px}
+.wcard .wt{color:var(--muted);font-size:12.5px;margin-top:3px}
+.wcard .wt b{color:var(--terra);font-weight:700}
+.conv{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:8px}
+.conv .cv-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.conv input{font:inherit;font-size:15px;font-weight:800;border:1px solid var(--line);border-radius:9px;padding:7px 10px;width:108px;background:var(--paper);color:var(--ink);text-align:right}
+.conv .eq{font-weight:800;color:var(--azulejo-2);font-size:15px}
+.conv .won{font-weight:800;font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums}
+.conv .rate{font-size:11.5px;color:var(--muted);margin-top:9px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.conv .rate input{width:80px;font-size:12.5px;padding:4px 7px;font-weight:700}
+/* 오늘 강조 */
+.day.today{border-color:var(--terra);box-shadow:0 0 0 2px rgba(200,83,43,.18)}
+.day.today .date-badge .d{color:var(--terra)}
+.todaytag{font-size:10px;font-weight:800;color:#fff;background:var(--terra);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+/* 하루 동선 버튼 */
+.btn.route{border-color:#cdbfe0;background:#F3EFFA;color:#5b3ea8}
+body.dark .btn.route{background:#1f1b2b}
+.dayroute{margin:9px 0 2px}
+/* 예약 진행률 + 체크 */
+.prog{margin:2px 0 12px}
+.prog .bar{height:9px;background:var(--line);border-radius:999px;overflow:hidden}
+.prog .fill{height:100%;background:linear-gradient(90deg,var(--azulejo-2),var(--star));border-radius:999px;transition:width .35s}
+.prog .lbl{font-size:12.5px;color:var(--muted);margin-top:6px;font-weight:700}
+.fcard .fhead{display:flex;align-items:flex-start;gap:9px}
+.fcard .fhead .fn{flex:1}
+.chk{flex:none;width:23px;height:23px;border-radius:7px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:14px;color:transparent;padding:0;margin-top:1px}
+.chk.on{background:#2C7A45;border-color:#2C7A45;color:#fff}
+.fcard.done{opacity:.55}
+/* 설치 안내 배너 */
+.install{display:none;align-items:center;gap:10px;background:var(--tint);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:14px;font-size:12.5px;color:var(--ink)}
+.install.show{display:flex}
+.install button{margin-left:auto;flex:none;white-space:nowrap;font:inherit;font-size:12.5px;font-weight:700;background:var(--azulejo);color:#fff;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
+@media(max-width:380px){.hero h1{font-size:29px}.it .time{width:46px}.clock{min-width:108px}}
+@media print{
+ .topbar,.tools,.add-row,.rm,.clocks,.sechev,.chev,.install,.dayroute,.editnote{display:none!important}
+ .day-body,.sec-body{display:block!important}
+ .day,.info,.fcard,.wcard,.conv{break-inside:avoid;box-shadow:none!important}
+ .hero,body.dark .hero{background:#fff}
+ .hero .eyebrow,.hero h1,.hero .meta,.hero .meta b{color:#000}
+ .hero::after{display:none}
+ body,body.dark{background:#fff;padding:0;--ink:#000;--card:#fff}
+}
 </style>
 </head>
 <body>
 <header class="hero"><div class="wrap">
-<div class="eyebrow">Portugal · 13 Days</div>
+<div class="topbar"><button class="iconbtn" id="darkBtn" title="다크모드" aria-label="다크모드">🌙</button><button class="iconbtn" id="printBtn" title="인쇄/PDF 저장" aria-label="인쇄">🖨</button></div>
+<div class="eyebrow">Portugal · 13 Days <span class="dday" id="dday"></span></div>
 <h1>2026년 포르투갈 여행</h1>
 <div class="meta"><span><b>2026.7.1(수) → 7.13(월)</b></span><span>리스본 · 마데이라 · 포르투</span><span>리스본 in/out · 2인</span></div>
+<div class="clocks" id="clocks"></div>
 </div></header>
 <div class="wrap">
+<div class="install" id="install"><span>📲 홈 화면에 추가하면 앱처럼 열리고 <b>오프라인</b>에서도 일정을 볼 수 있어요</span><button id="installBtn">설치</button></div>
+<section class="sec open"><button class="sec-toggle"><span class="tick"></span>날씨 · 환율<span class="sechev">▶</span></button><div class="sec-body">
+<div class="grid" id="weather"></div>
+<div class="conv">
+<div class="cv-row"><input id="eur" type="number" inputmode="decimal" value="10" min="0" aria-label="유로"> <span class="eq">€  →</span> <span class="won" id="won"></span></div>
+<div class="rate">환율 1€ = <input id="rate" type="number" inputmode="numeric" min="0"> 원 <span>· 출발 전 현재 환율로 수정하세요</span></div>
+</div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>항공권<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="flights"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>숙소<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="hotels"></div></div></section>
 <section class="sec"><button class="sec-toggle"><span class="tick"></span>🎟 예약 체크리스트<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>예약이 필요한 곳 모음 · 🎟 버튼으로 예약처로 이동</span></div><div class="grid" id="resv" style="margin-top:8px"></div></div></section>
@@ -115,7 +191,7 @@ footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center;line-
 <button class="tbtn" id="toggleAll">모두 펼치기</button>
 </div>
 <div id="days"></div></div></section>
-<footer>포르투갈 여행 일정 · 모바일 보기용<br>편집 내용은 이 기기 브라우저에 저장돼요(지원 시)</footer>
+<footer>2026년 포르투갈 여행 · 모바일 보기용<br><span class="editnote">편집·체크 내용은 이 기기 브라우저에 저장돼요(지원 시)</span></footer>
 </div>
 <script>
 const flights=[
@@ -223,7 +299,13 @@ const KEY="pt_itin_v1";
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DAYS));}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 let state=load();
-const open=new Set([0]);
+function isoOf(md){const p=md.split("/");return "2026-"+String(+p[0]).padStart(2,"0")+"-"+String(+p[1]).padStart(2,"0");}
+function todayIso(){const n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");}
+function computeToday(){const t=todayIso();for(let i=0;i<state.length;i++){if(isoOf(state[i].date)===t)return i;}return -1;}
+const TODAY=computeToday();
+const open=new Set([TODAY>=0?TODAY:0]);
+const routeUrl=places=>"https://www.google.com/maps/dir/"+places.map(p=>encodeURIComponent(p)).join("/");
+function routeBtn(d){const ps=d.items.filter(it=>it.m).map(it=>it.m);if(ps.length<2)return "";return `<div class="dayroute"><a class="btn route" target="_blank" rel="noopener" href="${routeUrl(ps)}">🗺 하루 동선 한눈에 (${ps.length}곳)</a></div>`;}
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
 const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
@@ -233,9 +315,9 @@ document.getElementById("hotels").innerHTML=hotels.map(h=>`<div class="info"><di
 document.getElementById("fado").innerHTML=fado.map(f=>`<div class="fcard"><div class="fn">${f.name}</div><div class="fm">${f.meta}</div><div class="acts"><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(f.m)}">📍 지도</a>${f.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(f.b)}">🎟 예약</a>`:""}</div></div>`).join("");
 function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function render(){
- document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}">
- <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
- <div class="day-body">${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}
+ document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}${i===TODAY?" today":""}">
+ <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}${i===TODAY?'<span class="todaytag">오늘</span>':''}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
+ <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}
  <div class="add-row"><button class="add-btn" onclick="add(${i})">+ 일정 추가</button></div></div></div>`).join("");
 }
 function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
@@ -257,7 +339,18 @@ const reservations=[
  {when:"7/10",name:"도루 퀸타 (Quinta do Bomfim/Foz)",note:"투어+시음 예약 필수",m:"Quinta do Bomfim Pinhão",b:"Quinta do Bomfim Douro visit booking"},
  {when:"7/11",name:"알리안사 언더그라운드 뮤지엄 (Aliança)",note:"바이라다 시음 예약 권장",m:"Aliança Underground Museum Sangalhos",b:"Aliança Underground Museum tickets"},
  {when:"7/11",name:"조아니나 도서관 (Biblioteca Joanina)",note:"시간지정 입장 예약",m:"Joanina Library Coimbra",b:"https://visit.uc.pt"}];
-document.getElementById("resv").innerHTML=reservations.map(r=>`<div class="fcard"><div class="fn"><span class="rdate">${r.when}</span>${r.name}</div><div class="fm">${r.note}</div><div class="acts"><a class="btn book" target="_blank" rel="noopener" href="${bookUrl(r.b)}">🎟 예약</a><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(r.m)}">📍 지도</a></div></div>`).join("");
+const CKEY="pt_resv_v1";
+let checked=(()=>{try{return JSON.parse(localStorage.getItem(CKEY))||{};}catch(e){return {};}})();
+function saveChecked(){try{localStorage.setItem(CKEY,JSON.stringify(checked));}catch(e){}}
+function renderResv(){
+ const total=reservations.length;let done=0;
+ const cards=reservations.map((r,i)=>{const on=!!checked[i];if(on)done++;
+  return `<div class="fcard${on?" done":""}"><div class="fhead"><button class="chk${on?" on":""}" onclick="toggleChk(${i})" aria-label="예약 완료 체크">✓</button><div class="fn"><span class="rdate">${r.when}</span>${r.name}</div></div><div class="fm">${r.note}</div><div class="acts"><a class="btn book" target="_blank" rel="noopener" href="${bookUrl(r.b)}">🎟 예약</a><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(r.m)}">📍 지도</a></div></div>`;}).join("");
+ const pct=Math.round(done/total*100);
+ document.getElementById("resv").innerHTML=`<div class="prog"><div class="bar"><div class="fill" style="width:${pct}%"></div></div><div class="lbl">예약 완료 ${done} / ${total} (${pct}%)</div></div>`+cards;
+}
+function toggleChk(i){checked[i]=!checked[i];saveChecked();renderResv();}
+renderResv();
 document.querySelectorAll(".sec-toggle").forEach(b=>b.onclick=()=>b.parentElement.classList.toggle("open"));
 render();
 const editBtn=document.getElementById("editBtn");
@@ -265,6 +358,58 @@ editBtn.onclick=()=>{document.body.classList.toggle("edit");editBtn.classList.to
 document.getElementById("resetBtn").onclick=()=>{if(confirm("편집한 내용을 모두 초기화할까요?")){try{localStorage.removeItem(KEY);}catch(e){}state=JSON.parse(JSON.stringify(DAYS));render();}};
 const tg=document.getElementById("toggleAll");
 tg.onclick=()=>{const allOpen=open.size>=state.length;state.forEach((_,i)=>allOpen?open.delete(i):open.add(i));render();tg.textContent=allOpen?"모두 펼치기":"모두 접기";};
+
+/* ===== 날씨(7월 평년) ===== */
+const weather=[
+ {c:"리스본",t:"낮 <b>28°</b> / 밤 17° · 맑고 건조"},
+ {c:"마데이라(푼샬)",t:"낮 <b>24°</b> / 밤 20° · 온화·바닷바람"},
+ {c:"포르투",t:"낮 <b>25°</b> / 밤 16° · 선선·아침 흐림"},
+ {c:"코임브라·내륙",t:"낮 <b>30°</b> / 밤 15° · 한낮 더움"}];
+document.getElementById("weather").innerHTML=weather.map(w=>`<div class="wcard"><div class="wc">${w.c}</div><div class="wt">${w.t}</div></div>`).join("");
+
+/* ===== 환율 변환기 ===== */
+const RKEY="pt_rate_v1";
+const rateEl=document.getElementById("rate"),eurEl=document.getElementById("eur"),wonEl=document.getElementById("won");
+rateEl.value=(+localStorage.getItem(RKEY))||1500;
+function calcWon(){const won=Math.round((+eurEl.value||0)*(+rateEl.value||0));wonEl.textContent="₩ "+won.toLocaleString("ko-KR");}
+eurEl.addEventListener("input",calcWon);
+rateEl.addEventListener("input",()=>{try{localStorage.setItem(RKEY,rateEl.value);}catch(e){}calcWon();});
+calcWon();
+
+/* ===== D-Day & 시계 ===== */
+function updateDday(){
+ const n=new Date(),today=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+ const start=new Date(2026,6,1),end=new Date(2026,6,13),DAY=864e5;let txt;
+ if(today<start)txt="D-"+Math.round((start-today)/DAY);
+ else if(today<=end)txt="여행 "+(Math.round((today-start)/DAY)+1)+"일차";
+ else txt="여행 마침 ♥";
+ document.getElementById("dday").textContent=txt;
+}
+function tzNow(tz){const n=new Date();
+ return {t:new Intl.DateTimeFormat("ko-KR",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(n),
+         d:new Intl.DateTimeFormat("ko-KR",{timeZone:tz,month:"numeric",day:"numeric",weekday:"short"}).format(n)};}
+function updateClocks(){
+ const pt=tzNow("Europe/Lisbon"),kr=tzNow("Asia/Seoul");
+ document.getElementById("clocks").innerHTML=
+  `<div class="clock">🇵🇹 포르투갈<b>${pt.t}</b><span class="cd">${pt.d}</span></div>`+
+  `<div class="clock">🇰🇷 한국<b>${kr.t}</b><span class="cd">${kr.d}</span></div>`;
+}
+updateDday();updateClocks();setInterval(updateClocks,1000);setInterval(updateDday,60000);
+
+/* ===== 다크모드 / 인쇄 ===== */
+const darkBtn=document.getElementById("darkBtn"),metaTheme=document.querySelector('meta[name="theme-color"]');
+function applyDark(on){document.body.classList.toggle("dark",on);darkBtn.textContent=on?"☀️":"🌙";if(metaTheme)metaTheme.setAttribute("content",on?"#13171c":"#16467F");}
+let dark=localStorage.getItem("pt_dark")==="1";applyDark(dark);
+darkBtn.onclick=()=>{dark=!dark;try{localStorage.setItem("pt_dark",dark?"1":"0");}catch(e){}applyDark(dark);};
+document.getElementById("printBtn").onclick=()=>window.print();
+
+/* ===== PWA: 설치 안내 + 서비스워커 ===== */
+let deferredPrompt=null;
+const installBox=document.getElementById("install"),installBtn=document.getElementById("installBtn");
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;installBox.classList.add("show");});
+installBtn.onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBox.classList.remove("show");};
+window.addEventListener("appinstalled",()=>installBox.classList.remove("show"));
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 </script>
 </body>
 </html>
