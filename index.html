@@ -121,6 +121,44 @@ footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center;line-
 .conv .won{font-weight:800;font-size:17px;color:var(--ink);font-variant-numeric:tabular-nums}
 .conv .rate{font-size:11.5px;color:var(--muted);margin-top:9px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .conv .rate input{width:80px;font-size:12.5px;padding:4px 7px;font-weight:700}
+/* 장소명 탭 힌트 */
+.pname{color:inherit;text-decoration:none;border-bottom:1.5px dotted currentColor;cursor:pointer}
+.pname::after{content:" ›";opacity:.5;font-weight:800}
+/* 장소 상세 페이지 */
+.detail{position:fixed;inset:0;z-index:50;background:var(--paper);overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .26s ease;visibility:hidden;-webkit-overflow-scrolling:touch}
+.detail.open{transform:none;visibility:visible}
+.dwrap{max-width:680px;margin:0 auto;padding-bottom:40px}
+.dback{position:sticky;top:0;z-index:2;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);color:var(--azulejo);font:inherit;font-weight:800;font-size:14px;padding:13px 16px;cursor:pointer}
+.dphoto{position:relative;width:100%;aspect-ratio:16/10;background:var(--azulejo);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.dphoto img{width:100%;height:100%;object-fit:cover;display:block}
+.dphoto .ph{font-size:60px;opacity:.9}
+.dphoto .phpat{position:absolute;inset:0;opacity:.12;background-image:radial-gradient(circle at 12px 12px,#fff 2px,transparent 2.5px);background-size:24px 24px}
+.dphoto .credit{position:absolute;right:8px;bottom:6px;font-size:9.5px;color:#fff;background:rgba(0,0,0,.4);padding:1px 6px;border-radius:6px;text-decoration:none}
+.dphoto .gimg{position:absolute;right:10px;bottom:10px;font-size:12px;font-weight:800;color:#fff;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.4);padding:6px 11px;border-radius:9px;text-decoration:none}
+.dspin{width:26px;height:26px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dcontent{padding:16px}
+.dcat{font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--terra);text-transform:none}
+.dtitle{font-family:'NanumSquare',sans-serif;font-weight:800;font-size:23px;line-height:1.2;margin:5px 0 6px}
+.dstars{color:var(--star);font-size:14px;letter-spacing:1px;margin-bottom:10px}
+.dstars .se{color:var(--line)}
+.ddesc{font-size:14.5px;line-height:1.7;color:var(--ink)}
+.dtip{margin-top:12px;font-size:13px;line-height:1.6;color:var(--ink);background:var(--tint);border-radius:12px;padding:11px 13px}
+.dtip.warn{background:#FBE9E7;color:#9a3420}
+.dtip b{font-weight:800}
+.dwiki{margin-top:14px;font-size:13px;line-height:1.65;color:var(--muted);border-left:3px solid var(--line);padding:2px 0 2px 11px}
+.dwiki .src{display:block;font-size:11px;font-weight:800;color:var(--azulejo-2);margin-top:5px;text-decoration:none}
+.dacts{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.dacts .btn{font-size:13.5px;padding:9px 14px}
+/* 준비물 */
+.pack-g{margin-bottom:6px}
+.pack-g .pg{font-weight:800;font-size:13.5px;margin:12px 0 4px;color:var(--azulejo)}
+.pack-g .pg:first-child{margin-top:2px}
+.pitem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+.pitem:last-child{border-bottom:0}
+.pitem.on .pt{color:var(--muted);text-decoration:line-through}
+.pitem .pt{font-size:13.5px;flex:1}
+.pitem .pt small{color:var(--muted);font-size:11.5px;font-weight:400}
 /* 예상 비용 */
 .cost{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 14px}
 .cost .crow{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
@@ -159,7 +197,7 @@ body.dark .btn.route{background:#1f1b2b}
 .install button{margin-left:auto;flex:none;white-space:nowrap;font:inherit;font-size:12.5px;font-weight:700;background:var(--azulejo);color:#fff;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
 @media(max-width:380px){.hero h1{font-size:29px}.it .time{width:46px}.clock{min-width:108px}}
 @media print{
- .topbar,.tools,.add-row,.rm,.clocks,.sechev,.chev,.install,.dayroute,.editnote{display:none!important}
+ .topbar,.tools,.add-row,.rm,.clocks,.sechev,.chev,.install,.dayroute,.editnote,.detail{display:none!important}
  .day-body,.sec-body{display:block!important}
  .day,.info,.fcard,.wcard,.conv{break-inside:avoid;box-shadow:none!important}
  .hero,body.dark .hero{background:#fff}
@@ -190,6 +228,9 @@ body.dark .btn.route{background:#1f1b2b}
 <div class="cost-sum" id="costSum"></div>
 <div class="cost-note">※ 7월 성수기 <b>2인 합계 대략 추정치</b>예요. 특히 항공·숙소는 예약 시점에 따라 차이가 큽니다. 위 '날씨·환율'에서 환율을 바꾸면 원화 금액이 여기에도 함께 반영돼요.</div>
 </div></section>
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>🧳 준비물 체크리스트<span class="sechev">▶</span></button><div class="sec-body">
+<div class="prog" id="packProg"></div>
+<div id="packing"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>항공권<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="flights"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>숙소<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="hotels"></div></div></section>
 <section class="sec"><button class="sec-toggle"><span class="tick"></span>🎟 예약 체크리스트<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>예약이 필요한 곳 모음 · 🎟 버튼으로 예약처로 이동</span></div><div class="grid" id="resv" style="margin-top:8px"></div></div></section>
@@ -212,6 +253,18 @@ body.dark .btn.route{background:#1f1b2b}
 <div id="days"></div></div></section>
 <footer>2026년 포르투갈 여행 · 모바일 보기용<br><span class="editnote">편집·체크 내용은 이 기기 브라우저에 저장돼요(지원 시)</span></footer>
 </div>
+<div class="detail" id="detail"><div class="dwrap">
+<button class="dback" onclick="history.back()">← 일정으로 돌아가기</button>
+<div class="dphoto" id="dphoto"></div>
+<div class="dcontent">
+<div class="dcat" id="dcat"></div>
+<h2 class="dtitle" id="dtitle"></h2>
+<div class="dstars" id="dstars"></div>
+<p class="ddesc" id="ddesc"></p>
+<div class="dtip" id="dtip" style="display:none"></div>
+<div class="dwiki" id="dwiki" style="display:none"></div>
+<div class="dacts" id="dacts"></div>
+</div></div></div>
 <script>
 const flights=[
  {route:"인천 → 리스본 (ICN→LIS)",when:"7/1",sub:"KE921 · 12:45 → 20:15 (15h30m) · B787-9"},
@@ -328,15 +381,74 @@ function routeBtn(d){const ps=d.items.filter(it=>it.m).map(it=>it.m);if(ps.lengt
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 const revUrl=q=>"https://search.naver.com/search.naver?ssc=tab.blog.all&query="+encodeURIComponent(q+" 후기");
 const bookUrl=b=>/^https?:/.test(b)?b:"https://www.google.com/search?q="+encodeURIComponent(b);
+const gimgUrl=q=>"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
+const slug=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+// 장소 설명: m(지도검색어) 그대로 key. ko=한국어 설명, wk=위키백과 영문 제목(사진·추가설명)
+const PLACE_INFO={
+"Pastéis de Belém Lisbon":{wk:"Pastéis de Belém",ko:"1837년 문을 연 에그타르트(파스텔 드 나타)의 원조집. 수도원 비법으로 구운 따끈한 타르트에 시나몬·슈거를 뿌려 먹어요."},
+"Jerónimos Monastery Lisbon":{wk:"Jerónimos Monastery",ko:"대항해시대의 부를 쏟아부은 마누엘 양식의 대수도원(유네스코). 바스쿠 다 가마의 무덤과 화려한 회랑이 하이라이트."},
+"Belém Tower Lisbon":{wk:"Belém Tower",ko:"테주강 어귀를 지키던 16세기 요새이자 대항해의 출발점(유네스코). 리스본을 상징하는 석조 탑이에요."},
+"Praça do Comércio Lisbon":{wk:"Praça do Comércio",ko:"강과 맞닿은 리스본 최대 광장. 노란 개선문과 동상이 있고 바이샤 보행거리로 이어져요."},
+"Garrafeira Nacional Rua Santa Justa Lisbon":{ko:"1927년부터 이어온 리스본 대표 주류 명점. 포트·마데이라·진자 등 포르투갈 술을 폭넓게 갖춰 선물 사기 좋아요."},
+"Carmo Convent Lisbon":{wk:"Carmo Convent",ko:"1755년 대지진에 지붕이 무너진 채 남은 고딕 수도원. 하늘이 뚫린 폐허 예배당이 독특하고 옆 산타 주스타 엘리베이터 전망이 좋아요."},
+"Miradouro das Portas do Sol Lisbon":{ko:"알파마의 붉은 지붕과 테주강이 한눈에 보이는 대표 전망대. 해질녘이 특히 예뻐요."},
+"Cervejaria Ramiro Lisbon":{ko:"1956년부터 이어온 리스본 최고 인기 해산물 맥줏집. 마늘새우·거북손·타이거새우를 즐기고 마무리는 스테이크 샌드(프레구)."},
+"Pena Palace Sintra":{wk:"Pena Palace",ko:"노랑·빨강 원색의 동화 같은 낭만주의 궁전(유네스코). 산 위 안개와 어우러진 풍경이 환상적이에요."},
+"Piriquita Sintra":{ko:"신트라 구시가의 1862년 전통 베이커리. 명물 트라베세이루(긴 베개빵)와 케이자다가 유명해요."},
+"Quinta da Regaleira Sintra":{wk:"Quinta da Regaleira",ko:"신비주의로 가득한 별장·정원(유네스코). 나선형 '입문의 우물'과 비밀 터널이 인생샷 명소."},
+"Cabo da Roca":{wk:"Cabo da Roca",ko:"유라시아 대륙 최서단 절벽. '땅이 끝나고 바다가 시작되는 곳'이라는 비문이 있어요."},
+"Rua de Santa Maria Funchal":{wk:"Funchal",ko:"푼샬 구시가의 좁은 골목. 문짝마다 그림을 그린 '열린 문 아트' 거리로 유명해요."},
+"Pérola dos Vinhos Funchal":{ko:"푼샬 구시가의 마데이라 와인 전문점. 무료 시음으로 단맛부터 드라이까지 비교해보기 좋아요."},
+"Blandy's Wine Lodge Funchal":{wk:"Madeira wine",ko:"1811년부터 이어온 마데이라 와인 명가의 시음·박물관. 오래된 오크통이 가득한 역사적 로지에서 투어해요."},
+"Cabo Girão Skywalk Madeira":{wk:"Cabo Girão",ko:"해발 580m, 유럽에서 가장 높은 해안 절벽 위 유리 스카이워크. 발밑이 다 보여요."},
+"Câmara de Lobos Madeira":{wk:"Câmara de Lobos",ko:"처칠이 그림을 그린 알록달록한 어촌. 사탕수수 증류주 '폰차' 한 잔 하기 좋아요."},
+"Porto Moniz natural pools":{wk:"Porto Moniz",ko:"용암이 굳어 만들어진 천연 바닷물 수영장. 파도와 분리된 풀에서 안전하게 물놀이해요."},
+"Quinta do Barbusano São Vicente":{ko:"마데이라 북부 절벽 포도밭의 와이너리. 바다 전망을 보며 마데이라 와인을 시음해요."},
+"Seixal beach Madeira":{wk:"Seixal, Madeira",ko:"검은 화산 모래 해변과 폭포가 어우러진 마데이라 북부의 절경 마을."},
+"Pico do Arieiro":{wk:"Pico do Arieiro",ko:"해발 1,818m 마데이라 3대 봉우리. 구름 위로 떠오르는 일출·운해가 압권이라 새벽에 올라요."},
+"Pico Ruivo trail Madeira":{wk:"Pico Ruivo",ko:"마데이라 최고봉(1,862m). 아리에이루에서 이어지는 능선 트레킹의 정점이에요."},
+"Monte Palace Tropical Garden Funchal":{wk:"Monte Palace Tropical Garden",ko:"몬테 언덕의 이국적 열대정원. 동양식 정원과 아줄레주 패널, 호수가 어우러져요."},
+"Monte Toboggan Run Funchal":{wk:"Carros de Cesto",ko:"고리버들 썰매를 두 명의 '카헤이루'가 밀어 언덕을 내려가는 100년 전통 명물."},
+"Vinhos Barbeito Câmara de Lobos":{ko:"가성비 좋기로 소문난 마데이라 와인 하우스. 카마라 드 로부스 항구 전망과 함께 투어·시음."},
+"Ponta de São Lourenço Madeira":{wk:"Ponta de São Lourenço",ko:"섬 동쪽 끝, 나무 없는 화산 반도를 걷는 인기 트레킹. 붉은 바위와 바다의 황량한 절경."},
+"Santana houses Madeira":{wk:"Santana, Madeira",ko:"삼각형 초가지붕의 알록달록한 전통 가옥으로 유명한 마을이에요."},
+"25 Fontes Madeira":{ko:"수로(레바다)를 따라 걸어 25개의 샘과 폭포가 모인 호수에 닿는 마데이라 시그니처 트레킹."},
+"Blandy's Vineyards Funchal":{ko:"푼샬 도심 속 블랜디스 가문 포도밭에서 즐기는 프리미엄 가이드 시음(예약제)."},
+"Dom Luís I Bridge Porto":{wk:"Dom Luís I Bridge",ko:"에펠의 제자가 설계한 2층 철교. 위층 도보길에서 도루강과 히베이라 전망이 끝내줘요."},
+"Port wine cellars Vila Nova de Gaia":{wk:"Vila Nova de Gaia",ko:"도루강 건너편 포트와인 셀러가 모인 동네. 콕번스·테일러스 등에서 숙성고 투어와 시음."},
+"Livraria Lello Porto":{wk:"Livraria Lello",ko:"1906년 문을 연 '세계에서 가장 아름다운 서점' 중 하나. 붉은 곡선 계단과 스테인드글라스가 상징."},
+"Clérigos Tower Porto":{wk:"Clérigos Church",ko:"포르투를 한눈에 담는 76m 바로크 종탑. 225계단을 오르면 도시 전망이 펼쳐져요."},
+"São Bento Station Porto":{wk:"São Bento railway station",ko:"2만 개 아줄레주 타일로 포르투갈 역사를 그린 기차역. 대합실 자체가 미술관이에요."},
+"Mercado do Bolhão Porto":{wk:"Bolhão Market",ko:"100년 넘은 포르투 전통시장. 청과·생선·치즈·먹거리가 가득한 2층 철골 시장."},
+"Garrafeira do Carmo Porto":{ko:"오너가 직접 추천해주는 포르투의 포트와인 명점. 비행 전 와인 포장 구매에 좋아요(위탁수하물)."},
+"Porto Cathedral Sé":{wk:"Porto Cathedral",ko:"언덕 위 로마네스크 대성당. 앞 광장에서 포르투 구시가와 강이 내려다보여요."},
+"Francesinha Porto":{wk:"Francesinha",ko:"포르투 명물 샌드위치. 여러 고기를 빵 사이에 넣고 치즈를 덮은 뒤 매콤한 맥주·토마토 소스를 부어 먹어요."},
+"Quinta do Bomfim Pinhão":{wk:"Pinhão, Portugal",ko:"도루 밸리 핀얀의 명가 와이너리(시밍턴). 계단식 포도밭 전망과 함께 포트와인 투어·시음."},
+"Pinhão Douro river cruise":{wk:"Pinhão",ko:"도루강을 따라 계단식 포도밭을 감상하는 보트 투어. 전통 배 '하벨루'를 본떴어요."},
+"Miradouro Casal de Loivos":{ko:"도루 밸리에서 손꼽히는 전망대. 강이 휘감는 계단식 포도밭 파노라마가 압권이에요."},
+"Aveiro canals Portugal":{wk:"Aveiro, Portugal",ko:"운하와 색색의 곤돌라 배(몰리세이루)로 '포르투갈의 베네치아'라 불려요. 단과자 오부스 몰레스도 유명."},
+"Costa Nova striped houses":{wk:"Costa Nova do Prado",ko:"빨강·파랑 줄무늬 어부 집이 줄지어 선 해변 마을. 사진 명소예요."},
+"Aliança Underground Museum Sangalhos":{ko:"바이라다의 와인 양조장 지하를 박물관처럼 꾸민 곳. 스파클링(에스푸만트) 시음·구매."},
+"Joanina Library Coimbra":{wk:"Joanina Library",ko:"코임브라 대학(유네스코)의 18세기 바로크 도서관. 금빛 서가와 책을 지키는 박쥐로 유명해요."},
+"Fado ao Centro Coimbra":{wk:"Fado",ko:"검은 망토를 두른 학생들이 부르는 코임브라식 파두 공연을 매일 감상할 수 있는 문화공간."},
+"Óbidos Portugal":{wk:"Óbidos, Portugal",ko:"성벽으로 둘러싸인 하얀 중세 마을. 체리주 진자를 초콜릿 잔에 담아 파는 게 명물이에요."},
+"Time Out Market Lisbon":{wk:"Time Out Market",ko:"리스본 유명 셰프·맛집을 한곳에 모은 푸드홀. 출국 전 다양하게 맛보기 좋아요."},
+"Clube de Fado Lisbon":{ko:"알파마의 정통 파두 디너쇼 명소. 격식 있는 공연으로 예약 필수예요."},
+"O Corrido Casa de Fado Lisbon":{ko:"주인이 직접 노래하는 친밀한 분위기의 파두 하우스."},
+"O Faia Casa de Fado Lisbon":{ko:"바이루 알투의 격식 있는 정통 파두 디너쇼."},
+"Sr. Fado Lisbon":{ko:"알파마의 작고 아담한 파두 식당. 세트메뉴로 즐겨요."},
+"A Tasca do Chico Bairro Alto Lisbon":{ko:"예약 없이 들르는 캐주얼 '파두 바디우' 타스카. 현금만 받아요."},
+"Tasca de Noticias Lisbon":{ko:"커버차지 없는 캐주얼 파두 바. 동네 파디스타들이 노래해요."}
+};
 const starHtml=s=>s?`<div class="stars">${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span></div>`:"";
 document.getElementById("flights").innerHTML=flights.map(f=>`<div class="info"><div class="top"><span class="route">${f.route}</span><span class="when">${f.when}</span></div><div class="sub">${f.sub}</div></div>`).join("");
 document.getElementById("hotels").innerHTML=hotels.map(h=>`<div class="info"><div class="top"><span class="route">${h.city} <span class="pill ${h.status}">${h.status==="ok"?"예약완료":"미예약"}</span></span><span class="when">${h.nights}</span></div><div class="sub">${h.name}</div></div>`).join("");
-document.getElementById("fado").innerHTML=fado.map(f=>`<div class="fcard"><div class="fn">${f.name}</div><div class="fm">${f.meta}</div><div class="acts"><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(f.m)}">📍 지도</a>${f.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(f.b)}">🎟 예약</a>`:""}</div></div>`).join("");
+document.getElementById("fado").innerHTML=fado.map(f=>`<div class="fcard"><div class="fn"><a class="pname" href="#p/${slug(f.m)}">${f.name}</a></div><div class="fm">${f.meta}</div><div class="acts"><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(f.m)}">📍 지도</a>${f.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(f.b)}">🎟 예약</a>`:""}</div></div>`).join("");
 function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function render(){
  document.getElementById("days").innerHTML=state.map((d,i)=>`<div class="day${open.has(i)?" open":""}${i===TODAY?" today":""}">
  <button class="day-head" onclick="toggleDay(${i})"><span class="date-badge"><span class="d">${d.date}</span><span class="w">${d.dow}</span></span><span class="title"><span class="t">${esc(d.title)}${i===TODAY?'<span class="todaytag">오늘</span>':''}</span><span class="wake">☀ 기상 ${d.wake}</span></span><span class="chev">▶</span></button>
- <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}
+ <div class="day-body">${routeBtn(d)}${d.items.map((it,j)=>`<div class="it${it.res?" res":""}"><div class="time">${esc(it.t)}</div><div class="body"><div class="name">${it.m?`<a class="pname" href="#p/${slug(it.m)}">${esc(it.name)}</a>`:esc(it.name)}${it.s===5?'<span class="tag must">필수</span>':''}${it.res?'<span class="tag res">예약</span>':''}${it.liq?'<span class="tag liq">🍷</span>':''}<button class="rm" onclick="rm(${i},${j})">✕ 삭제</button></div>${starHtml(it.s)}<div class="desc">${esc(it.desc)}</div>${it.tip?`<div class="tip${/⚠|필수|예약/.test(it.tip)?" warn":""}">${esc(it.tip)}</div>`:""}${(it.m||it.n||it.b)?`<div class="acts">${it.m?`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`:""}${it.n?`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 후기</a>`:""}${it.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`:""}</div>`:""}</div></div>`).join("")}
  <div class="add-row"><button class="add-btn" onclick="add(${i})">+ 일정 추가</button></div></div></div>`).join("");
 }
 function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
@@ -457,6 +569,88 @@ if(isIos&&!isStandalone){
  installBox.classList.add("show");
 }
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+/* ===== 장소 상세 페이지 (해시 라우팅) ===== */
+const PLACEIDX={};
+state.forEach(d=>d.items.forEach(it=>{if(it.m)PLACEIDX[slug(it.m)]=it;}));
+fado.forEach(f=>{if(f.m)PLACEIDX[slug(f.m)]=f;});
+const WKEY="pt_wiki_v1";
+function wikiCache(){try{return JSON.parse(localStorage.getItem(WKEY))||{};}catch(e){return{};}}
+function saveWiki(c){try{localStorage.setItem(WKEY,JSON.stringify(c));}catch(e){}}
+async function getWiki(key,title){
+ const c=wikiCache();
+ if(key in c)return c[key];
+ try{
+  const sum=t=>"https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(t.replace(/ /g,"_"));
+  let r=await fetch(sum(title));
+  if(!r.ok){
+   const s=await fetch("https://en.wikipedia.org/w/rest.php/v1/search/title?q="+encodeURIComponent(title)+"&limit=1");
+   if(s.ok){const sj=await s.json();if(sj.pages&&sj.pages[0])r=await fetch(sum(sj.pages[0].key));}
+  }
+  let data=null;
+  if(r&&r.ok){const j=await r.json();if(j.type!=="disambiguation")data={thumb:(j.thumbnail||{}).source||null,extract:j.extract||"",url:((j.content_urls||{}).desktop||{}).page||null};}
+  c[key]=data;saveWiki(c);
+  return data;
+ }catch(e){return null;}
+}
+function photoPlaceholder(photo,name){photo.innerHTML=`<div class="phpat"></div><div class="ph">📷</div><a class="gimg" target="_blank" rel="noopener" href="${gimgUrl(name)}">구글 이미지 보기 ›</a>`;}
+function buildDetail(it,info,sl){
+ const name=it.name,desc=info.ko||it.desc||it.meta||"",s=it.s||0;
+ const cat=it.liq?"🍷 와인·리쿼":(it.res?"🎟 예약 명소":(/공항|복귀|호텔 →|→ 리스본|→ 포르투/.test(name)?"📍 이동":"📍 가볼 곳"));
+ document.getElementById("dcat").textContent=cat;
+ document.getElementById("dtitle").textContent=name;
+ document.getElementById("dstars").innerHTML=s?`${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span> <span style="font-size:12px;color:var(--muted);font-weight:400">추천도 ${s}/5</span>`:"";
+ document.getElementById("ddesc").textContent=desc;
+ const tipEl=document.getElementById("dtip");
+ if(it.tip){tipEl.style.display="";tipEl.className="dtip"+(/⚠|필수|휴무/.test(it.tip)?" warn":"");tipEl.innerHTML="<b>💡 팁</b> "+esc(it.tip);}else tipEl.style.display="none";
+ const acts=[];
+ if(it.m)acts.push(`<a class="btn map" target="_blank" rel="noopener" href="${mapUrl(it.m)}">📍 지도</a>`);
+ if(it.n)acts.push(`<a class="btn rev" target="_blank" rel="noopener" href="${revUrl(it.n)}">📝 네이버후기</a>`);
+ if(it.b)acts.push(`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(it.b)}">🎟 예약</a>`);
+ document.getElementById("dacts").innerHTML=acts.join("");
+ const photo=document.getElementById("dphoto"),wiki=document.getElementById("dwiki");
+ wiki.style.display="none";wiki.innerHTML="";
+ photo.innerHTML=`<div class="phpat"></div><div class="dspin"></div>`;
+ getWiki(sl,info.wk||it.m||name).then(w=>{
+  if(location.hash!=="#p/"+sl)return;
+  if(w&&w.thumb){
+   photo.innerHTML=`<img src="${w.thumb}" alt="${esc(name)}"><a class="credit" target="_blank" rel="noopener" href="${w.url||gimgUrl(name)}">© 위키백과</a>`;
+   if(w.extract){wiki.style.display="";wiki.innerHTML=esc(w.extract)+(w.url?`<a class="src" target="_blank" rel="noopener" href="${w.url}">위키백과(영문) 더 보기 ›</a>`:"");}
+  }else photoPlaceholder(photo,name);
+ }).catch(()=>{if(location.hash==="#p/"+sl)photoPlaceholder(photo,name);});
+}
+function openDetail(sl){
+ const it=PLACEIDX[sl],d=document.getElementById("detail");
+ if(!it){d.classList.remove("open");document.body.style.overflow="";return;}
+ buildDetail(it,PLACE_INFO[it.m]||{},sl);
+ d.classList.add("open");d.scrollTop=0;document.body.style.overflow="hidden";
+}
+function closeDetail(){document.getElementById("detail").classList.remove("open");document.body.style.overflow="";}
+function route(){const m=location.hash.match(/^#p\/(.+)$/);if(m)openDetail(decodeURIComponent(m[1]));else closeDetail();}
+window.addEventListener("hashchange",route);
+route();
+
+/* ===== 준비물 체크리스트 ===== */
+const PACK=[
+ {g:"필수 서류·결제",items:["여권 (+사본·여분사진)","유로 현금","해외결제 카드 2장","항공·숙소·투어 예약확인 캡처","여행자보험","국제운전면허증 <small>(마데이라 렌터카)</small>"]},
+ {g:"전자·충전",items:["유럽 C타입 어댑터","보조배터리 <small>(기내 휴대)</small>","충전기·케이블","USB 멀티충전기","이어폰"]},
+ {g:"의류",items:["여름옷(반팔·반바지)","얇은 긴팔·바람막이 <small>(마데이라·포르투 밤)</small>","방한자켓+장갑·비니 <small>(피쿠 일출 새벽 4°C)</small>","편한 운동화","슬리퍼·샌들","모자·선글라스","우비·접이식 우산"]},
+ {g:"액티비티·트레킹",items:["아쿠아슈즈 <small>(포르투 모니즈 천연풀)</small>","수영복","트레킹화 <small>(레바다·상 로렌수)</small>","등산스틱(선택)","작은 데이백","물통·텀블러"]},
+ {g:"건강·세면",items:["선크림·립밤","멀미약 <small>(도루 크루즈·산길 운전)</small>","상비약(소화·감기·진통·밴드)","모기기피제","세면도구·기초화장품","속건 수건"]},
+ {g:"기타",items:["와인 포장 뽁뽁이·지퍼백 <small>(와인 위탁수하물)</small>","에코백·장바구니","빨래망·세제시트","목베개·안대 <small>(15시간 비행)</small>","물티슈"]}
+];
+const PKEY="pt_pack_v1";
+let packed=(()=>{try{return JSON.parse(localStorage.getItem(PKEY))||{};}catch(e){return{};}})();
+function savePacked(){try{localStorage.setItem(PKEY,JSON.stringify(packed));}catch(e){}}
+function renderPack(){
+ let total=0,done=0;
+ const html=PACK.map((grp,gi)=>`<div class="pack-g"><div class="pg">${grp.g}</div>`+grp.items.map((it,ii)=>{const id=gi+"-"+ii;total++;const on=!!packed[id];if(on)done++;return `<div class="pitem${on?" on":""}" onclick="togglePack('${id}')"><button class="chk${on?" on":""}" aria-label="체크">✓</button><span class="pt">${it}</span></div>`;}).join("")+`</div>`).join("");
+ document.getElementById("packing").innerHTML=html;
+ const pct=total?Math.round(done/total*100):0;
+ document.getElementById("packProg").innerHTML=`<div class="bar"><div class="fill" style="width:${pct}%"></div></div><div class="lbl">챙긴 준비물 ${done} / ${total} (${pct}%)</div>`;
+}
+function togglePack(id){packed[id]=!packed[id];savePacked();renderPack();}
+renderPack();
 </script>
 </body>
 </html>

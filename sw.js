@@ -1,5 +1,6 @@
 // 포르투갈 여행 일정 · 오프라인 캐시
-const CACHE = "pt-trip-v2";
+const CACHE = "pt-trip-v3";
+const IMGCACHE = "pt-img-v1";
 const ASSETS = [
   "./",
   "index.html",
@@ -17,7 +18,7 @@ self.addEventListener("install", e => {
 
 self.addEventListener("activate", e => {
   e.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE && k !== IMGCACHE).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -25,8 +26,20 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET") return;
-  // 같은 출처만 캐시(지도·예약 등 외부 링크는 그대로 네트워크)
-  if (new URL(req.url).origin !== location.origin) return;
+  const url = new URL(req.url);
+  // 위키백과 사진: 한 번 본 사진은 캐시(오프라인에서도 표시)
+  if (url.hostname === "upload.wikimedia.org") {
+    e.respondWith(
+      caches.open(IMGCACHE).then(c => c.match(req).then(hit => hit || fetch(req).then(res => {
+        c.put(req, res.clone()).catch(() => {});
+        return res;
+      }).catch(() => hit)))
+    );
+    return;
+  }
+  // 그 외 외부(지도·예약·위키 API 등)는 캐시하지 않고 네트워크
+  if (url.origin !== location.origin) return;
+  // 같은 출처(앱 자체): 캐시 우선
   e.respondWith(
     caches.match(req).then(hit => hit || fetch(req).then(res => {
       const copy = res.clone();
