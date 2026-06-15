@@ -30,7 +30,10 @@ body{font-family:'NanumSquare',system-ui,'Apple SD Gothic Neo',sans-serif;color:
 .hero::after{content:"";position:absolute;inset:0;opacity:.10;background-image:radial-gradient(circle at 12px 12px,#fff 2px,transparent 2.5px),radial-gradient(circle at 0 0,transparent 11px,#fff 11px,#fff 12px,transparent 12px);background-size:24px 24px}
 .hero .wrap{position:relative}
 .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#bcd4f0;font-weight:800}
-.hero h1{font-family:'NanumSquare',sans-serif;font-weight:800;font-size:34px;line-height:1.1;margin:6px 0 10px}
+.hero h1{font-family:'NanumSquare',sans-serif;font-weight:800;font-size:34px;line-height:1.1;margin:6px 0 6px}
+.who{font-family:'NanumSquare',sans-serif;font-weight:800;font-size:18px;color:#fff;margin:0 0 11px}
+.who span{color:var(--star);font-size:16px;margin:0 4px;display:inline-block;animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}40%{transform:scale(1.25)}}
 .hero .meta{font-size:13.5px;color:#dce8f7;display:flex;flex-wrap:wrap;gap:6px 14px}
 .hero .meta b{color:#fff;font-weight:800}
 section{margin-top:22px}
@@ -153,6 +156,9 @@ body.dark .foodwrap{background:#221b13;border-color:#3a2f22}
 .dstars{color:var(--star);font-size:14px;letter-spacing:1px;margin-bottom:10px}
 .dstars .se{color:var(--line)}
 .ddesc{font-size:14.5px;line-height:1.7;color:var(--ink)}
+.dstory{margin-top:13px;font-size:13.5px;line-height:1.7;background:#FBF6EC;border:1px solid #E8D9B5;border-radius:12px;padding:12px 14px;color:var(--ink)}
+body.dark .dstory{background:#221d12;border-color:#3e3320}
+.dstory b{display:inline-block;color:var(--gold);font-weight:800;font-size:12.5px;margin-bottom:3px}
 .dtip{margin-top:12px;font-size:13px;line-height:1.6;color:var(--ink);background:var(--tint);border-radius:12px;padding:11px 13px}
 .dtip.warn{background:#FBE9E7;color:#9a3420}
 .dtip b{font-weight:800}
@@ -222,7 +228,8 @@ body.dark .btn.route{background:#1f1b2b}
 <div class="topbar"><button class="iconbtn" id="darkBtn" title="다크모드" aria-label="다크모드">🌙</button><button class="iconbtn" id="printBtn" title="인쇄/PDF 저장" aria-label="인쇄">🖨</button></div>
 <div class="eyebrow">Portugal · 13 Days <span class="dday" id="dday"></span></div>
 <h1>2026년 포르투갈 여행</h1>
-<div class="meta"><span><b>2026.7.1(수) → 7.13(월)</b></span><span>리스본 · 마데이라 · 포르투</span><span>리스본 in/out · 은혜 ♥ 창민</span></div>
+<div class="who">은혜 <span>♥</span> 창민</div>
+<div class="meta"><span><b>2026.7.1(수) → 7.13(월)</b></span><span>리스본 · 마데이라 · 포르투</span><span>리스본 in/out · 둘이서</span></div>
 <div class="clocks" id="clocks"></div>
 </div></header>
 <div class="wrap">
@@ -271,6 +278,7 @@ body.dark .btn.route{background:#1f1b2b}
 <h2 class="dtitle" id="dtitle"></h2>
 <div class="dstars" id="dstars"></div>
 <p class="ddesc" id="ddesc"></p>
+<div class="dstory" id="dstory" style="display:none"></div>
 <div class="dtip" id="dtip" style="display:none"></div>
 <div class="dwiki" id="dwiki" style="display:none"></div>
 <div class="dacts" id="dacts"></div>
@@ -382,45 +390,105 @@ const FOODS={
 "7/1":[
  {name:"봉자르딤 (Bom Jardim·Rei dos Frangos)",desc:"숯불 피리피리 통닭으로 유명한 리스본 노포. 바삭한 껍질에 매콤 소스가 일품.",m:"Bonjardim Rei dos Frangos Lisbon",w:"Piri piri",n:"리스본 봉자르딤"},
  {name:"세르베자리아 트린다드 (Cervejaria Trindade)",desc:"옛 수도원 건물의 아줄레주 맥줏집. 해산물·스테이크와 생맥주.",m:"Cervejaria Trindade Lisbon",n:"리스본 트린다드"},
- {name:"만테이가리아 (Manteigaria·시아두)",desc:"갓 구운 따끈한 에그타르트 맛집. 종 울리면 새로 나와요.",m:"Manteigaria Chiado Lisbon",w:"Pastel de nata",n:"리스본 만테이가리아"}],
+ {name:"만테이가리아 (Manteigaria·시아두)",desc:"갓 구운 따끈한 에그타르트. 종 울리면 새 타르트가 나와요.",m:"Manteigaria Chiado Lisbon",w:"Pastel de nata",n:"리스본 만테이가리아"},
+ {name:"솔라르 두스 프레준투스 (Solar dos Presuntos)",desc:"하몽·해산물로 유명한 전통 포르투갈 명가. 줄 서는 집.",m:"Solar dos Presuntos Lisbon",n:"리스본 솔라르 두스 프레준투스"},
+ {name:"핑쿠 (Restaurante Pinóquio)",desc:"헤스타우라도레스 광장 옆 해산물 세르베자리아.",m:"Restaurante Pinóquio Lisbon",n:"리스본 피노키오 레스토랑"},
+ {name:"파스텔라리아 베르사유 (Versailles)",desc:"1922년 문 연 화려한 벨에포크 카페. 커피·전통과자.",m:"Pastelaria Versailles Lisbon",n:"리스본 베르사유 카페"},
+ {name:"메르카두 드 캄푸 드 오리크",desc:"동네 분위기의 푸드마켓. 다양한 맛집이 한곳에.",m:"Mercado de Campo de Ourique Lisbon",n:"리스본 캄푸 드 오리크 시장"},
+ {name:"진지냐 셍 히발 (Ginjinha Sem Rival)",desc:"1890년부터 체리주·에두아르디누 한 잔 따라주는 노포.",m:"Ginjinha Sem Rival Lisbon",w:"Ginjinha",n:"리스본 진지냐 셍 히발"}],
 "7/2":[
  {name:"콘페이타리아 나시오날 (Confeitaria Nacional)",desc:"1829년 문 연 역사적 제과점. 전통 과자·에그타르트.",m:"Confeitaria Nacional Lisbon",w:"Pastel de nata",n:"리스본 콘페이타리아 나시오날"},
  {name:"아 진지냐 (A Ginjinha Espinheira)",desc:"1840년부터 체리주(진자) 한 잔 따라주는 작은 노포 바.",m:"A Ginjinha Espinheira Lisbon",w:"Ginjinha",n:"리스본 진지냐"},
- {name:"타베르나 다 후아 다스 플로레스",desc:"줄 서는 인기 페티스코(포르투갈식 타파스) 식당.",m:"Taberna da Rua das Flores Lisbon",n:"리스본 후아 다스 플로레스"}],
+ {name:"타베르나 다 후아 다스 플로레스",desc:"줄 서는 인기 페티스코(포르투갈식 타파스) 식당.",m:"Taberna da Rua das Flores Lisbon",n:"리스본 후아 다스 플로레스"},
+ {name:"아 카사 브라질레이라 (A Casa Brasileira)",desc:"바이샤의 에그타르트·커피 맛집(테주강 근처).",m:"A Casa Brasileira Lisbon",w:"Pastel de nata",n:"리스본 카사 브라질레이라"},
+ {name:"니콜라우 리스보아 (Nicolau Lisboa)",desc:"예쁜 플레이팅의 인기 브런치 카페(바이샤).",m:"Nicolau Lisboa",n:"리스본 니콜라우"},
+ {name:"포이스 카페 (Pois Café·알파마)",desc:"대성당 근처 아늑한 브런치·샐러드 카페.",m:"Pois Café Alfama Lisbon",n:"리스본 포이스 카페"},
+ {name:"티 나테르시아 (Ti-Natércia·알파마)",desc:"알파마 골목의 작은 가정식 타스카(좌석 적음).",m:"Ti Natércia Alfama Lisbon",n:"리스본 티 나테르시아"},
+ {name:"세르베자리아 라미로 (Cervejaria Ramiro)",desc:"리스본 대표 해산물 맥줏집. 마늘새우·거북손 강추.",m:"Cervejaria Ramiro Lisbon",n:"리스본 라미로"},
+ {name:"아 브라질레이라 (A Brasileira·시아두)",desc:"1905년 문 연 시아두의 전설적 카페. 시인 페소아 동상과 진한 비카(에스프레소).",m:"A Brasileira Chiado Lisbon",n:"리스본 아 브라질레이라"}],
 "7/3":[
  {name:"카페 사우다드 (Café Saudade)",desc:"신트라역 근처 옛 빵집을 개조한 카페. 페이스트리·브런치.",m:"Café Saudade Sintra",n:"신트라 카페 사우다드"},
  {name:"타스칸티가 (Tascantiga)",desc:"신트라 구시가 인기 페티스코집. 전망 테라스.",m:"Tascantiga Sintra",n:"신트라 타스칸티가"},
- {name:"인콤움 (Incomum by Luís Santos)",desc:"가성비 좋은 신트라 인기 비스트로(점심 추천).",m:"Incomum Sintra",n:"신트라 인콤움"}],
+ {name:"인콤움 (Incomum by Luís Santos)",desc:"가성비 좋은 신트라 인기 비스트로(점심 추천).",m:"Incomum Sintra",n:"신트라 인콤움"},
+ {name:"나우 팔라티나 (Nau Palatina)",desc:"신트라의 아담한 페티스코 전문점.",m:"Nau Palatina Sintra",n:"신트라 나우 팔라티나"},
+ {name:"로마리아 드 바쿠 (Romaria de Baco)",desc:"빈티지한 와인바 겸 페티스코집.",m:"Romaria de Baco Sintra",n:"신트라 로마리아 드 바쿠"},
+ {name:"아 라포자 (A Raposa)",desc:"신트라 가정식·현지 식재료 요리.",m:"Restaurante A Raposa Sintra",n:"신트라 아 라포자"},
+ {name:"돔 피파스 (Dom Pipas)",desc:"현지인이 찾는 신트라 전통식당.",m:"Dom Pipas Sintra",n:"신트라 돔 피파스"},
+ {name:"카페 다 빌라 (Café da Vila)",desc:"신트라 구시가 카페·간단한 식사.",m:"Café da Vila Sintra",n:"신트라 카페 다 빌라"}],
 "7/4":[
  {name:"메르카두 두스 라브라도레스",desc:"푼샬 농수산 시장. 열대과일 시식·생선·꽃이 가득.",m:"Mercado dos Lavradores Funchal",n:"마데이라 라브라도레스 시장"},
  {name:"파이스카 (Faísca)",desc:"마데이라 명물 볼루 두 카쿠(마늘버터빵) 전문.",m:"Faísca Funchal",w:"Bolo do caco",n:"마데이라 볼루 두 카쿠"},
- {name:"오 타파솔 (O Tapassol)",desc:"산타 마리아 거리의 해산물·마데이라 가정식.",m:"O Tapassol Funchal",n:"푼샬 산타마리아 맛집"}],
+ {name:"오 타파솔 (O Tapassol)",desc:"산타 마리아 거리의 해산물·마데이라 가정식.",m:"O Tapassol Funchal",n:"푼샬 산타마리아 맛집"},
+ {name:"가비앙 노부 (Gavião Novo)",desc:"산타 마리아 거리의 인기 해산물·라파스(삿갓조개).",m:"Gavião Novo Funchal",n:"푼샬 가비앙 노부"},
+ {name:"비어하우스 (Beerhouse Funchal)",desc:"항구 옆 수제맥주·해산물. 전망 좋은 브루어리.",m:"Beerhouse Funchal",n:"푼샬 비어하우스"},
+ {name:"파브리카 산투 안토니우",desc:"1893년 노포 제과. 마데이라 꿀케이크(볼루 드 멜).",m:"Fábrica Santo António Funchal",n:"푼샬 볼루 드 멜"},
+ {name:"오 셀레이루 (O Celeiro)",desc:"구시가의 전통 해산물·마데이라 가정식.",m:"Restaurante O Celeiro Funchal",n:"푼샬 오 셀레이루"},
+ {name:"도카 두 카바카스 (Doca do Cavacas)",desc:"바위 해안가의 신선한 생선구이·해산물.",m:"Doca do Cavacas Funchal",n:"푼샬 도카 두 카바카스"}],
 "7/5":[
  {name:"타베르나 다 포냐 (Taberna da Poncha)",desc:"카마라 드 로부스의 폰차(사탕수수 칵테일) 명소.",m:"Taberna da Poncha Câmara de Lobos",w:"Poncha",n:"마데이라 폰차"},
- {name:"오르카 (Restaurante Orca)",desc:"포르투 모니즈 천연풀 바로 옆 해산물 레스토랑.",m:"Restaurante Orca Porto Moniz",n:"포르투 모니즈 맛집"}],
+ {name:"바 필료트 (Bar Filhote)",desc:"카마라 드 로부스의 폰차·라파스 노포 바.",m:"Bar Filhote Câmara de Lobos",n:"카마라 드 로부스 폰차"},
+ {name:"빌라 두 페이슈 (Vila do Peixe)",desc:"항구 전망의 생선구이 전문(무게로 주문).",m:"Vila do Peixe Câmara de Lobos",n:"카마라 드 로부스 빌라 두 페이슈"},
+ {name:"오르카 (Restaurante Orca)",desc:"포르투 모니즈 천연풀 바로 옆 해산물 레스토랑.",m:"Restaurante Orca Porto Moniz",n:"포르투 모니즈 맛집"},
+ {name:"카샬로트 (Cachalote)",desc:"포르투 모니즈 용암지대 위 해산물 식당.",m:"Restaurante Cachalote Porto Moniz",n:"포르투 모니즈 카샬로트"},
+ {name:"헤스타우란트 코랄 (Restaurante Coral)",desc:"카마라 드 로부스의 해산물·전통요리.",m:"Restaurante Coral Câmara de Lobos",n:"카마라 드 로부스 코랄"},
+ {name:"세이샬 비치 바",desc:"검은 모래 해변 앞에서 즐기는 가벼운 한 끼·음료.",m:"Praia do Seixal Madeira restaurant",n:"마데이라 세이샬 해변 맛집"}],
 "7/6":[
  {name:"오 라가르 (Restaurante O Lagar)",desc:"마데이라 에스페타다(쇠고기 꼬치)·뷔페식 전통식당.",m:"Restaurante O Lagar Câmara de Lobos",w:"Espetada",n:"마데이라 에스페타다"},
- {name:"카페 두 파르크 (Café do Parque·몬테)",desc:"몬테 광장의 카페. 토보간 전 쉬어가기 좋아요.",m:"Café do Parque Monte Funchal",n:"마데이라 몬테 카페"}],
+ {name:"아스 비데스 (As Vides)",desc:"에스트레이투의 에스페타다 명가. 월계수 꼬치구이.",m:"Restaurante As Vides Estreito de Câmara de Lobos",w:"Espetada",n:"마데이라 아스 비데스 에스페타다"},
+ {name:"카페 두 파르크 (몬테)",desc:"몬테 광장의 카페. 토보간 타기 전 쉬어가기 좋아요.",m:"Café do Parque Monte Funchal",n:"마데이라 몬테 카페"},
+ {name:"캄푸 (Kampo by Júlio Pereira)",desc:"마데이라 식재료를 쓰는 모던 캐주얼 다이닝.",m:"Kampo Restaurante Funchal",n:"푼샬 캄푸 레스토랑"},
+ {name:"아르마젱 두 살 (Armazém do Sal)",desc:"옛 소금창고를 개조한 분위기 좋은 모던 식당.",m:"Armazém do Sal Funchal",n:"푼샬 아르마젱 두 살"},
+ {name:"헤이드 팰리스 애프터눈티",desc:"바다 전망 클래식 호텔의 영국식 티타임(드레스코드).",m:"Reid's Palace afternoon tea Funchal",n:"마데이라 헤이드 팰리스 애프터눈티"},
+ {name:"타베르나 후엘 (Taberna Ruel)",desc:"푼샬 도심의 아담한 모던 타스카.",m:"Taberna Ruel Funchal",n:"푼샬 타베르나 후엘"}],
 "7/7":[
  {name:"킨타 두 푸랑 (Quinta do Furão)",desc:"산타나 절벽 위 전망 레스토랑. 마데이라 향토요리.",m:"Quinta do Furão Restaurant Santana",n:"산타나 킨타 두 푸랑"},
- {name:"칸티뉴 다 세하 (Cantinho da Serra)",desc:"산타나의 아늑한 산장식 전통 가정식.",m:"Cantinho da Serra Santana Madeira",n:"산타나 맛집"}],
+ {name:"칸티뉴 다 세하 (Cantinho da Serra)",desc:"산타나의 아늑한 산장식 전통 가정식.",m:"Cantinho da Serra Santana Madeira",n:"산타나 맛집"},
+ {name:"오 콜무 (O Colmo)",desc:"산타나 중심의 전통 마데이라 식당.",m:"Restaurante O Colmo Santana",n:"산타나 오 콜무"},
+ {name:"메르카두 벨류 (Machico)",desc:"마시쿠의 옛 시장을 개조한 카페·바.",m:"Mercado Velho Machico",n:"마시쿠 메르카두 벨류"},
+ {name:"아마하 오 테주 (Amarra ó Tejo)",desc:"마시쿠 성 옆 전망 좋은 해산물 식당.",m:"Amarra ó Tejo Machico",n:"마시쿠 맛집"},
+ {name:"포르텔라 전망 카페",desc:"포르텔라 고갯마루의 전망 좋은 휴게 카페.",m:"Miradouro da Portela Madeira café",n:"마데이라 포르텔라 전망대"}],
 "7/8":[
  {name:"타베르나 두스 메르카도레스",desc:"히베이라 골목의 인기 식당(작아서 예약 권장).",m:"Taberna dos Mercadores Porto",n:"포르투 히베이라 맛집"},
  {name:"카사 게데스 (Casa Guedes)",desc:"포르투 명물 페르닐(돼지고기) 샌드위치.",m:"Casa Guedes Porto",n:"포르투 카사 게데스"},
- {name:"메르카두 베이라-리우 (가이아)",desc:"가이아 강변 푸드홀. 포트와인 셀러 투어 후 한 끼.",m:"Mercado Beira-Rio Vila Nova de Gaia",n:"가이아 베이라리우 마켓"}],
+ {name:"메르카두 베이라-리우 (가이아)",desc:"가이아 강변 푸드홀. 포트와인 셀러 투어 후 한 끼.",m:"Mercado Beira-Rio Vila Nova de Gaia",n:"가이아 베이라리우 마켓"},
+ {name:"아데가 상 니콜라우 (Adega São Nicolau)",desc:"히베이라 강변 골목의 전통 포르투 가정식.",m:"Adega São Nicolau Porto",n:"포르투 아데가 상 니콜라우"},
+ {name:"와인 키 바 (Wine Quay Bar)",desc:"히베이라 강변에서 와인+페티스코+다리 전망.",m:"Wine Quay Bar Porto",n:"포르투 와인 키 바"},
+ {name:"브라장 (Brasão Aliados)",desc:"인기 프란세지냐 체인. 깔끔하고 줄 서는 집.",m:"Brasão Aliados Porto",w:"Francesinha",n:"포르투 브라장 프란세지냐"},
+ {name:"바랑 드 플라드게이트 (Taylor's)",desc:"가이아 테일러스 와이너리의 강 전망 레스토랑.",m:"Barão de Fladgate Taylor's Porto",n:"가이아 테일러스 레스토랑"},
+ {name:"세르베자리아 가젤라 (Gazela)",desc:"포르투식 미니 핫도그 카쇼리뉴로 유명한 노포.",m:"Cervejaria Gazela Porto",n:"포르투 가젤라 카쇼리뉴"}],
 "7/9":[
  {name:"카페 산티아구 (Café Santiago)",desc:"포르투 프란세지냐 1·2위로 꼽히는 명가.",m:"Café Santiago Porto",w:"Francesinha",n:"포르투 카페 산티아고"},
  {name:"콘가 (Conga·Casa das Bifanas)",desc:"포르투식 비파나(돼지고기) 샌드 노포.",m:"Conga Casa das Bifanas Porto",w:"Bifana",n:"포르투 콘가 비파나"},
- {name:"만테이가리아 (Manteigaria·포르투)",desc:"갓 구운 에그타르트. 클레리구스 근처.",m:"Manteigaria Porto",w:"Pastel de nata",n:"포르투 만테이가리아"}],
+ {name:"만테이가리아 (Manteigaria·포르투)",desc:"갓 구운 에그타르트. 클레리구스 근처.",m:"Manteigaria Porto",w:"Pastel de nata",n:"포르투 만테이가리아"},
+ {name:"타파벤투 (Tapabento)",desc:"상 벤투역 옆 인기 페티스코·해산물(예약 권장).",m:"Tapabento Porto",n:"포르투 타파벤투"},
+ {name:"칸티나 32 (Cantina 32)",desc:"감각적인 인테리어의 모던 페티스코.",m:"Cantina 32 Porto",n:"포르투 칸티나 32"},
+ {name:"플로르 두스 콘그레가두스",desc:"좁은 골목 안 전통 포르투 식당(예약 권장).",m:"Flor dos Congregados Porto",n:"포르투 플로르 두스 콘그레가두스"},
+ {name:"마제스틱 카페 (Majestic Café)",desc:"1921년 아르누보 카페. 화려한 분위기로 유명.",m:"Majestic Café Porto",n:"포르투 마제스틱 카페"},
+ {name:"페드루 두스 프랑구스 (Pedro dos Frangos)",desc:"숯불 통닭으로 사랑받는 포르투 노포.",m:"Pedro dos Frangos Porto",n:"포르투 페드루 두스 프랑구스"},
+ {name:"카페 과라니 (Café Guarany)",desc:"아베니다 거리의 1933년 클래식 카페. 라이브 음악도.",m:"Café Guarany Porto",n:"포르투 카페 과라니"}],
 "7/10":[
  {name:"DOC by Rui Paula",desc:"도루 강변 모던 포르투갈 파인다이닝(전망·예약).",m:"DOC Restaurant Folgosa Douro",n:"도루밸리 DOC 레스토랑"},
- {name:"베라도우루 (Veladouro)",desc:"핀얀의 소박한 지역 식당. 도루 와인과 함께.",m:"Veladouro Pinhão",n:"핀얀 맛집"}],
+ {name:"카스타스 이 프라투스 (Régua)",desc:"옛 기차창고를 개조한 와인+모던 도루 요리.",m:"Castas e Pratos Peso da Régua",n:"레구아 카스타스 이 프라투스"},
+ {name:"빈티지 하우스 (Pinhão)",desc:"핀얀 강변 호텔의 우아한 레스토랑.",m:"Vintage House Hotel restaurant Pinhão",n:"핀얀 빈티지 하우스"},
+ {name:"베라도우루 (Veladouro)",desc:"핀얀의 소박한 지역 식당. 도루 와인과 함께.",m:"Veladouro Pinhão",n:"핀얀 맛집"},
+ {name:"토스카노 (Toscano·Régua)",desc:"레구아의 전통 도루 가정식.",m:"Restaurante Toscano Peso da Régua",n:"레구아 토스카노"},
+ {name:"카이스 다 포즈 (Cais da Foz·Pinhão)",desc:"핀얀 강가의 캐주얼한 식당·카페.",m:"Cais da Foz Pinhão",n:"핀얀 카이스 다 포즈"}],
 "7/11":[
  {name:"콘페이타리아 페이시뉴 (Aveiro)",desc:"아베이루 명물 오부스 몰레스(달걀노른자 단과자) 원조.",m:"Confeitaria Peixinho Aveiro",w:"Ovos moles",n:"아베이루 오부스 몰레스"},
+ {name:"오 바이루 (O Bairro·Aveiro)",desc:"아베이루 운하 근처 인기 페티스코집.",m:"O Bairro Aveiro",n:"아베이루 오 바이루"},
+ {name:"살포엔트 (Salpoente·Aveiro)",desc:"옛 소금창고를 개조한 모던 대구요리 레스토랑.",m:"Salpoente Aveiro",w:"Bacalhau",n:"아베이루 살포엔트"},
+ {name:"도리 (Dóri·Costa Nova)",desc:"코스타 노바 줄무늬집 옆 신선한 해산물.",m:"Restaurante Dóri Costa Nova",n:"코스타 노바 도리"},
  {name:"솔라르 두 바칼라우 (Coimbra)",desc:"코임브라의 대구(바칼라우) 요리 전문 식당.",m:"Solar do Bacalhau Coimbra",w:"Bacalhau",n:"코임브라 솔라르 두 바칼라우"},
- {name:"카페 산타 크루즈 (Coimbra)",desc:"옛 예배당을 개조한 코임브라의 명물 카페.",m:"Café Santa Cruz Coimbra",n:"코임브라 산타크루즈 카페"}],
+ {name:"팡가스 메르세아리아 (Coimbra)",desc:"코임브라의 아담한 페티스코 바.",m:"Fangas Mercearia Bar Coimbra",n:"코임브라 팡가스"},
+ {name:"카페 산타 크루즈 (Coimbra)",desc:"옛 예배당을 개조한 코임브라의 명물 카페.",m:"Café Santa Cruz Coimbra",n:"코임브라 산타크루즈 카페"},
+ {name:"제 마누엘 두스 오소스 (Coimbra)",desc:"벽 낙서로 가득한 코임브라 학생 단골 식당.",m:"Zé Manel dos Ossos Coimbra",n:"코임브라 제 마누엘"},
+ {name:"세트 헤스타우란트 (Sete·Coimbra)",desc:"코임브라의 깔끔한 모던 포르투갈 비스트로.",m:"Sete Restaurante Coimbra",n:"코임브라 세트 레스토랑"}],
 "7/12":[
- {name:"진지냐 드 오비두스",desc:"오비두스 성안 거리의 체리주를 초콜릿 잔에 담아 한 잔.",m:"Ginjinha Óbidos",w:"Ginjinha",n:"오비두스 진자"}]
+ {name:"진지냐 드 오비두스",desc:"오비두스 성안 거리의 체리주를 초콜릿 잔에 담아 한 잔.",m:"Ginjinha Óbidos",w:"Ginjinha",n:"오비두스 진자"},
+ {name:"페트라룸 도무스 (Petrarum Domus)",desc:"오비두스 성안의 전통 포르투갈 식당·바.",m:"Petrarum Domus Óbidos",n:"오비두스 페트라룸 도무스"},
+ {name:"이븐 에릭 렉스 (Ibn Errik Rex)",desc:"오비두스의 빈티지한 옛 진자 바(좌석 적음).",m:"Ibn Errik Rex Óbidos",n:"오비두스 이븐 에릭 렉스"},
+ {name:"카피냐 드 오비두스",desc:"오비두스의 빵·페이스트리 가게. 간단한 요기.",m:"Óbidos bakery pastry",n:"오비두스 빵집"},
+ {name:"아 세비체리아 (A Cevicheria·Lisbon)",desc:"문어가 매달린 인테리어로 유명한 리스본 세비체 맛집(출국 전).",m:"A Cevicheria Lisbon",n:"리스본 세비체리아"}]
 };
 const KEY="pt_itin_v1";
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DAYS));}
@@ -495,6 +563,44 @@ const PLACE_INFO={
 "Sr. Fado Lisbon":{ko:"알파마의 작고 아담한 파두 식당. 세트메뉴로 즐겨요."},
 "A Tasca do Chico Bairro Alto Lisbon":{ko:"예약 없이 들르는 캐주얼 '파두 바디우' 타스카. 현금만 받아요."},
 "Tasca de Noticias Lisbon":{ko:"커버차지 없는 캐주얼 파두 바. 동네 파디스타들이 노래해요."}
+};
+// 지역별 재미있는 이야기·지리 이야기 (상세 페이지 표시) — key는 m
+const STORY={
+"Pastéis de Belém Lisbon":"제로니무스 수도원의 수녀·수도사들이 수도복을 빳빳하게 풀 먹이고 남은 달걀노른자로 타르트를 구운 게 시작이래요. 1837년부터 이어진 비법 레시피는 단 몇 명만 안다고 합니다.",
+"Jerónimos Monastery Lisbon":"건축비를 인도 항로 향신료 무역에서 거둔 '후추세'로 충당했어요. 바스쿠 다 가마가 인도로 떠나기 전 이 자리 예배당에서 밤새 기도했고, 지금은 그의 석관이 입구를 지킵니다.",
+"Belém Tower Lisbon":"원래는 테주강 한가운데 떠 있었지만 1755년 대지진 이후 강줄기가 바뀌며 지금은 강가에 붙었어요. 탑 한쪽엔 1515년 리스본에 들어온 인도 코뿔소를 새긴 유럽 최초의 코뿔소 석상이 숨어 있습니다.",
+"Praça do Comércio Lisbon":"1755년 대지진·쓰나미 전엔 이곳에 왕궁이 있었어요. 폐허가 된 도시를 폼발 후작이 격자형으로 재건하며 유럽 최초의 내진 설계 '폼발린' 건물이 들어섰습니다.",
+"Carmo Convent Lisbon":"1755년 만성절 미사 도중 대지진으로 지붕이 무너졌고, 그 모습을 일부러 복원하지 않고 그대로 두었어요. 하늘이 뻥 뚫린 폐허가 지진의 기억을 증언합니다.",
+"Cervejaria Ramiro Lisbon":"셰프 앤서니 부르댕이 방송에서 극찬한 뒤 세계적 성지가 됐어요. 새우를 손으로 까먹고 마지막엔 스테이크 샌드(프레구)로 마무리하는 게 '국룰'입니다.",
+"Miradouro das Portas do Sol Lisbon":"'태양의 문'이라는 이름처럼 동쪽 알파마 너머로 해가 떠요. 발밑의 알파마는 대지진에도 살아남은, 리스본에서 가장 오래된 무어인 골목 동네입니다.",
+"Pena Palace Sintra":"'미친 왕'으로 불린 페르난두 2세가 폐허 수도원 위에 동화 같은 궁을 올렸어요. 노랑·빨강·보라가 뒤섞인 이 성은 독일 노이슈반슈타인에도 영감을 줬다고 하죠. 바이런은 신트라를 '찬란한 에덴'이라 불렀습니다.",
+"Quinta da Regaleira Sintra":"프리메이슨·연금술·기사단 상징으로 가득한 정원이에요. 27m 깊이의 '입문의 우물'은 지하로 나선을 그리며 내려가는데, 탄생과 재생을 상징하는 입회 의식 장소였다고 전해집니다.",
+"Cabo da Roca":"시인 카몽이스가 '여기, 땅이 끝나고 바다가 시작된다'고 노래한 유라시아 대륙 최서단이에요. 위도·경도를 새긴 표지석과 등대가 절벽 끝에 서 있습니다.",
+"Rua de Santa Maria Funchal":"푼샬이라는 이름은 이 일대에 무성했던 회향(funcho)에서 왔어요. 마데이라는 통째로 화산섬이라 평지가 거의 없고, 콜럼버스도 한때 이 섬에 살며 설탕 무역을 했답니다.",
+"Cabo Girão Skywalk Madeira":"해발 580m로 유럽에서 가장 높은 해안 절벽 중 하나예요. 절벽 아래 바다와 맞닿은 작은 농경지 '파장(fajã)'은 길이 없어 예전엔 배로만 드나들었습니다.",
+"Câmara de Lobos Madeira":"처칠이 이젤을 펴고 그림을 그린 어촌이에요. 마을 이름의 '로부스(lobos)'는 바다표범을 뜻하는데, 발견 당시 이곳에 바다표범이 살았기 때문이라고 합니다.",
+"Porto Moniz natural pools":"용암이 바다에서 굳으며 만들어진 천연 수영장이에요. 파도는 막아주고 바닷물만 채워져, 자연이 만든 무료 인피니티 풀인 셈입니다.",
+"Pico do Arieiro":"마데이라에서 세 번째로 높은 봉우리(1,818m). 새벽엔 구름이 발아래 바다처럼 깔린 '운해' 위로 해가 떠올라, 비행기 없이 구름 위에 서는 기분을 줍니다.",
+"Monte Toboggan Run Funchal":"1850년대엔 몬테에서 푼샬까지 빠르게 내려가던 진짜 '교통수단'이었어요. 헤밍웨이가 인생에서 가장 짜릿한 경험 중 하나로 꼽았다는 일화가 전해집니다.",
+"Ponta de São Lourenço Madeira":"초록 가득한 마데이라에서 유일하게 나무 없이 붉고 황량한 화산 반도예요. 섬에서 가장 건조하고 바람이 센 동쪽 끝이라 풍경이 완전히 달라집니다.",
+"Blandy's Wine Lodge Funchal":"마데이라 와인은 18세기에 배로 적도를 건너다 더위에 '익으며' 오히려 맛이 깊어진다는 걸 발견했어요. 그래서 일부러 데워 숙성(estufagem)하죠. 미국 독립선언 축배도 마데이라로 들었답니다.",
+"Dom Luís I Bridge Porto":"에펠탑의 에펠이 아니라 그의 제자 테오필 세이리그가 설계했어요(에펠은 바로 옆 마리아 피아 철교 담당). 완공 당시 세계에서 가장 긴 철제 아치교였습니다.",
+"Port wine cellars Vila Nova de Gaia":"포트와인은 도루 계곡에서 빚지만 숙성·보관은 강 건너 시원한 가이아에서 해요. 영국 상인들이 무역을 주도해 콕번스·테일러스 같은 영국식 이름이 많습니다.",
+"Livraria Lello Porto":"J.K.롤링이 포르투에서 영어교사로 지내던 시절 자주 들렀다고 알려져 '해리포터 영감설'로 유명해졌어요(작가 본인은 부인). 붉은 곡선 계단이 마법학교 분위기를 냅니다.",
+"São Bento Station Porto":"2만 장이 넘는 아줄레주 타일로 포르투갈의 역사와 전투 장면을 벽에 그린 기차역이에요. 원래 이 자리엔 베네딕트회 수도원이 있었습니다.",
+"Porto Cathedral Sé":"도시 이름 '포르투(Portus Cale)'가 나라 이름 '포르투갈'의 어원이 됐어요. 언덕 위 대성당은 전쟁에 대비해 요새처럼 단단하게 지어졌습니다.",
+"Francesinha Porto":"1950년대 프랑스에서 돌아온 포르투 사람이 크로크무슈를 포르투식으로 변형해 만들었어요. 이름은 '작은 프랑스 소녀'라는 뜻입니다.",
+"Quinta do Bomfim Pinhão":"도루는 1756년 세계 최초로 경계가 지정된 와인 산지예요. 가파른 계단식 포도밭은 사람 손으로 일군 풍경이라 통째로 유네스코 세계유산입니다.",
+"Pinhão Douro river cruise":"핀얀역은 아줄레주로 포도 수확 장면을 그린 것으로 유명해요. 옛날엔 이 강에서 전통 배 '하벨루'로 포트와인 통을 포르투까지 실어 날랐습니다.",
+"Joanina Library Coimbra":"18세기 바로크 도서관인데, 책을 좀먹는 벌레를 잡으려 밤마다 박쥐를 풀어놓아요. 그래서 밤엔 책상에 가죽을 덮습니다. 코임브라 대학은 유럽에서 가장 오래된 대학 중 하나예요.",
+"Aveiro canals Portugal":"운하와 소금밭으로 '포르투갈의 베네치아'라 불려요. 알록달록한 배 '몰리세이루'는 원래 바다 해초를 건지던 작업선이었습니다.",
+"Costa Nova striped houses":"어부들이 안개 속에서도 자기 집을 찾으려고 벽을 빨강·파랑 줄무늬로 칠한 데서 시작됐다고 해요.",
+"Óbidos Portugal":"1282년 데니스 왕이 왕비 이자벨에게 결혼 선물로 통째로 준 마을이에요. 이후 600여 년간 포르투갈 왕비들의 '도시'로 이어졌고, 지금은 체리주 진자를 초콜릿 잔에 담아 마시는 곳으로 유명합니다.",
+"Time Out Market Lisbon":"130년 된 히베이라 시장 절반을, 잡지 '타임아웃'이 직접 고른 맛집들로 채운 곳이에요. '에디터가 추천한 것만 모은 시장'이라는 컨셉입니다.",
+"Fado ao Centro Coimbra":"리스본 파두가 여성·서민의 노래라면, 코임브라 파두는 검은 망토를 두른 남자 대학생들이 부르는 세레나데예요. 멋진 무대엔 박수 대신 헛기침으로 화답합니다.",
+"Clube de Fado Lisbon":"파두는 바다로 떠난 이를 향한 그리움 '사우다드'를 노래해요. 유네스코 무형문화유산이며, 12현 포르투갈 기타의 떨리는 소리가 특징입니다.",
+"Pico Ruivo trail Madeira":"마데이라 최고봉(1,862m). 아리에이루에서 이어지는 능선길은 좁은 바위 터널과 계단을 지나, 섬의 등뼈를 따라 걷는 듯한 코스예요.",
+"Seixal beach Madeira":"검은 화산 모래와 절벽에서 떨어지는 폭포가 어우러진 마데이라 북부의 숨은 해변이에요. 화산섬의 검은 모래가 인상적입니다."
 };
 const starHtml=s=>s?`<div class="stars">${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span></div>`:"";
 document.getElementById("flights").innerHTML=flights.map(f=>`<div class="info"><div class="top"><span class="route">${f.route}</span><span class="when">${f.when}</span></div><div class="sub">${f.sub}</div></div>`).join("");
@@ -672,6 +778,8 @@ function buildDetail(it,info,sl){
  document.getElementById("dtitle").textContent=name;
  document.getElementById("dstars").innerHTML=s?`${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span> <span style="font-size:12px;color:var(--muted);font-weight:400">추천도 ${s}/5</span>`:"";
  document.getElementById("ddesc").textContent=desc;
+ const storyEl=document.getElementById("dstory"),story=STORY[it.m];
+ if(story){storyEl.style.display="";storyEl.innerHTML="<b>🗺️ 알면 더 재밌는 이야기</b><br>"+esc(story);}else storyEl.style.display="none";
  const tipEl=document.getElementById("dtip");
  if(it.tip){tipEl.style.display="";tipEl.className="dtip"+(/⚠|필수|휴무/.test(it.tip)?" warn":"");tipEl.innerHTML="<b>💡 팁</b> "+esc(it.tip);}else tipEl.style.display="none";
  const acts=[];
