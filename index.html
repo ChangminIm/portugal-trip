@@ -257,9 +257,15 @@ body.dark .dstory{background:#221d12;border-color:#3e3320}
 .day.today .date-badge .d{color:var(--terra)}
 .todaytag{font-size:10px;font-weight:800;color:#fff;background:var(--terra);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
 /* 하루 동선 버튼 */
-.btn.route{border-color:#cdbfe0;background:#F3EFFA;color:#5b3ea8}
-body.dark .btn.route{background:#1f1b2b}
-.dayroute{margin:9px 0 2px}
+.dayroute{margin:10px 0 2px;background:#F3EFFA;border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+body.dark .dayroute{background:#1f1b2b}
+.drhead{font-size:12.5px;font-weight:700;color:#5b3ea8;margin-bottom:8px}
+body.dark .drhead{color:#b8a5e0}
+.drhead b{font-weight:800}
+.drmodes{display:flex;gap:7px;flex-wrap:wrap}
+.drmode{font-size:12px;font-weight:700;text-decoration:none;color:var(--azulejo);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
+.drmode.on{background:#5b3ea8;color:#fff;border-color:#5b3ea8}
+.drmode:active{transform:scale(.97)}
 /* 예약 진행률 + 체크 */
 .prog{margin:2px 0 12px}
 .prog .bar{height:9px;background:var(--line);border-radius:999px;overflow:hidden}
@@ -604,8 +610,22 @@ function todayIso(){const n=new Date();return n.getFullYear()+"-"+String(n.getMo
 function computeToday(){const t=todayIso();for(let i=0;i<state.length;i++){if(isoOf(state[i].date)===t)return i;}return -1;}
 const TODAY=computeToday();
 const open=new Set([TODAY>=0?TODAY:0]);
-const routeUrl=places=>"https://www.google.com/maps/dir/"+places.map(p=>encodeURIComponent(p)).join("/");
-function routeBtn(d){const ps=d.items.filter(it=>it.m).map(it=>it.m);if(ps.length<2)return "";return `<div class="dayroute"><a class="btn route" target="_blank" rel="noopener" href="${routeUrl(ps)}">🗺 하루 동선 한눈에 (${ps.length}곳)</a></div>`;}
+// 날짜별 숙소(출발지) — mapq:지도 출발지, mode:추천 이동수단, decided:확정 여부
+const STAYS=[
+ {from:"7/1",to:"7/3",mapq:"The 7 Hotel Lisboa Avenida da Liberdade",label:"더7호텔",mode:"transit",decided:true},
+ {from:"7/4",to:"7/7",mapq:"Funchal Madeira centro",label:"푼샬 숙소(미정)",mode:"driving",decided:false},
+ {from:"7/8",to:"7/10",mapq:"Aliados Porto",label:"포르투 숙소(미정)",mode:"transit",decided:false},
+ {from:"7/11",to:"7/12",mapq:"Hotel Oslo Coimbra",label:"코임브라 숙소(미정)",mode:"transit",decided:false}];
+function mdnum(s){const p=(s||"").split("/");return (+p[0])*100+(+p[1]||0);}
+function stayFor(date){const x=mdnum(date);return STAYS.find(s=>mdnum(s.from)<=x&&x<=mdnum(s.to))||null;}
+function routeUrl(origin,places,mode){const e=encodeURIComponent;const wp=places.slice(0,9);const dest=wp[wp.length-1];const mids=wp.slice(0,-1);let u="https://www.google.com/maps/dir/?api=1&origin="+e(origin)+"&destination="+e(dest);if(mids.length)u+="&waypoints="+mids.map(e).join("%7C");return u+"&travelmode="+(mode||"transit");}
+function routeBtn(d){
+ const ps=d.items.filter(it=>it.m).map(it=>it.m),stay=stayFor(d.date);
+ if(!ps.length||!stay)return "";
+ const modes=[["walking","🚶 도보"],["transit","🚌 대중교통"],["driving","🚗 자동차"]];
+ const chips=modes.map(m=>`<a class="drmode${m[0]===stay.mode?" on":""}" target="_blank" rel="noopener" href="${routeUrl(stay.mapq,ps,m[0])}">${m[1]}</a>`).join("");
+ return `<div class="dayroute"><div class="drhead">🗺 하루 동선 · <b>${esc(stay.label)}</b>에서 출발 · ${ps.length}곳</div><div class="drmodes">${chips}</div></div>`;
+}
 function foodBlock(date){const fs=FOODS[date];if(!fs||!fs.length)return "";return `<div class="foodwrap"><div class="foodhead">🍴 이 근처 먹거리 <b>${fs.length}</b></div>${fs.map(f=>`<a class="foodcard" href="#p/${slug(f.m)}"><span class="fcn">${esc(f.name)}</span><span class="fcd">${esc(f.desc)}</span></a>`).join("")}</div>`;}
 function tourBlock(date){const ts=TOURS[date];if(!ts||!ts.length)return "";return `<div class="tourwrap"><div class="tourhead">🎫 추천 1일 투어·패키지 <b>${ts.length}</b></div>${ts.map(t=>`<div class="tourcard"><div class="tctop"><span class="tcn">${esc(t.name)}</span><span class="tcp">${esc(t.price)}</span></div>${t.rec?`<div class="tcrec ${t.rec.c}"><b>${esc(t.rec.t)}</b>${esc(t.rec.why)}</div>`:""}<div class="tcd">${esc(t.desc)}</div><div class="tchips">${TOURP.map(pf=>`<a class="tchip" target="_blank" rel="noopener" href="${pf.u(t.q,t.kq)}">${pf.n} ↗</a>`).join("")}</div></div>`).join("")}<div class="tournote">🔴강력추천 = 투어가 확실히 나음 · 🔵개인추천 = 직접(렌터카·도보)이 나음 · ⚪선택 = 취향 · 같은 투어도 플랫폼마다 가격이 달라요</div></div>`;}
 const mapUrl=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
