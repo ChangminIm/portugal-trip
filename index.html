@@ -117,6 +117,10 @@ footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center;line-
 .wcard .wc{font-weight:700;font-size:13.5px}
 .wcard .wt{color:var(--muted);font-size:12.5px;margin-top:3px}
 .wcard .wt b{color:var(--terra);font-weight:700}
+.wxrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wxchip{font-size:11px;font-weight:600;background:var(--tint);border-radius:7px;padding:3px 8px;white-space:nowrap}
+.wxchip b{font-weight:800;color:var(--terra)}
+.wxsoon{font-size:11px;color:var(--muted);margin-top:7px}
 .conv{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:8px}
 .conv .cv-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .conv input{font:inherit;font-size:15px;font-weight:800;border:1px solid var(--line);border-radius:9px;padding:7px 10px;width:108px;background:var(--paper);color:var(--ink);text-align:right}
@@ -210,6 +214,44 @@ body.dark .dstory{background:#221d12;border-color:#3e3320}
 .cost-sum .sv{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
 .cost-sum .sv small{font-size:12px;font-weight:400;color:#cfe0f3}
 .cost-note{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.65}
+/* 경비 가계부 */
+.expform{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
+.ef-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.ef-row:last-child{margin-bottom:0}
+.expform input,.expform select{font:inherit;font-size:14px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:var(--paper);color:var(--ink);min-width:0}
+#expAmt{width:108px;flex:none;font-weight:800;text-align:right}
+#expCat,#expMemo{flex:1}
+.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:1}
+.seg button{flex:1;font:inherit;font-size:12.5px;font-weight:700;border:0;background:var(--paper);color:var(--muted);padding:8px 4px;cursor:pointer}
+.seg button.on{background:var(--azulejo);color:#fff}
+.ef-add{flex:none;font:inherit;font-size:13.5px;font-weight:800;background:var(--terra);color:#fff;border:0;border-radius:9px;padding:8px 14px;cursor:pointer}
+.exprow{display:flex;align-items:center;gap:9px;padding:9px 2px;border-bottom:1px dashed var(--line);font-size:13px}
+.exprow:last-child{border-bottom:0}
+.exprow .ex-c{flex:none;font-size:17px}
+.exprow .ex-b{flex:1;min-width:0}
+.exprow .ex-m{font-weight:700}
+.exprow .ex-meta{font-size:11px;color:var(--muted)}
+.exprow .ex-a{flex:none;font-weight:800;font-variant-numeric:tabular-nums}
+.exprow .ex-del{flex:none;border:0;background:none;color:#c0392b;font-size:15px;cursor:pointer;padding:2px 4px}
+.exp-sum{background:var(--azulejo);color:#fff;border-radius:14px;padding:13px 16px;font-size:12.5px;line-height:1.7;margin-bottom:10px}
+.exp-sum .es-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+.exp-sum .es-tot{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.exp-sum .es-sub{color:#cfe0f3;font-size:11.5px}
+.exp-sum .es-bar{height:7px;background:rgba(255,255,255,.25);border-radius:999px;margin:9px 0 7px;overflow:hidden}
+.exp-sum .es-fill{height:100%;background:var(--star);border-radius:999px;max-width:100%}
+.exp-sum .es-set{color:#dce8f7;border-top:1px solid rgba(255,255,255,.2);padding-top:7px;margin-top:2px}
+.exp-sum .es-set b{color:var(--star);font-weight:800}
+.exp-empty{font-size:12.5px;color:var(--muted);text-align:center;padding:14px 0}
+/* 회화·메뉴 */
+.phrnote{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5}
+.phrnote b{color:var(--ink)}
+.phr-g{font-weight:800;font-size:13.5px;color:var(--azulejo);margin:13px 0 6px}
+.phr-g:first-child{margin-top:0}
+.phrcard{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.phr-l{flex:none;font-size:12.5px;color:var(--muted);max-width:42%}
+.phr-r{flex:1;text-align:right}
+.phr-pt{font-weight:800;font-size:14px}
+.phr-pr{display:block;font-size:11.5px;color:var(--terra);margin-top:1px}
 /* 오늘 강조 */
 .day.today{border-color:var(--terra);box-shadow:0 0 0 2px rgba(200,83,43,.18)}
 .day.today .date-badge .d{color:var(--terra)}
@@ -266,9 +308,20 @@ body.dark .btn.route{background:#1f1b2b}
 <div class="cost-sum" id="costSum"></div>
 <div class="cost-note">※ 7월 성수기 <b>은혜·창민 둘이 합계 대략 추정치</b>예요. 특히 항공·숙소는 예약 시점에 따라 차이가 큽니다. 위 '날씨·환율'에서 환율을 바꾸면 원화 금액이 여기에도 함께 반영돼요.</div>
 </div></section>
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>💸 경비 가계부<span class="sechev">▶</span></button><div class="sec-body">
+<div id="expSummary"></div>
+<div class="expform">
+<div class="ef-row"><input id="expAmt" type="number" inputmode="decimal" placeholder="금액 €" min="0"><select id="expCat" aria-label="분류"></select></div>
+<div class="ef-row"><div class="seg" id="expPayer"><button type="button" data-v="은혜" class="on">은혜</button><button type="button" data-v="창민">창민</button></div><div class="seg" id="expType"><button type="button" data-v="공동" class="on">공동</button><button type="button" data-v="개인">개인</button></div></div>
+<div class="ef-row"><input id="expMemo" type="text" placeholder="메모 (선택)" maxlength="40"><button id="expAdd" class="ef-add" type="button">+ 추가</button></div>
+</div>
+<div id="expList"></div></div></section>
 <section class="sec"><button class="sec-toggle"><span class="tick"></span>🧳 준비물 체크리스트<span class="sechev">▶</span></button><div class="sec-body">
 <div class="prog" id="packProg"></div>
 <div id="packing"></div></div></section>
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>🗣 포르투갈어 회화·메뉴<span class="sechev">▶</span></button><div class="sec-body">
+<div class="phrnote">현지에서 한마디! <b>굵은 글씨</b>가 포르투갈어, 작은 글씨가 한글 발음이에요</div>
+<div id="phrases"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>항공권<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="flights"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>숙소<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="hotels"></div></div></section>
 <section class="sec"><button class="sec-toggle"><span class="tick"></span>🎟 예약 체크리스트<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>예약이 필요한 곳 모음 · 🎟 버튼으로 예약처로 이동</span></div><div class="grid" id="resv" style="margin-top:8px"></div></div></section>
@@ -711,13 +764,17 @@ document.getElementById("resetBtn").onclick=()=>{if(confirm("편집한 내용을
 const tg=document.getElementById("toggleAll");
 tg.onclick=()=>{const allOpen=open.size>=state.length;state.forEach((_,i)=>allOpen?open.delete(i):open.add(i));render();tg.textContent=allOpen?"모두 펼치기":"모두 접기";};
 
-/* ===== 날씨(7월 평년) ===== */
-const weather=[
- {c:"리스본",t:"낮 <b>28°</b> / 밤 17° · 맑고 건조"},
- {c:"마데이라(푼샬)",t:"낮 <b>24°</b> / 밤 20° · 온화·바닷바람"},
- {c:"포르투",t:"낮 <b>25°</b> / 밤 16° · 선선·아침 흐림"},
- {c:"코임브라·내륙",t:"낮 <b>30°</b> / 밤 15° · 한낮 더움"}];
-document.getElementById("weather").innerHTML=weather.map(w=>`<div class="wcard"><div class="wc">${w.c}</div><div class="wt">${w.t}</div></div>`).join("");
+/* ===== 날씨: 평년값 + 실시간 예보(open-meteo, 무료·키없음) ===== */
+const WXCITY=[
+ {name:"리스본",lat:38.72,lon:-9.14,dates:["2026-07-01","2026-07-02","2026-07-03","2026-07-12"],clim:"낮 <b>28°</b> / 밤 17° · 맑고 건조"},
+ {name:"마데이라(푼샬)",lat:32.65,lon:-16.91,dates:["2026-07-04","2026-07-05","2026-07-06","2026-07-07"],clim:"낮 <b>24°</b> / 밤 20° · 온화·바닷바람"},
+ {name:"포르투",lat:41.15,lon:-8.61,dates:["2026-07-08","2026-07-09","2026-07-10"],clim:"낮 <b>25°</b> / 밤 16° · 선선·아침 흐림"},
+ {name:"코임브라·내륙",lat:40.21,lon:-8.43,dates:["2026-07-11"],clim:"낮 <b>30°</b> / 밤 15° · 한낮 더움"}];
+function wmo(c){if(c===0)return["☀️","맑음"];if(c<=2)return["🌤","대체로 맑음"];if(c===3)return["☁️","흐림"];if(c<=48)return["🌫","안개"];if(c<=57)return["🌦","이슬비"];if(c<=67)return["🌧","비"];if(c<=77)return["🌨","눈"];if(c<=82)return["🌧","소나기"];if(c<=99)return["⛈","뇌우"];return["🌡",""];}
+function cachedWx(){try{return JSON.parse(localStorage.getItem("pt_wx_v1"))||{};}catch(e){return{};}}
+function renderWeather(fc){fc=fc||cachedWx();document.getElementById("weather").innerHTML=WXCITY.map(c=>{const days=fc[c.name]||[];const chips=days.map(d=>{const e=wmo(d.code)[0];const md=d.dt.slice(5).replace("-","/").replace(/^0/,"");return `<span class="wxchip">${md} ${e} <b>${d.mx}°</b>/${d.mn}° 💧${d.pop==null?0:d.pop}%</span>`;}).join("");return `<div class="wcard"><div class="wc">${c.name}</div><div class="wt">${c.clim}</div>${chips?`<div class="wxrow">${chips}</div>`:`<div class="wxsoon">⛅ 실제 예보는 출발 ~2주 전부터 자동 표시돼요</div>`}</div>`;}).join("");}
+async function loadWeather(){try{const host="https://api.open-meteo.com/v1/forecast";const res=await Promise.all(WXCITY.map(c=>fetch(`${host}?latitude=${c.lat}&longitude=${c.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=16`).then(r=>r.json()).catch(()=>null)));const out={};res.forEach((j,i)=>{if(!j||!j.daily)return;const d=j.daily,map={};d.time.forEach((t,k)=>{map[t]={code:d.weather_code[k],mx:Math.round(d.temperature_2m_max[k]),mn:Math.round(d.temperature_2m_min[k]),pop:d.precipitation_probability_max[k]};});out[WXCITY[i].name]=WXCITY[i].dates.filter(dt=>map[dt]).map(dt=>({dt,...map[dt]}));});if(Object.values(out).some(a=>a.length)){try{localStorage.setItem("pt_wx_v1",JSON.stringify(out));}catch(e){}renderWeather(out);}}catch(e){}}
+renderWeather();loadWeather();
 
 /* ===== 환율 변환기 ===== */
 const RKEY="pt_rate_v1";
@@ -888,6 +945,43 @@ function renderPack(){
 }
 function togglePack(id){packed[id]=!packed[id];savePacked();renderPack();}
 renderPack();
+
+/* ===== 경비 가계부 ===== */
+const EKEY="pt_exp_v1";
+const ECATS=[["식비","🍽"],["숙소","🏨"],["교통","🚗"],["투어·입장","🎫"],["와인·쇼핑","🍷"],["기타","🧾"]];
+let exps=(()=>{try{return JSON.parse(localStorage.getItem(EKEY))||[];}catch(e){return[];}})();
+let ePayer="은혜",eType="공동",eid=exps.reduce((m,e)=>Math.max(m,e.id||0),0);
+document.getElementById("expCat").innerHTML=ECATS.map(c=>`<option value="${c[0]}">${c[1]} ${c[0]}</option>`).join("");
+function segInit(id,set){const seg=document.getElementById(id);seg.querySelectorAll("button").forEach(b=>b.onclick=()=>{seg.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");set(b.dataset.v);});}
+segInit("expPayer",v=>ePayer=v);segInit("expType",v=>eType=v);
+function saveExps(){try{localStorage.setItem(EKEY,JSON.stringify(exps));}catch(e){}}
+function catIcon(c){const f=ECATS.find(x=>x[0]===c);return f?f[1]:"🧾";}
+document.getElementById("expAdd").onclick=()=>{const el=document.getElementById("expAmt"),amt=parseFloat(el.value);if(!amt||amt<=0){el.focus();return;}exps.unshift({id:++eid,a:amt,c:document.getElementById("expCat").value,p:ePayer,t:eType,m:document.getElementById("expMemo").value.trim()});saveExps();el.value="";document.getElementById("expMemo").value="";renderExp();};
+function delExp(id){exps=exps.filter(e=>e.id!==id);saveExps();renderExp();}
+function renderExp(){
+ const list=document.getElementById("expList"),sum=document.getElementById("expSummary");
+ const total=exps.reduce((s,e)=>s+e.a,0),budget=costs.reduce((a,c)=>a+c.e,0);
+ const shared=exps.filter(e=>e.t==="공동").reduce((s,e)=>s+e.a,0);
+ const eunShared=exps.filter(e=>e.t==="공동"&&e.p==="은혜").reduce((s,e)=>s+e.a,0);
+ const eunPaid=exps.filter(e=>e.p==="은혜").reduce((s,e)=>s+e.a,0),chaPaid=total-eunPaid;
+ const bal=eunShared-shared/2,pct=budget?Math.min(100,Math.round(total/budget*100)):0;
+ let settle="아직 정산할 공동지출이 없어요";
+ if(Math.abs(bal)>=0.5)settle=bal>0?`<b>창민 → 은혜 €${Math.round(bal).toLocaleString()}</b> 주면 공동비용 5:5 정산 완료`:`<b>은혜 → 창민 €${Math.round(-bal).toLocaleString()}</b> 주면 공동비용 5:5 정산 완료`;
+ sum.innerHTML=`<div class="exp-sum"><div class="es-top"><span class="es-tot">€${total.toLocaleString(undefined,{maximumFractionDigits:0})}</span><span class="es-sub">예산 €${budget.toLocaleString()} 중 ${pct}% · ₩${Math.round(total*(+rateEl.value||0)).toLocaleString("ko-KR")}</span></div><div class="es-bar"><div class="es-fill" style="width:${pct}%"></div></div><div class="es-sub">은혜 €${Math.round(eunPaid).toLocaleString()} · 창민 €${Math.round(chaPaid).toLocaleString()} 결제</div><div class="es-set">⚖️ ${settle}</div></div>`;
+ if(!exps.length){list.innerHTML=`<div class="exp-empty">아직 입력한 지출이 없어요. 위에서 금액을 추가해보세요!</div>`;return;}
+ list.innerHTML=exps.map(e=>`<div class="exprow"><span class="ex-c">${catIcon(e.c)}</span><span class="ex-b"><span class="ex-m">${esc(e.m||e.c)}</span> <span class="ex-meta">${e.p}·${e.t}</span></span><span class="ex-a">€${e.a.toLocaleString(undefined,{maximumFractionDigits:2})}</span><button class="ex-del" onclick="delExp(${e.id})" aria-label="삭제">✕</button></div>`).join("");
+}
+renderExp();
+
+/* ===== 포르투갈어 회화·메뉴 ===== */
+const PHRASES=[
+ {g:"기본·인사",items:[["안녕하세요(낮)","Bom dia","봉 디아"],["안녕하세요(오후)","Boa tarde","보아 따르드"],["안녕하세요(밤)","Boa noite","보아 노이트"],["감사합니다","Obrigado / Obrigada","오브리가두(남)/오브리가다(여)"],["천만에요","De nada","드 나다"],["네 / 아니요","Sim / Não","씽 / 나웅"],["죄송·실례합니다","Desculpe","드스꿀쁘"],["영어 하세요?","Fala inglês?","팔라 잉글레스?"],["잘 못 알아들었어요","Não percebi","나웅 페르세비"]]},
+ {g:"식당에서",items:[["메뉴판 주세요","A ementa, por favor","아 이멘따, 포르 파보르"],["이걸로 주세요","Queria isto","끄리아 이스뚜"],["계산서 주세요","A conta, por favor","아 꼰따, 포르 파보르"],["정말 맛있어요","Está delicioso","이스따 딜리시오주"],["물 한 병","Uma garrafa de água","우마 가하파 드 아구아"],["생맥주 하나","Uma imperial","우마 임뻬리알"],["레드/화이트 와인","Vinho tinto / branco","비뉴 띤뚜 / 브랑꾸"],["카드 되나요?","Aceitam cartão?","아세이땅 까르따웅?"],["건배!","Saúde!","사우드!"]]},
+ {g:"쇼핑·길찾기",items:[["얼마예요?","Quanto custa?","꽌뚜 꾸스따?"],["너무 비싸요","É muito caro","에 무이뚜 까루"],["…는 어디예요?","Onde fica…?","온드 피카…?"],["화장실 어디예요?","Onde é a casa de banho?","온드 에 아 까자 드 바뉴?"],["도와주세요","Ajude-me, por favor","아주드미, 포르 파보르"],["기차역 / 버스","A estação / O autocarro","아 이스따사웅 / 우 아우또까후"]]},
+ {g:"메뉴 단어",items:[["대구(말린)","Bacalhau","바깔라우"],["문어","Polvo","뽈부"],["정어리","Sardinha","사르디냐"],["새우","Camarão / Gambas","까마라웅 / 감바스"],["닭 / 돼지 / 소","Frango / Porco / Bife","프랑구 / 뽀르꾸 / 비프"],["빵","Pão","빠웅"],["에스프레소","Um café / Uma bica","움 까페 / 우마 비카"],["물 / 와인","Água / Vinho","아구아 / 비뉴"]]},
+ {g:"숫자·한마디",items:[["1·2·3","Um · Dois · Três","움 · 도이스 · 트레스"],["좋아요!","Fixe! / Boa!","피시! / 보아!"],["잘 지내요? / 좋아요","Tudo bem? / Tudo bem","뚜두 벵? / 뚜두 벵"]]}
+];
+document.getElementById("phrases").innerHTML=PHRASES.map(g=>`<div class="phr-g">${g.g}</div>`+g.items.map(it=>`<div class="phrcard"><span class="phr-l">${esc(it[0])}</span><span class="phr-r"><span class="phr-pt">${esc(it[1])}</span><span class="phr-pr">${esc(it[2])}</span></span></div>`).join("")).join("");
 </script>
 </body>
 </html>
