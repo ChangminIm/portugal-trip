@@ -376,7 +376,7 @@ const flights=[
 const hotels=[
  {city:"리스본",nights:"7/1–7/3 · 3박",name:"더7호텔 (The 7 Hotel)",status:"ok"},
  {city:"푼샬(마데이라)",nights:"7/4–7/7 · 4박",name:"에어비앤비 (Airbnb) · 푼샬",status:"ok",b:"https://www.airbnb.co.kr/rooms/16567583"},
- {city:"포르투",nights:"7/8–7/10 · 3박",name:"Mercure Aliados / Ribeira Douro",status:"todo"},
+ {city:"포르투",nights:"7/8–7/10 · 3박",name:"유로포 더 타워 (YOUROPO - The Tower) · 사 다 반데이라",status:"ok",b:"https://www.youropo.com/rentals/rentals-youropo-the-tower-u85238/"},
  {city:"코임브라",nights:"7/11 · 1박",name:"Hotel Oslo Coimbra",status:"todo"}];
 const fado=[
  {name:"클루브 드 파두 (Clube de Fado)",meta:"알파마 · 정통 디너+공연 · ★4.4 · ~€70+ · 예약 필수",m:"Clube de Fado Lisbon",b:"Clube de Fado Lisboa 예약"},
@@ -626,7 +626,7 @@ const open=new Set([TODAY>=0?TODAY:0]);
 const STAYS=[
  {from:"7/1",to:"7/3",mapq:"The 7 Hotel Lisboa Avenida da Liberdade",label:"더7호텔",mode:"transit",decided:true},
  {from:"7/4",to:"7/7",mapq:"Funchal Madeira centro",label:"푼샬 에어비앤비",mode:"driving",decided:true},
- {from:"7/8",to:"7/10",mapq:"Aliados Porto",label:"포르투 숙소(미정)",mode:"transit",decided:false},
+ {from:"7/8",to:"7/10",mapq:"Rua de Sá da Bandeira 393 Porto",label:"유로포 더 타워",mode:"transit",decided:true},
  {from:"7/11",to:"7/12",mapq:"Hotel Oslo Coimbra",label:"코임브라 숙소(미정)",mode:"transit",decided:false}];
 function mdnum(s){const p=(s||"").split("/");return (+p[0])*100+(+p[1]||0);}
 function stayFor(date){const x=mdnum(date);return STAYS.find(s=>mdnum(s.from)<=x&&x<=mdnum(s.to))||null;}
