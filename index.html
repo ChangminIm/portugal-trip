@@ -335,7 +335,7 @@ body.dark .drhead{color:#b8a5e0}
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>항공권<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="flights"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>숙소<span class="sechev">▶</span></button><div class="sec-body"><div class="grid" id="hotels"></div></div></section>
 <section class="sec"><button class="sec-toggle"><span class="tick"></span>🎟 예약 체크리스트<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>예약이 필요한 곳 모음 · 🎟 버튼으로 예약처로 이동</span></div><div class="grid" id="resv" style="margin-top:8px"></div></div></section>
-<section class="sec"><button class="sec-toggle"><span class="tick"></span>파두 공연장 (Fado) · 7/2 밤<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>Ramiro 저녁 후 추천 · 정통 디너쇼는 예약 필수, 파두 바디우(타스카)는 예약 없이</span></div>
+<section class="sec"><button class="sec-toggle"><span class="tick"></span>파두 공연장 (Fado) · 7/3 밤<span class="sechev">▶</span></button><div class="sec-body"><div class="legend"><span>Ramiro 저녁 후 추천 · 정통 디너쇼는 예약 필수, 파두 바디우(타스카)는 예약 없이</span></div>
 <div class="grid" id="fado" style="margin-top:8px"></div></div></section>
 <section class="sec open"><button class="sec-toggle"><span class="tick"></span>일정<span class="sechev">▶</span></button><div class="sec-body">
 <div class="legend">
@@ -389,7 +389,17 @@ const DAYS=[
  {date:"7/1",dow:"수",title:"리스본 도착",wake:"—",items:[
   {t:"20:15",name:"리스본 공항 도착 (Lisbon Airport)",desc:"KE921 도착 → 입국·수하물 → 호텔(약 21:30)",tip:"공항~시내 택시 15~25분"},
   {t:"저녁",name:"호텔 근처 타스카 (Tasca)",s:3,desc:"비행 직후 가볍게. 주방 22:30~23시",tip:"첫날 무리 X",n:"리스본 타스카 맛집"}]},
- {date:"7/2",dow:"목",title:"리스본 시내 (벨렝·알파마·Ramiro·파두)",wake:"07:00",items:[
+ {date:"7/2",dow:"목",title:"신트라·카스카이스 (한인가이드 투어)",wake:"07:00",items:[
+  {t:"08:00",name:"호텔 → 카이스 두 소드레역 → 카스카이스",desc:"카스카이스선 기차 약 40분 (집결지로 이동)",tip:"09:30 카스카이스역 집결 → 여유있게 출발"},
+  {t:"09:30",name:"카스카이스역 집결 · 한인가이드 투어 출발 🚐",s:5,res:1,desc:"마이리얼트립 소규모(4~7인) 한인 가이드 투어 · 차량·주유·주차·생수 포함 · 약 9시간 30분",tip:"⭐예약완료 · 입장료·점심 별도(성인 약 €23.75) · 전 구간 가이드 차량 이동",m:"Cascais Train Station",n:"카스카이스 신트라 한인투어",b:"https://experiences.myrealtrip.com/products/4864818"},
+  {t:"오전",name:"파울라 레구 미술관 (Casa das Histórias Paula Rego)",s:4,desc:"카스카이스의 인상적인 현대미술관(투어 코스)",m:"Casa das Histórias Paula Rego Cascais",n:"카스카이스 파울라 레구 미술관"},
+  {t:"오전",name:"페나 궁전 (Palácio da Pena)",s:5,desc:"낭만주의 컬러 궁전 + 공원",tip:"입장료 별도(약 €20)·화 휴무 · 가이드가 동선·티켓 안내",m:"Pena Palace Sintra",n:"신트라 페나성"},
+  {t:"점심",name:"신트라 구시가 (Sintra Vila)",s:5,desc:"신트라 국립궁전·유네스코 구시가 산책 + 점심(피리키타 트라베세이루)",m:"Sintra Vila",n:"신트라 구시가"},
+  {t:"오후",name:"아제냐스 두 마르 (Azenhas do Mar)",s:4,desc:"절벽 위 하얀 해안 마을(투어 코스)",m:"Azenhas do Mar",n:"아제냐스 두 마르"},
+  {t:"오후",name:"카보 다 로카 (Cabo da Roca)",s:5,desc:"유럽 대륙 최서단 절벽",m:"Cabo da Roca",n:"카보 다 로카"},
+  {t:"늦오후",name:"카스카이스 만 (Baía de Cascais)",s:4,desc:"해변 휴양도시 카스카이스 해안·구시가",m:"Cascais Bay",n:"카스카이스"},
+  {t:"19:00",name:"투어 종료 → 리스본 복귀",desc:"카스카이스역에서 기차로 리스본 복귀(약 40분)",tip:"총 약 9시간 30분 일정"}]},
+ {date:"7/3",dow:"금",title:"리스본 시내 (벨렝·알파마·Ramiro·파두)",wake:"07:00",items:[
   {t:"08:30",name:"파스테이스 드 벨렝 (Pastéis de Belém)",s:5,desc:"원조 에그타르트. 일찍 가면 줄 짧음",tip:"08:00 오픈",m:"Pastéis de Belém Lisbon",n:"리스본 파스테이스 드 벨렘"},
   {t:"09:30",name:"제로니무스 수도원 (Mosteiro dos Jerónimos)",s:5,res:1,desc:"마누엘 양식 대수도원",tip:"시간지정·온라인 예매 · 월 휴무",m:"Jerónimos Monastery Lisbon",n:"리스본 제로니무스 수도원",b:"https://www.museusemonumentos.pt"},
   {t:"11:00",name:"발견기념비·벨렝탑 (Padrão dos Descobrimentos · Torre de Belém)",s:4,res:1,desc:"강변 모뉴멘트",tip:"벨렝탑 티켓 · 월 휴무",m:"Belém Tower Lisbon",n:"리스본 벨렘탑",b:"https://www.museusemonumentos.pt"},
@@ -397,15 +407,8 @@ const DAYS=[
   {t:"오후",name:"가라페이라 나시오날 (Garrafeira Nacional)",s:3,liq:1,desc:"포트·마데이라·진자 술 명점(바이샤)",tip:"매일 영업 · 인근 마누엘 타바레스도 추천",m:"Garrafeira Nacional Rua Santa Justa Lisbon",n:"리스본 가라페이라 나시오날"},
   {t:"오후",name:"카르무 수도원 (Convento do Carmo)",s:3,desc:"전망 + 고딕 유적(산타 주스타)",m:"Carmo Convent Lisbon",n:"리스본 카르무 수도원"},
   {t:"일몰",name:"포르타스 두 솔 전망대 (Miradouro das Portas do Sol)",s:4,desc:"알파마 골목 산책 + 일몰",m:"Miradouro das Portas do Sol Lisbon",n:"리스본 포르타스두솔 전망대"},
-  {t:"저녁",name:"세르베자리아 라미로 (Cervejaria Ramiro) 🦐",s:5,res:1,desc:"리스본 대표 해산물(가르릭 새우·거북손·타이거새우 → 프레구)",tip:"⭐꼭 방문 · 웨이팅 많음→예약 권장 · 월 휴무(목 OK)",m:"Cervejaria Ramiro Lisbon",n:"리스본 세르베자리아 라미로",b:"Cervejaria Ramiro reservation"},
+  {t:"저녁",name:"세르베자리아 라미로 (Cervejaria Ramiro) 🦐",s:5,res:1,desc:"리스본 대표 해산물(가르릭 새우·거북손·타이거새우 → 프레구)",tip:"⭐꼭 방문 · 웨이팅 많음→예약 권장 · 월 휴무(금 OK)",m:"Cervejaria Ramiro Lisbon",n:"리스본 세르베자리아 라미로",b:"Cervejaria Ramiro reservation"},
   {t:"밤",name:"파두 공연 (Fado)",s:5,res:1,desc:"Ramiro 저녁 후, 위 '파두 공연장' 추천 참고",tip:"정통 디너쇼는 예약 필수 · 캐주얼 타스카는 예약 없이"}]},
- {date:"7/3",dow:"금",title:"신트라 + 카보 다 로카",wake:"06:30",items:[
-  {t:"07:30",name:"호텔 → 로시우역 → 신트라",desc:"신트라행 기차 약 40분",tip:"이른 출발로 정체 회피"},
-  {t:"오전",name:"페나 궁전 (Palácio da Pena)",s:5,res:1,desc:"낭만주의 컬러 궁전 + 공원",tip:"30분 시간지정 예매 필수·€20·화 휴무·434버스 30분+",m:"Pena Palace Sintra",n:"신트라 페나성",b:"https://www.parquesdesintra.pt"},
-  {t:"점심",name:"피리키타 (Piriquita)",s:3,desc:"트라베세이루 페이스트리(신트라 구시가)",m:"Piriquita Sintra",n:"신트라 피리키타"},
-  {t:"오후",name:"헤갈레이라 별장 (Quinta da Regaleira)",s:5,res:1,desc:"이니시에이션 우물·터널·정원",tip:"사전 예매 권장",m:"Quinta da Regaleira Sintra",n:"신트라 헤갈레이라",b:"https://www.regaleira.pt"},
-  {t:"늦오후",name:"카보 다 로카 (Cabo da Roca)",s:4,desc:"유럽 대륙 최서단 절벽",tip:"대중교통 불편 → 투어/렌터카 권장",m:"Cabo da Roca",n:"카보 다 로카"},
-  {t:"저녁",name:"리스본 복귀",desc:"—"}]},
  {date:"7/4",dow:"토",title:"리스본 → 푼샬 (마데이라)",wake:"08:00",items:[
   {t:"오전",name:"호텔 → 리스본 공항",desc:"수하물 마감 12:20 → 공항 11:30",tip:"easyJet EJU7625"},
   {t:"13:20",name:"✈ 리스본 → 푼샬 (LIS→FNC)",desc:"EJU7625 · 13:20 → 15:10"},
@@ -480,7 +483,7 @@ const FOODS={
  {name:"파스텔라리아 베르사유 (Versailles)",desc:"1922년 문 연 화려한 벨에포크 카페. 커피·전통과자.",m:"Pastelaria Versailles Lisbon",n:"리스본 베르사유 카페"},
  {name:"메르카두 드 캄푸 드 오리크",desc:"동네 분위기의 푸드마켓. 다양한 맛집이 한곳에.",m:"Mercado de Campo de Ourique Lisbon",n:"리스본 캄푸 드 오리크 시장"},
  {name:"진지냐 셍 히발 (Ginjinha Sem Rival)",desc:"1890년부터 체리주·에두아르디누 한 잔 따라주는 노포.",m:"Ginjinha Sem Rival Lisbon",w:"Ginjinha",n:"리스본 진지냐 셍 히발"}],
-"7/2":[
+"7/3":[
  {name:"콘페이타리아 나시오날 (Confeitaria Nacional)",desc:"1829년 문 연 역사적 제과점. 전통 과자·에그타르트.",m:"Confeitaria Nacional Lisbon",w:"Pastel de nata",n:"리스본 콘페이타리아 나시오날"},
  {name:"아 진지냐 (A Ginjinha Espinheira)",desc:"1840년부터 체리주(진자) 한 잔 따라주는 작은 노포 바.",m:"A Ginjinha Espinheira Lisbon",w:"Ginjinha",n:"리스본 진지냐"},
  {name:"타베르나 다 후아 다스 플로레스",desc:"줄 서는 인기 페티스코(포르투갈식 타파스) 식당.",m:"Taberna da Rua das Flores Lisbon",n:"리스본 후아 다스 플로레스"},
@@ -490,7 +493,7 @@ const FOODS={
  {name:"티 나테르시아 (Ti-Natércia·알파마)",desc:"알파마 골목의 작은 가정식 타스카(좌석 적음).",m:"Ti Natércia Alfama Lisbon",n:"리스본 티 나테르시아"},
  {name:"세르베자리아 라미로 (Cervejaria Ramiro)",desc:"리스본 대표 해산물 맥줏집. 마늘새우·거북손 강추.",m:"Cervejaria Ramiro Lisbon",n:"리스본 라미로"},
  {name:"아 브라질레이라 (A Brasileira·시아두)",desc:"1905년 문 연 시아두의 전설적 카페. 시인 페소아 동상과 진한 비카(에스프레소).",m:"A Brasileira Chiado Lisbon",n:"리스본 아 브라질레이라"}],
-"7/3":[
+"7/2":[
  {name:"카페 사우다드 (Café Saudade)",desc:"신트라역 근처 옛 빵집을 개조한 카페. 페이스트리·브런치.",m:"Café Saudade Sintra",n:"신트라 카페 사우다드"},
  {name:"타스칸티가 (Tascantiga)",desc:"신트라 구시가 인기 페티스코집. 전망 테라스.",m:"Tascantiga Sintra",n:"신트라 타스칸티가"},
  {name:"인콤움 (Incomum by Luís Santos)",desc:"가성비 좋은 신트라 인기 비스트로(점심 추천).",m:"Incomum Sintra",n:"신트라 인콤움"},
@@ -576,11 +579,12 @@ const FOODS={
 };
 // 날짜별 추천 1일 투어/패키지 — q:영문검색(GYG/Viator/Klook), kq:한국어(마이리얼트립)
 const TOURS={
-"7/2":[
+"7/3":[
  {name:"리스본 시티 하이라이트 + 파두 디너쇼",desc:"벨렝·알파마 관광 + 정통 파두 공연·저녁식사",price:"€45~80",rec:{t:"선택",c:"o",why:"리스본은 도보·트램으로 개인도 충분 · 파두만 따로 예약해도 OK"},q:"Lisbon city tour with Fado dinner show",kq:"리스본 파두 디너 투어"},
  {name:"투크투크 알파마·구시가 투어",desc:"좁은 골목·전망대를 투크투크로 2~3시간",price:"€25~45",rec:{t:"선택",c:"o",why:"재미 요소 · 필수는 아니에요"},q:"Lisbon tuk tuk Alfama old town tour",kq:"리스본 투크투크 투어"}],
-"7/3":[
- {name:"신트라+카보 다 로카+카스카이스 1일투어",desc:"리스본 출발 · 페나성·헤갈레이라·대륙 최서단(입장료 별도)",price:"€60~95",rec:{t:"추천",c:"g",why:"신트라는 버스 혼잡·동선 복잡 → 투어가 편함 (기차로 개인도 가능)"},q:"Sintra Cabo da Roca Cascais full day tour from Lisbon",kq:"신트라 카보다로카 카스카이스 투어"},
+"7/2":[
+ {name:"신트라·카스카이스 한인가이드 투어 (마이리얼트립) ✅",desc:"페나성·신트라 구시가·아제냐스 두 마르·카보 다 로카·카스카이스 · 소규모 4~7인 한인 가이드(입장료·점심 별도)",price:"예약완료",rec:{t:"예약완료",c:"g",why:"위 일정의 🎟 예약 버튼으로 바로가기 · 차량/주유/주차/생수 포함"},q:"Sintra Cascais Cabo da Roca tour",kq:"신트라 카스카이스 한인가이드 투어"},
+ {name:"신트라+카보 다 로카+카스카이스 1일투어",desc:"리스본 출발 · 페나성·헤갈레이라·대륙 최서단(입장료 별도)",price:"€60~95",rec:{t:"대안",c:"o",why:"한인투어 외 영어/현지 플랫폼 대안 (기차로 개인도 가능)"},q:"Sintra Cabo da Roca Cascais full day tour from Lisbon",kq:"신트라 카보다로카 카스카이스 투어"},
  {name:"신트라 페나성 우선입장 + 가이드",desc:"줄 안 서는 스킵더라인 입장 + 해설",price:"€40~70",rec:{t:"강력추천",c:"s",why:"7월 성수기엔 매진·줄이 길어 우선입장 가치가 큼"},q:"Sintra Pena Palace skip the line guided tour",kq:"신트라 페나성 가이드 투어"}],
 "7/4":[
  {name:"푼샬 시티 + 마데이라 와인 시음",desc:"구시가·몬테 + 와인 로지 시음",price:"€30~60",rec:{t:"개인추천",c:"d",why:"렌터카가 있으니 직접 도는 게 자유롭고 저렴 (와인 시음만 따로)"},q:"Funchal city tour Madeira wine tasting",kq:"푼샬 시티 투어"}],
@@ -625,8 +629,8 @@ function stayFor(date){const x=mdnum(date);return STAYS.find(s=>mdnum(s.from)<=x
 function routeUrl(origin,places,mode){const e=encodeURIComponent;const wp=places.slice(0,9);const dest=wp[wp.length-1];const mids=wp.slice(0,-1);let u="https://www.google.com/maps/dir/?api=1&origin="+e(origin)+"&destination="+e(dest);if(mids.length)u+="&waypoints="+mids.map(e).join("%7C");return u+"&travelmode="+(mode||"transit");}
 // 구간별 추천 이동수단 + 대략 소요시간
 const LEGS={
-"7/2":[{m:"🚊",t:"더7호텔 → 벨렝 · 트램15E/택시 약 25분"},{m:"🚶",t:"벨렝 명소(타르트·수도원·탑) · 도보 5~10분"},{m:"🚊",t:"벨렝 → 바이샤·코메르시우 · 트램 약 20분"},{m:"🚶",t:"바이샤(가라페이라·카르무) · 도보 8분"},{m:"🚋",t:"→ 알파마 전망대 · 28번 트램 약 15분"},{m:"🚕",t:"알파마 → 라미로·파두 · 택시 약 10~15분"}],
-"7/3":[{m:"🚆",t:"호텔 → 로시우역 → 신트라 · 기차 약 40분"},{m:"🚌",t:"신트라역 → 페나성 · 434버스 약 20~30분(성수기 대기)"},{m:"🚶",t:"페나성 → 헤갈레이라·구시가 · 도보 10~15분"},{m:"🚗",t:"신트라 → 카보 다 로카 · 렌터카/투어 약 25분(대중교통 불편)"},{m:"🚗",t:"카보 다 로카 → 리스본 · 약 40분"}],
+"7/2":[{m:"🚆",t:"호텔 → 카이스 두 소드레역 → 카스카이스역 · 기차 약 40분"},{m:"🚐",t:"카스카이스역 집결(09:30) → 가이드 차량으로 전 구간 이동(페나성·신트라·아제냐스·카보 다 로카·카스카이스)"},{m:"🚆",t:"투어 종료(약 19:00) → 카스카이스역 → 리스본 · 기차 약 40분"}],
+"7/3":[{m:"🚊",t:"더7호텔 → 벨렝 · 트램15E/택시 약 25분"},{m:"🚶",t:"벨렝 명소(타르트·수도원·탑) · 도보 5~10분"},{m:"🚊",t:"벨렝 → 바이샤·코메르시우 · 트램 약 20분"},{m:"🚶",t:"바이샤(가라페이라·카르무) · 도보 8분"},{m:"🚋",t:"→ 알파마 전망대 · 28번 트램 약 15분"},{m:"🚕",t:"알파마 → 라미로·파두 · 택시 약 10~15분"}],
 "7/4":[{m:"🚇",t:"호텔 → 리스본 공항 · 메트로/택시 약 20분"},{m:"✈️",t:"리스본 → 푼샬 · 비행 1시간 50분"},{m:"🚗",t:"푼샬 공항 → 숙소 · 렌터카 약 20~25분"},{m:"🚶",t:"숙소 → 구시가·와인샵 · 도보"}],
 "7/5":[{m:"🚗",t:"푼샬 → 카보 지라오 · 약 20분"},{m:"🚗",t:"카보 지라오 → 카마라 드 로부스 · 약 10분"},{m:"🚗",t:"카마라 → 포르투 모니즈 · 약 50분~1시간"},{m:"🚗",t:"포르투 모니즈 → 세이샬·상비센트 · 약 20분"},{m:"🚗",t:"세이샬 → 푼샬 · 약 45분"}],
 "7/6":[{m:"🚗",t:"푼샬 → 피쿠 두 아리에이루(일출) · 약 35~40분"},{m:"🚗",t:"아리에이루 → 몬테 · 약 30분"},{m:"🚠",t:"몬테 → 푼샬 · 케이블카 또는 토보간 썰매"},{m:"🚗",t:"→ 바르베이토(카마라) 시음 · 약 15분"}],
@@ -769,12 +773,12 @@ function toggleDay(i){open.has(i)?open.delete(i):open.add(i);render();}
 function rm(i,j){state[i].items.splice(j,1);save();render();}
 function add(i){const t=prompt("시간 (예: 오후, 14:00)","오후");if(t===null)return;const name=prompt("장소/내용을 입력하세요");if(!name)return;const star=parseInt(prompt("추천도 별점 0~5 (선택)","0"),10)||0;state[i].items.push({t:t||"",name:name,s:Math.max(0,Math.min(5,star)),desc:""});open.add(i);save();render();}
 const reservations=[
- {when:"7/2",name:"제로니무스 수도원 (Mosteiro dos Jerónimos)",note:"시간지정·온라인 예매 · 월 휴무",m:"Jerónimos Monastery Lisbon",b:"https://www.museusemonumentos.pt"},
- {when:"7/2",name:"벨렝탑 (Torre de Belém)",note:"티켓 · 월 휴무",m:"Belém Tower Lisbon",b:"https://www.museusemonumentos.pt"},
- {when:"7/2",name:"세르베자리아 라미로 (Cervejaria Ramiro)",note:"⭐웨이팅 많음 → 예약 권장 · 월 휴무",m:"Cervejaria Ramiro Lisbon",b:"Cervejaria Ramiro reservation"},
- {when:"7/2",name:"파두 공연 (Fado)",note:"정통 디너쇼 예약 필수 (위 파두 섹션 참고)",m:"Fado Alfama Lisbon",b:"Clube de Fado Lisboa 예약"},
- {when:"7/3",name:"페나 궁전 (Palácio da Pena)",note:"30분 시간지정 예매 필수 · 화 휴무",m:"Pena Palace Sintra",b:"https://www.parquesdesintra.pt"},
- {when:"7/3",name:"헤갈레이라 별장 (Quinta da Regaleira)",note:"사전 예매 권장",m:"Quinta da Regaleira Sintra",b:"https://www.regaleira.pt"},
+ {when:"7/2",name:"신트라·카스카이스 한인가이드 투어 (마이리얼트립)",note:"✅예약완료 · 입장료·점심 별도(약 €23.75) · 09:30 카스카이스역 집결",m:"Cascais Train Station",b:"https://experiences.myrealtrip.com/products/4864818"},
+ {when:"7/2",name:"페나 궁전 입장료 (Palácio da Pena)",note:"투어 포함 코스 · 입장료 별도(약 €20)·화 휴무 · 가이드가 티켓·동선 안내",m:"Pena Palace Sintra",b:"https://www.parquesdesintra.pt"},
+ {when:"7/3",name:"제로니무스 수도원 (Mosteiro dos Jerónimos)",note:"시간지정·온라인 예매 · 월 휴무",m:"Jerónimos Monastery Lisbon",b:"https://www.museusemonumentos.pt"},
+ {when:"7/3",name:"벨렝탑 (Torre de Belém)",note:"티켓 · 월 휴무",m:"Belém Tower Lisbon",b:"https://www.museusemonumentos.pt"},
+ {when:"7/3",name:"세르베자리아 라미로 (Cervejaria Ramiro)",note:"⭐웨이팅 많음 → 예약 권장 · 월 휴무",m:"Cervejaria Ramiro Lisbon",b:"Cervejaria Ramiro reservation"},
+ {when:"7/3",name:"파두 공연 (Fado)",note:"정통 디너쇼 예약 필수 (위 파두 섹션 참고)",m:"Fado Alfama Lisbon",b:"Clube de Fado Lisboa 예약"},
  {when:"7/4",name:"블랜디스 와인 로지 (Blandy's Wine Lodge)",note:"투어 예약 권장",m:"Blandy's Wine Lodge Funchal",b:"https://blandyswinelodge.com"},
  {when:"7/5",name:"킨타 두 바르부사노 (Quinta do Barbusano)",note:"일·월 휴무 · 시음 예약",m:"Quinta do Barbusano São Vicente",b:"Quinta do Barbusano Madeira tasting"},
  {when:"7/6",name:"비뉴스 바르베이토 (Vinhos Barbeito)",note:"월~금 · 투어 예약 권장",m:"Vinhos Barbeito Câmara de Lobos",b:"Vinhos Barbeito tasting reservation"},
