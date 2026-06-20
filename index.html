@@ -375,7 +375,7 @@ const flights=[
  {route:"리스본 → 인천 (LIS→ICN)",when:"7/12",sub:"KE · 22:30 → 익일 19:25 (+1일)"}];
 const hotels=[
  {city:"리스본",nights:"7/1–7/3 · 3박",name:"더7호텔 (The 7 Hotel)",status:"ok"},
- {city:"푼샬(마데이라)",nights:"7/4–7/7 · 4박",name:"Three House / Castanheiro / Quinta Jardins do Lago",status:"todo"},
+ {city:"푼샬(마데이라)",nights:"7/4–7/7 · 4박",name:"에어비앤비 (Airbnb) · 푼샬",status:"ok",b:"https://www.airbnb.co.kr/rooms/16567583"},
  {city:"포르투",nights:"7/8–7/10 · 3박",name:"Mercure Aliados / Ribeira Douro",status:"todo"},
  {city:"코임브라",nights:"7/11 · 1박",name:"Hotel Oslo Coimbra",status:"todo"}];
 const fado=[
@@ -621,7 +621,7 @@ const open=new Set([TODAY>=0?TODAY:0]);
 // 날짜별 숙소(출발지) — mapq:지도 출발지, mode:추천 이동수단, decided:확정 여부
 const STAYS=[
  {from:"7/1",to:"7/3",mapq:"The 7 Hotel Lisboa Avenida da Liberdade",label:"더7호텔",mode:"transit",decided:true},
- {from:"7/4",to:"7/7",mapq:"Funchal Madeira centro",label:"푼샬 숙소(미정)",mode:"driving",decided:false},
+ {from:"7/4",to:"7/7",mapq:"Funchal Madeira centro",label:"푼샬 에어비앤비",mode:"driving",decided:true},
  {from:"7/8",to:"7/10",mapq:"Aliados Porto",label:"포르투 숙소(미정)",mode:"transit",decided:false},
  {from:"7/11",to:"7/12",mapq:"Hotel Oslo Coimbra",label:"코임브라 숙소(미정)",mode:"transit",decided:false}];
 function mdnum(s){const p=(s||"").split("/");return (+p[0])*100+(+p[1]||0);}
@@ -760,7 +760,7 @@ const STORY={
 };
 const starHtml=s=>s?`<div class="stars">${"★".repeat(s)}<span class="se">${"★".repeat(5-s)}</span></div>`:"";
 document.getElementById("flights").innerHTML=flights.map(f=>`<div class="info"><div class="top"><span class="route">${f.route}</span><span class="when">${f.when}</span></div><div class="sub">${f.sub}</div></div>`).join("");
-document.getElementById("hotels").innerHTML=hotels.map(h=>`<div class="info"><div class="top"><span class="route">${h.city} <span class="pill ${h.status}">${h.status==="ok"?"예약완료":"미예약"}</span></span><span class="when">${h.nights}</span></div><div class="sub">${h.name}</div></div>`).join("");
+document.getElementById("hotels").innerHTML=hotels.map(h=>`<div class="info"><div class="top"><span class="route">${h.city} <span class="pill ${h.status}">${h.status==="ok"?"예약완료":"미예약"}</span></span><span class="when">${h.nights}</span></div><div class="sub">${h.name}</div>${h.b?`<div class="acts"><a class="btn book" target="_blank" rel="noopener" href="${bookUrl(h.b)}">🔗 예약 보기</a></div>`:""}</div>`).join("");
 document.getElementById("fado").innerHTML=fado.map(f=>`<div class="fcard"><div class="fn"><a class="pname" href="#p/${slug(f.m)}">${f.name}</a></div><div class="fm">${f.meta}</div><div class="acts"><a class="btn map" target="_blank" rel="noopener" href="${mapUrl(f.m)}">📍 지도</a>${f.b?`<a class="btn book" target="_blank" rel="noopener" href="${bookUrl(f.b)}">🎟 예약</a>`:""}</div></div>`).join("");
 function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function render(){
